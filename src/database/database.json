@@ -1,0 +1,36 @@
+{
+  "booking": [
+    {
+      "hoten": "Tran Minh Nam",
+      "services": [
+        "dat xe"
+      ],
+      "radio": "Đặt xe",
+      "id": 1
+    },
+    {
+      "hoten": "Tran Minh Nam",
+      "services": [
+        "dat xe",
+        "dat phong",
+        "dat mon"
+      ],
+      "radio": "Đặt xe",
+      "id": 2
+    }
+  ],
+  "rooms": [
+    {
+      "name": "2",
+      "soGiuong": "222",
+      "quantity": 10,
+      "id": 1
+    },
+    {
+      "name": "222",
+      "soGiuong": "22222",
+      "quantity": 10,
+      "id": 2
+    }
+  ]
+}

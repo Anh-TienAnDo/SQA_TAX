@@ -1,0 +1,53 @@
+.layout-default{
+  .header{
+    height: 100px;
+    background-color:#fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__menu-fold{
+      background-color: #fff;
+    }
+    &__logo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 280px;
+      background-color: aqua;
+      &-collapsed{
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+    }
+    &__nav{
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-left{
+        display: flex;
+        font-size: 20px;
+        .header__collapse{
+          padding: 10px 10px 10px 23px;
+        }
+        .header__search{
+          padding: 10px 10px 10px 15px;
+        }
+      }
+      &-right{
+        display: flex;
+        font-size: 20px;
+        .header__bell{
+          padding: 10px 10px 10px 15px;
+        }
+        .header__app-store{
+          padding: 10px 30px 10px 15px;
+        }
+      }
+    }
+  }
+}
