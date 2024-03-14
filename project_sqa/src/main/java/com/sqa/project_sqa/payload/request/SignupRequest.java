@@ -10,6 +10,7 @@ import javax.persistence.Column;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class SignupRequest {
     private String name;
 

@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 if (userRepository.existsByUserName(signupRequest.getPhone())) {
                     return new ResponseEntity<>("User name is already registered", HttpStatus.BAD_REQUEST);
                 }
-                User user = modelMapper.map(signupRequest,User.class);
+                User user = modelMapper.map(signupRequest, User.class);
                 user.setPassword(encoder.encode(signupRequest.getPassword()));
                 user.setRole(ERole.ROLE_USER);
 
