@@ -9,25 +9,40 @@ public class LoaiToKhai {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "tenLoaiToKhai")
 
+    @Column(name = "tenToKhai")
     private String tenLoaiToKhai;
-    @Column(name = "tongThuNhap")
 
-    private double tongThuNhap;
-    @Column(name = "soNguoiPhuThuoc")
+    @Column(name = "moTa")
+    private String moTa;
 
-    private int soNguoiPhuThuoc;
-    @Embedded
-    private KhauTru khauTru;
+    @OneToOne
+    @JoinColumn(name = "thue_chuyen_nhuong_ban_quyen_id")
+    private ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen;
 
-    @Column(name = "thoiGianLaoDong")
+    @OneToOne
+    @JoinColumn(name = "thue_chuyen_nhuong_bds_id")
+    private ThueChuyenNhuongBDS thueChuyenNhuongBDS;
 
-    private int thoiGianLaoDong; // trên 3 tháng ,  dưới 3 tháng
-    @Column(name = "tongSoThuePhaiNop")
+    @OneToOne
+    @JoinColumn(name = "thue_dau_tu_von_id")
+    private ThueDauTuVon thueDauTuVon;
 
-    private double tongSoThuePhaiNop;
-    @ManyToOne
-    @JoinColumn(name = "IdToKhaiThue", referencedColumnName = "id")
-    private ToKhaiThue toKhaiThue;
+    @OneToOne
+    @JoinColumn(name = "thue_nhuong_quyen_thuong_mai_id")
+    private ThueNhuongQuyenThuongMai thueNhuongQuyenThuongMai;
+
+    @OneToOne
+    @JoinColumn(name = "thue_qua_tang_id")
+    private ThueQuaTang thueQuaTang;
+
+    @OneToOne
+    @JoinColumn(name = "thue_tien_luong_cong_id")
+    private ThueTienLuongCong thueTienLuongCong;
+
+    @OneToOne
+    @JoinColumn(name = "thue_trung_thuong_id")
+    private ThueTrungThuong thueTrungThuong;
+
+
 }
