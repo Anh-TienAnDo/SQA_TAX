@@ -4,6 +4,7 @@ import LayoutContent from "../components/LayoutContent";
 import CreateRoom from "../pages/CreateRoom";
 import ListRoom from "../pages/ListRoom";
 import Code from "../pages/QRCode";
+import TaxDeclaration from "../pages/TaxDeclaration";
 export const routes = [
   {
     path: '/',
@@ -29,6 +30,10 @@ export const routes = [
         path: '/qr-code',
         element: <Code />
       },
+      {
+        path: '/tax-declaration',
+        element: <TaxDeclaration /> 
+      }
     ]
   }
 ]
