@@ -44,4 +44,102 @@ public class ThueTienLuongCong {
     @OneToOne(mappedBy = "thueTienLuongCong")
     private LoaiToKhai loaiToKhai;
 
+    public ThueTienLuongCong() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMst() {
+        return mst;
+    }
+
+    public void setMst(String mst) {
+        this.mst = mst;
+    }
+
+    public long getThuNhapChiuThue() {
+        return thuNhapChiuThue;
+    }
+
+    public void setThuNhapChiuThue(long thuNhapChiuThue) {
+        this.thuNhapChiuThue = thuNhapChiuThue;
+    }
+
+    public long getThuNhapDuocMienGiam() {
+        return thuNhapDuocMienGiam;
+    }
+
+    public void setThuNhapDuocMienGiam(long thuNhapDuocMienGiam) {
+        this.thuNhapDuocMienGiam = thuNhapDuocMienGiam;
+    }
+
+    public long getKhauTruChoBanThan() {
+        return khauTruChoBanThan;
+    }
+
+    public void setKhauTruChoBanThan(long khauTruChoBanThan) {
+        this.khauTruChoBanThan = khauTruChoBanThan;
+    }
+
+    public long getKhauTruNguoiPhuThuoc() {
+        return khauTruNguoiPhuThuoc;
+    }
+
+    public void setKhauTruNguoiPhuThuoc(long khauTruNguoiPhuThuoc) {
+        this.khauTruNguoiPhuThuoc = khauTruNguoiPhuThuoc;
+    }
+
+    public long getKhauTruChoTuThien() {
+        return khauTruChoTuThien;
+    }
+
+    public void setKhauTruChoTuThien(long khauTruChoTuThien) {
+        this.khauTruChoTuThien = khauTruChoTuThien;
+    }
+
+    public long getKhauTruChoBaoHiem() {
+        return khauTruChoBaoHiem;
+    }
+
+    public void setKhauTruChoBaoHiem(long khauTruChoBaoHiem) {
+        this.khauTruChoBaoHiem = khauTruChoBaoHiem;
+    }
+
+    public long getTongThuePhaiNop() {
+        return tongThuePhaiNop;
+    }
+
+    public void setTongThuePhaiNop(long tongThuePhaiNop) {
+        this.tongThuePhaiNop = tongThuePhaiNop;
+    }
+
+    public LocalDate getTuNgay() {
+        return tuNgay;
+    }
+
+    public void setTuNgay(LocalDate tuNgay) {
+        this.tuNgay = tuNgay;
+    }
+
+    public LocalDate getDenNgay() {
+        return denNgay;
+    }
+
+    public void setDenNgay(LocalDate denNgay) {
+        this.denNgay = denNgay;
+    }
+
+    public LoaiToKhai getLoaiToKhai() {
+        return loaiToKhai;
+    }
+
+    public void setLoaiToKhai(LoaiToKhai loaiToKhai) {
+        this.loaiToKhai = loaiToKhai;
+    }
 }
