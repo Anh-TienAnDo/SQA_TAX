@@ -19,8 +19,8 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     }
 
     @Override
-    public TaxPayer getTaxPayerById(String id) {
-        Optional<TaxPayer>optional =taxpayerRepo.findById(Integer.valueOf(id));
+    public TaxPayer getTaxPayerById(String mst) {
+        Optional<TaxPayer>optional =taxpayerRepo.findById(mst);
         TaxPayer taxPayer = null;
         if(optional.isPresent()) {
             taxPayer = optional.get();
