@@ -1,5 +1,17 @@
 package com.sqa.project_sqa.service;
 
+<<<<<<< Updated upstream
+=======
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+// ThueTienLuongCong ttlc = new ThueTienLuongCong();
+// ThueLuongCong tlc = new ThueLuongCong();
+// String deductible = tlc.Deductible(BigDecimal.valueOf(ttlc.getThuNhapChiuThue()), 
+// 					BigDecimal.valueOf(ttlc.getKhauTruNguoiPhuThuoc()), 
+// 					BigDecimal.valueOf(ttlc.getKhauTruChoTuThien()));
+// String tax = tlc.Tax_type1(BigDecimal.valueOf(ttlc.getThuNhapChiuThue()), BigDecimal.valueOf(deductible));
+>>>>>>> Stashed changes
 //tính theo tháng
 public class ThueLuongCong {
 
@@ -18,6 +30,7 @@ public class ThueLuongCong {
 	}
 
 	// thuế thu nhập cá nhân đối với cá nhân cư trú, ký hợp đồng lao động > 03 tháng
+<<<<<<< Updated upstream
 	public float Tax_type1(float taxable_income, float deductible) { // thu nhập chịu thuế: taxable_income
 		float tax;
 		float assessable_income = taxable_income - deductible; // thu nhập tính thuế: assessable_income
@@ -33,6 +46,24 @@ public class ThueLuongCong {
 			tax = (float) (assessable_income / 100 * 25) - (float) (3.25 * 1000000);
 		} else if (assessable_income > 52000000 && assessable_income <= 80000000) {
 			tax = (float) (assessable_income / 100 * 30) - (float) (5.85 * 1000000);
+=======
+	public String Tax_type1(BigDecimal taxable_income, BigDecimal deductible) { // thu nhập chịu thuế:
+																							// taxable_income
+		BigDecimal tax;
+		BigDecimal assessable_income = taxable_income.subtract(deductible); // thu nhập tính thuế: assessable_income
+		if (assessable_income.compareTo(new BigDecimal("5000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.05"));
+		} else if (assessable_income.compareTo(new BigDecimal("10000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.1")).subtract(new BigDecimal("250000"));
+		} else if (assessable_income.compareTo(new BigDecimal("18000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.15")).subtract(new BigDecimal("750000"));
+		} else if (assessable_income.compareTo(new BigDecimal("32000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.2")).subtract(new BigDecimal("1650000"));
+		} else if (assessable_income.compareTo(new BigDecimal("52000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.25")).subtract(new BigDecimal("3250000"));
+		} else if (assessable_income.compareTo(new BigDecimal("80000000")) <= 0) {
+			tax = assessable_income.multiply(new BigDecimal("0.3")).subtract(new BigDecimal("5850000"));
+>>>>>>> Stashed changes
 		} else {
 			tax = (float) (assessable_income / 100 * 35) - (float) (9.85 * 1000000);
 		}
