@@ -21,7 +21,7 @@ public class TKThueTienLuongCong {
 
     @ManyToOne
     @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
-    private TaxPayer taxPayer;
+    private NguoiDongThue nguoiDongThue;
 
     @Column(name = "thu_nhap_chiu_thue")
     private long thuNhapChiuThue;
