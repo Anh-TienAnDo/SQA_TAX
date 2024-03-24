@@ -5,6 +5,8 @@ import CreateRoom from "../pages/CreateRoom";
 import ListRoom from "../pages/ListRoom";
 import Code from "../pages/QRCode";
 import TaxDeclaration from "../pages/TaxDeclaration";
+import Receipt from "../pages/Receipt";
+import Register from "../pages/Register";
 export const routes = [
   {
     path: '/',
@@ -33,6 +35,14 @@ export const routes = [
       {
         path: '/tax-declaration',
         element: <TaxDeclaration /> 
+      },
+      {
+        path: '/receipt',
+        element: <Receipt /> 
+      },
+      {
+        path: '/register',
+        element: <Register /> 
       }
     ]
   }
