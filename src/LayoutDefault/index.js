@@ -39,14 +39,11 @@ function LayoutDefault() {
       case '/tax-declaration':
         setPageTitle('Khai Thuế Thu Nhập Cá Nhân')
         break
-      case '':
-        break
-      // eslint-disable-next-line no-duplicate-case
-      case '':
+      case '/receipt':
+        setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break
       default:
-        // eslint-disable-next-line no-unused-expressions
-        '123'
+        break;
     }
   }, [location])
 
