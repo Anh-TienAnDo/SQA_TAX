@@ -21,6 +21,7 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
+  getItem(<Link to="/dang-ki-ma-so-thue">Đăng ký thuế</Link>, "sub1", <AccountBookOutlined />, ),
   getItem(<Link to="/tax-declaration">Khai Thuế</Link>, "sub1", <AccountBookOutlined />, ),
   // getItem(<Link to="/create-room">Tính Thuế</Link>, "sub2", <PlusOutlined />, ),
 ];

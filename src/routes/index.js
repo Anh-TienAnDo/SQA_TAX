@@ -5,6 +5,7 @@ import CreateRoom from "../pages/CreateRoom";
 import ListRoom from "../pages/ListRoom";
 import Code from "../pages/QRCode";
 import TaxDeclaration from "../pages/TaxDeclaration";
+import DangKyMST from "../pages/dang-ki-mst";
 export const routes = [
   {
     path: '/',
@@ -33,7 +34,12 @@ export const routes = [
       {
         path: '/tax-declaration',
         element: <TaxDeclaration /> 
-      }
+      },
+      {
+        path: '/dang-ki-ma-so-thue',
+        element: <DangKyMST/> 
+      },
+
     ]
   }
 ]

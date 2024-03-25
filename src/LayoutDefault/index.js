@@ -39,7 +39,8 @@ function LayoutDefault() {
       case '/tax-declaration':
         setPageTitle('Khai Thuế Thu Nhập Cá Nhân')
         break
-      case '':
+      case '/dang-ki-ma-so-thue':
+        setPageTitle('Đăng ký mã số thuế')
         break
       // eslint-disable-next-line no-duplicate-case
       case '':
