@@ -1,21 +1,17 @@
-package com.sqa.project_sqa.entities;
+package com.sqa.project_sqa.payload.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NguoiDongThue {
-
-    @Id
-    private String mst;
-
+public class NguoiDongThueDTO {
     private String hoVaTen;
 
     private String gioiTinh;
@@ -26,17 +22,13 @@ public class NguoiDongThue {
 
     private String email;
 
-    private String CMND;
+    private String loaiGiayTo;
 
-    private Date CMND_ngayCap;
+    private String soGiayTo;
 
-    private String CMND_noiCap;
+    private Date ngayCap;
 
-    private String CCCD;
-
-    private Date CCCD_ngayCap;
-
-    private String CCCD_noiCap;
+    private String noiCap;
 
     private String dchk_soNhaDuongXom;
 
@@ -55,8 +47,4 @@ public class NguoiDongThue {
     private String dcct_xaPhuong;
 
     private String taxAgency;
-
-
-
 }
-
