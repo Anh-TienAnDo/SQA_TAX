@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/project_sqa/project_sqa.iml" filepath="$PROJECT_DIR$/project_sqa/project_sqa.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/SQA_TAX_BE.iml" filepath="$PROJECT_DIR$/.idea/SQA_TAX_BE.iml" />
+>>>>>>> devBao
     </modules>
   </component>
 </project>
