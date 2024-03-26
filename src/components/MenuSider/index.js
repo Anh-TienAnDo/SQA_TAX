@@ -1,5 +1,5 @@
 import { Menu } from "antd"
-import { DashboardOutlined, UserOutlined, UnorderedListOutlined, FileDoneOutlined } from "@ant-design/icons"
+import { DashboardOutlined, UserOutlined, FileTextOutlined , FileDoneOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 function MenuSider() {
     const items = [
@@ -9,19 +9,19 @@ function MenuSider() {
             key: "dashboard"
         },
         {
-            label: <Link to={"/info-company"}>Thông tin công ty</Link>,
+            label: <Link to={"register"}>Đăng ký mã số thuế</Link>,
             icon: <UserOutlined />,
             key: "info-company"
         },
         {
-            label: <Link to={"/jobs-manager"}>Quản lý việc làm</Link>,
-            icon: <UnorderedListOutlined />,
-            key: "jobs-manager"
+            label: <Link to={"ke-khai-thue"}>Kê khai thuế</Link>,
+            icon: <FileTextOutlined />,
+            key: "kekhaithue"
         },
         {
-            label: <Link to={"/cv-manager"}>Quản lý CV</Link>,
+            label: <Link to={"thanhtoan"}>Thanh toán thuế</Link>,
             icon: <FileDoneOutlined />,
-            key: "cv-manager"
+            key: "thanhtoan"
         },
     ]
     return (

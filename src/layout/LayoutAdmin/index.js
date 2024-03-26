@@ -12,7 +12,7 @@ function LayoutAdmin() {
             <Layout className='layout-admin'>
                 <Header className='header-admin'>
                     <div className={collapsed ? "header-admin__logo  header-admin__logo--collapsed" : "header-admin__logo"}>
-                        {collapsed ? "ITA" : "IT Admin"}
+                        {collapsed ? "TAX" : "Tax Support"}
                     </div>
                     <div className='header-admin__nav'>
                         <div className='header-admin__nav-left'>
@@ -22,7 +22,6 @@ function LayoutAdmin() {
                         </div>
                         <div className='header-admin__nav-right'>
                             <div className='header-admin__account'>
-                                <Link to={"/"}><Button><HomeOutlined />Trang chủ</Button></Link>
                                 <Link to={"/logout"}><Button><LogoutOutlined />Đăng xuất</Button></Link>
                             </div>
                         </div>
