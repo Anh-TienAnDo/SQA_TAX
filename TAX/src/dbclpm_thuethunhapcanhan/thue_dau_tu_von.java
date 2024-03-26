@@ -4,6 +4,9 @@
  */
 package dbclpm_thuethunhapcanhan;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *
  * @author Admin
@@ -11,11 +14,15 @@ package dbclpm_thuethunhapcanhan;
 // tính theo tháng
 public class thue_dau_tu_von {
     
-    public float Tax_capital_investments(float assessable_income){
-        float tax;
-        float ratio = (float) 5.0;
-        tax = assessable_income / 100 * ratio;
-        return Math.round(tax);
+    public String Tax_capital_investments(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.05");
+        if (assessable_income.compareTo(BigDecimal.ZERO) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
     
 }

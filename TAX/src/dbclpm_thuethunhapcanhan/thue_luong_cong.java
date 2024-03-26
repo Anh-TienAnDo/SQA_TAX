@@ -70,7 +70,11 @@ public class thue_luong_cong {
     // thuế thu nhập đối với cá nhân không cư trú
     public String Tax_type3(BigDecimal taxable_income) {
         BigDecimal tax;
-        tax = taxable_income.multiply(new BigDecimal("0.20"));
+        if (taxable_income.compareTo(BigDecimal.ZERO) <= 0) {
+            tax = BigDecimal.ZERO;
+        } else {
+            tax = taxable_income.multiply(new BigDecimal("0.10"));
+        }
         return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
 

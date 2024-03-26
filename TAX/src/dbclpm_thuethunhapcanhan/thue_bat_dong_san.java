@@ -4,6 +4,9 @@
  */
 package dbclpm_thuethunhapcanhan;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *
  * @author Admin
@@ -11,11 +14,11 @@ package dbclpm_thuethunhapcanhan;
 public class thue_bat_dong_san {
     
 //    chuyển nhượng bất động sản
-    public float Tax_land_transfer(float transfer_price){ //transfer_price: giá chuyển nhượng
-        float tax;
-        float ratio = (float) 2.0;
-        tax = transfer_price / 100 * ratio;
-        return Math.round(tax);
+    public String Tax_land_transfer(BigDecimal transfer_price){ //transfer_price: giá chuyển nhượng
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.02");
+        tax = transfer_price.multiply(ratio);
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
     
 }
