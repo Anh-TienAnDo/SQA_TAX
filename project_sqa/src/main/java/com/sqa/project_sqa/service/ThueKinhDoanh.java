@@ -1,46 +1,49 @@
 package com.sqa.project_sqa.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 //tính theo năm
 public class ThueKinhDoanh {
 
 //  Phân phối, cung cấp hàng hóa
-	public float Tax_distribution_supply(float assessable_income) {
-		float tax;
-		float ratio = (float) 0.5;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
+	public String Tax_distribution_supply(BigDecimal assessable_income) {
+		BigDecimal tax;
+		BigDecimal ratio = new BigDecimal("0.005");
+		tax = assessable_income.multiply(ratio);
+		return tax.setScale(0, RoundingMode.HALF_UP).toString();
 	}
 
 //  dịch vụ và xây dựng
-	public float Tax_building_services(float assessable_income) {
-		float tax;
-		float ratio = (float) 2.0;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
+	public String Tax_building_services(BigDecimal assessable_income) {
+		BigDecimal tax;
+		BigDecimal ratio = new BigDecimal("0.02");
+		tax = assessable_income.multiply(ratio);
+		return tax.setScale(0, RoundingMode.HALF_UP).toString();
 	}
 
 //  Cho thuê tài sản, Làm đại lý xổ số, đại lý bảo hiểm, bán hàng đa cấp, Khoản bồi thường vi phạm hợp đồng
-	public float Tax_rental_agent(float assessable_income) {
-		float tax;
-		float ratio = (float) 5.0;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
+	public String Tax_rental_agent(BigDecimal assessable_income) {
+		BigDecimal tax;
+		BigDecimal ratio = new BigDecimal("0.05");
+		tax = assessable_income.multiply(ratio);
+		return tax.setScale(0, RoundingMode.HALF_UP).toString();
 	}
 
 //  Sản xuất, vận tải, dịch vụ có gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu
-	public float Tax_production_transportation(float assessable_income) {
-		float tax;
-		float ratio = (float) 1.5;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
+	public String Tax_production_transportation(BigDecimal assessable_income) {
+		BigDecimal tax;
+		BigDecimal ratio = new BigDecimal("0.015");
+		tax = assessable_income.multiply(ratio);
+		return tax.setScale(0, RoundingMode.HALF_UP).toString();
 	}
 
 //  Hoạt động kinh doanh khác 
-	public float Tax_other_business(float assessable_income) {
-		float tax;
-		float ratio = (float) 1.0;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
+	public String Tax_other_business(BigDecimal assessable_income) {
+		BigDecimal tax;
+		BigDecimal ratio = new BigDecimal("0.01");
+		tax = assessable_income.multiply(ratio);
+		return tax.setScale(0, RoundingMode.HALF_UP).toString();
 	}
 
 }
