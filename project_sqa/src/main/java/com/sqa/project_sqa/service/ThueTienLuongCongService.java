@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ThueTienLuongCongService {
     List<ThueTienLuongCong> getAll();
-    void saveThueTienLuongCong(ThueTienLuongCong thueTienLuongCong);
+    ThueTienLuongCong saveThueTienLuongCong(ThueTienLuongCong thueTienLuongCong);
     ThueTienLuongCong getThueTienLuongCongById(int id);
     void deleteThueTienLuongCong(int id);
 }

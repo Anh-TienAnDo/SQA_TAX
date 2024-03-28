@@ -14,6 +14,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Controller
@@ -29,7 +31,7 @@ public class ThueTienLuongCongController {
 
     // xử lí lưu thông tin tờ khai lương công
     @PostMapping("/submit")
-    public ResponseEntity<String> submitTKThueTienLuongCong(@Valid @RequestBody ThueTienLuongCong thueTienLuongCong, BindingResult bindingResult) {
+    public ResponseEntity<?> submitTKThueTienLuongCong(@Valid @RequestBody ThueTienLuongCong thueTienLuongCong, BindingResult bindingResult) {
 //        if (bindingResult.hasErrors()) {
 //            // Lấy danh sách lỗi từ BindingResult
 //            StringBuilder errorMessage = new StringBuilder();
@@ -45,11 +47,13 @@ public class ThueTienLuongCongController {
             if (thueTienLuongCong.getThuNhapChiuThue() < 0 || thueTienLuongCong.getThuNhapDuocMienGiam() < 0 || thueTienLuongCong.getKhauTruChoBanThan() < 0 || thueTienLuongCong.getKhauTruNguoiPhuThuoc() < 0 || thueTienLuongCong.getKhauTruChoTuThien() < 0 || thueTienLuongCong.getKhauTruChoBaoHiem() < 0) {
                 return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
             }
-            thueTienLuongCongService.saveThueTienLuongCong(thueTienLuongCong);
-            return ResponseEntity.ok("Đã lưu thông tin thành công!");
+            ThueTienLuongCong a =thueTienLuongCongService.saveThueTienLuongCong(thueTienLuongCong);
+            return ResponseEntity.ok(a);
         }
         else {
-            return ResponseEntity.badRequest().body("MST không tồn tại. Vui lòng kiểm tra và nhập lại.");
+            Map<String, String> obj = new HashMap<>();
+            obj.put("message", "MST không tồn tại");
+            return ResponseEntity.badRequest().body(obj);
         }
     }
 }

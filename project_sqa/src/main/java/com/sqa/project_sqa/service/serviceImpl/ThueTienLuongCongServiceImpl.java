@@ -18,8 +18,8 @@ public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
     }
 
     @Override
-    public void saveThueTienLuongCong(ThueTienLuongCong thueTienLuongCong) {
-            this.thueTienLuongCongRepository.save(thueTienLuongCong);
+    public ThueTienLuongCong saveThueTienLuongCong(ThueTienLuongCong thueTienLuongCong) {
+          return  thueTienLuongCongRepository.save(thueTienLuongCong);
     }
 
     @Override
