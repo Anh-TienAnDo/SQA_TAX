@@ -3,8 +3,8 @@ import { Layout, Flex,Button,Collapse,Image,Table } from "antd";
 import LayoutContent from "../components/LayoutContent";
 import {Outlet} from 'react-router-dom'
 import {MenuUnfoldOutlined,SearchOutlined,BellOutlined,AppstoreOutlined,UserOutlined} from '@ant-design/icons'
-import logo from '../image/logo (1).png';
-import logoFold from '../image/logo-fold.png'
+import logo from '../image/logo-short.png';
+import logo_tax from '../image/logo-tax.jpeg'
 import { useEffect, useState } from "react";
 import DropDownNotify from './DropDownNotify'
 import MenuSider from "../components/MenuSider";
@@ -42,6 +42,9 @@ function LayoutDefault() {
       case '/receipt':
         setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break
+      case '/taxpay':
+        setPageTitle('Thu thuế')
+        break
       default:
         break;
     }
@@ -53,7 +56,7 @@ function LayoutDefault() {
       <header className="header">
         <Link to="/">
           <div className={"header__logo " + (collapsed && "header__logo-collapsed")}>
-          <img src={collapsed ? logoFold : logo} alt="anh loi"/>
+            <img src={collapsed ? logo : logo_tax} alt="anh loi"/>
           </div>
         </Link>
         <div className="header__nav">
@@ -84,8 +87,8 @@ function LayoutDefault() {
         <Sider width={"280px"} theme="light" collapsed={collapsed}>
           <MenuSider />
         </Sider>
-        <Content>
-          <Outlet />
+        <Content className="content">
+          <Outlet/>
         </Content>
       </Layout>
     </Layout>

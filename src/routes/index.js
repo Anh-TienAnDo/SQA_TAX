@@ -1,12 +1,11 @@
 import LayoutDefault from "../LayoutDefault";
-import BookRoom from "../pages/BookRoom";
 import LayoutContent from "../components/LayoutContent";
-import CreateRoom from "../pages/CreateRoom";
-import ListRoom from "../pages/ListRoom";
-import Code from "../pages/QRCode";
 import TaxDeclaration from "../pages/TaxDeclaration";
 import Receipt from "../pages/Receipt";
 import Register from "../pages/Register";
+import TaxPay from "../pages/TaxPay";
+import TaxPayerInfor from "../components/TaxPayerInfor";
+import ListUnpaidTax from "../components/ListUnpaidTax";
 export const routes = [
   {
     path: '/',
@@ -17,28 +16,26 @@ export const routes = [
         element: <LayoutContent />
       },
       {
-        path: '/book-room',
-        element: <BookRoom />
-      },
-      {
-        path: '/create-room',
-        element: <CreateRoom />
-      },
-      {
-        path: '/list-room',
-        element: <ListRoom />
-      },
-      {
-        path: '/qr-code',
-        element: <Code />
-      },
-      {
         path: '/tax-declaration',
         element: <TaxDeclaration /> 
       },
       {
         path: '/receipt',
         element: <Receipt /> 
+      },
+      {
+        path: '/tax-pay',
+        element: <TaxPay />,
+        children: [
+          {
+            path: 'tax-payer-infor',
+            element: <TaxPayerInfor/>
+          },
+          {
+            path: 'list-unpaid-tax',
+            element: <ListUnpaidTax/>
+          }
+        ]
       },
       {
         path: '/register',

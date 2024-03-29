@@ -1,14 +1,7 @@
 import { Menu } from "antd";
 import {Link} from 'react-router-dom'
 import {
-  DashboardOutlined,
-  AppstoreOutlined,
-  LayoutOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  LockOutlined,
   AccountBookOutlined,
-  PlusOutlined,
 } from "@ant-design/icons";
 function getItem(label, key, icon, children, type) {
   return {
@@ -23,6 +16,7 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem(<Link to="/tax-declaration">Khai Thuế</Link>, "sub1", <AccountBookOutlined />, ),
   getItem(<Link to="/receipt">Hóa đơn thuế thu nhập cá nhân</Link>, "sub1", <AccountBookOutlined />, ),
+  getItem(<Link to="/tax-pay">Thu thuế</Link>, "sub1", <AccountBookOutlined />, ),
   // getItem(<Link to="/create-room">Tính Thuế</Link>, "sub2", <PlusOutlined />, ),
 ];
 
