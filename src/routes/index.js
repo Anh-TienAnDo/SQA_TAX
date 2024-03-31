@@ -1,27 +1,22 @@
 import LayoutDefault from "../LayoutDefault";
-import LayoutContent from "../components/LayoutContent";
 import TaxDeclaration from "../pages/TaxDeclaration";
-import Receipt from "../pages/Receipt";
+import ReceiptTax from "../pages/Receipt";
 import Register from "../pages/Register";
 import TaxPay from "../pages/TaxPay";
 import TaxPayerInfor from "../components/TaxPayerInfor";
-import ListUnpaidTax from "../components/ListUnpaidTax";
+import UnpaidTax from "../components/UnpaidTax";
 export const routes = [
   {
     path: '/',
     element: <LayoutDefault />,
     children: [
       {
-        path: '/',
-        element: <LayoutContent />
-      },
-      {
         path: '/tax-declaration',
         element: <TaxDeclaration /> 
       },
       {
-        path: '/receipt',
-        element: <Receipt /> 
+        path: '/receipt-tax',
+        element: <ReceiptTax /> 
       },
       {
         path: '/tax-pay',
@@ -32,15 +27,15 @@ export const routes = [
             element: <TaxPayerInfor/>
           },
           {
-            path: 'list-unpaid-tax',
-            element: <ListUnpaidTax/>
-          }
+            path: 'unpaid-tax',
+            element: <UnpaidTax/>
+          },
         ]
       },
-      {
-        path: '/register',
-        element: <Register /> 
-      }
     ]
+  },
+  {
+    path: '/register',
+    element: <Register /> 
   }
 ]

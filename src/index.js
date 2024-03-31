@@ -4,24 +4,25 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import allReducers from "./reducer";
 import { AuthenTaxPayerProvider } from "./context/afterAuthenTaxPayer";
-import { TaxPayerProvider } from "./context/searchTaxPayer";
+import {SearchProvider} from "./context/search";
+import {UnpaidTaxProvider} from "./context/unpaidTax";
+import { TaxWantPayProvider } from "./context/taxWantPay";
 // import { createStore } from "redux";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // const store = createStore(allReducers);
 root.render(
-  // <Provider store={store}>
-  <AuthenTaxPayerProvider>
-    {/* <TaxPayerProvider> */}
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    {/* </TaxPayerProvider> */}
-  </AuthenTaxPayerProvider>
-  // </Provider>
+  <TaxWantPayProvider>
+    <UnpaidTaxProvider>
+      <SearchProvider>
+        <AuthenTaxPayerProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthenTaxPayerProvider>
+      </SearchProvider>
+    </UnpaidTaxProvider>
+  </TaxWantPayProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

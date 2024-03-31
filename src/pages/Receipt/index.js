@@ -1,6 +1,9 @@
 import { Card, Row, Col, Badge, Table, Button, Spin } from "antd";
 import "./style.css";
-function Receipt() {
+import { useContext } from "react";
+import TaxWantPay from "../../context/taxWantPay";
+function ReceiptTax() {
+  const {taxWantPay,setTaxWantPay} = useContext(TaxWantPay)
   return (
     <>
       <div className="container">
@@ -59,7 +62,17 @@ function Receipt() {
             <div className="content__two">
               <p>Tổng số thuế phải nộp: </p>
               <div className="content__two-list-tax">
-                <p>DANH SÁCH THUẾ PHẢI NỘP GHI Ở ĐÂY</p>
+                {taxWantPay && (
+                  taxWantPay.map( (item) => {
+                    return (
+                      <>
+                        <div className="tax-item">
+                          <p>{item.mst}</p>
+                        </div>
+                      </>
+                    )
+                  })
+                )}
               </div>
               <p>Thuế thu nhập cá nhân :???????????</p>
               <p>Tổng số tiền thuế phải nộp:</p>
@@ -90,4 +103,4 @@ function Receipt() {
   );
 }
 
-export default Receipt;
+export default ReceiptTax;

@@ -1,20 +1,51 @@
 import { Button } from "antd";
-import { DollarOutlined } from "@ant-design/icons";
-import { useSelector, useDispatch } from "react-redux";
 import "./tax_payer_infor.css";
-import '../../action/taxpayAction'
 import AuthenTaxPayer from "../../context/afterAuthenTaxPayer";
-import { useContext } from "react";
+import { useContext, useEffect, useState,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-function TaxPayerInfor() {
+import { getAllTaxPayer, getTaxPayer } from "../../services/taxPayer";
+import Search from "../../context/search";
 
+function TaxPayerInfor() {
   const navigate = useNavigate();
-  const { afterAuthenTaxPayer, setAfterAuthenTaxPayer } = useContext(AuthenTaxPayer);
+  const [allTaxPayer, setAllTaxPayer] = useState([]);
+  const [taxPayer, setTaxPayer] = useState({});
+  const { afterAuthenTaxPayer, setAfterAuthenTaxPayer } =useContext(AuthenTaxPayer);
+  const { search, setSearch } = useContext(Search);
+
+  // get all tax-payer
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const newTaxPayer = await getAllTaxPayer('tax-payer'); 
+        setAllTaxPayer(newTaxPayer);
+      } catch (error) {
+        // Handle any errors appropriately
+        console.error("An error occurred while fetching tax payers:", error);
+      }
+    };
+    get();
+  }, []);
+
+  // search tax-payer
+
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const findTaxPayer = allTaxPayer.find(item => item[search.type] === search.data);  
+        setTaxPayer(findTaxPayer)   
+      } catch (error) {
+        // Handle any errors appropriately
+        console.error("An error occurred while fetching tax payers:", error);
+      }
+    };
+    get();
+  }, [search,allTaxPayer]);
 
   const handleClickInforAuthen = () => {
-    setAfterAuthenTaxPayer(true)
-    navigate('/tax-pay')
-  }
+    setAfterAuthenTaxPayer(true);
+    navigate("/tax-pay");
+  };
 
   return (
     <>
@@ -24,42 +55,50 @@ function TaxPayerInfor() {
         </div>
         <div className="content__tax-payer-infor">
           <table className="content__table">
-            <tr>
-              <th>Thông Tin</th>
-              <th>Chi Tiết</th>
-            </tr>
-            <tr>
-              <td>Mã số thuế</td>
-              <td>123456789</td>
-            </tr>
-            <tr>
-              <td>Căn cước công dân</td>
-              <td>987654321</td>
-            </tr>
-            <tr>
-              <td>Tên người nộp thuế</td>
-              <td>Nguyễn Văn A</td>
-            </tr>
-            <tr>
-              <td>Ngày sinh</td>
-              <td>01/01/1980</td>
-            </tr>
-            <tr>
-              <td>Giới tính</td>
-              <td>Nam</td>
-            </tr>
-            <tr>
-              <td>Thành phố</td>
-              <td>Hà Nội</td>
-            </tr>
-            <tr>
-              <td>Quận/huyện</td>
-              <td>Ba Đình</td>
-            </tr>
-            <tr>
-              <td>Điện thoại</td>
-              <td>0909123456</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Thông Tin</th>
+                <th>Chi Tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taxPayer && (
+                  <>
+                    <tr>
+                      <td>Mã số thuế</td>
+                      <td>{taxPayer.mst}</td>
+                    </tr>
+                    <tr>
+                      <td>Căn cước công dân</td>
+                      <td>{taxPayer.CCCD}</td>
+                    </tr>
+                    <tr>
+                      <td>Tên người nộp thuế</td>
+                      <td>{taxPayer.hoVaTen}</td>
+                    </tr>
+                    <tr>
+                      <td>Ngày sinh</td>
+                      <td>{taxPayer.ngaySinh}</td>
+                    </tr>
+                    <tr>
+                      <td>Giới tính</td>
+                      <td>{taxPayer.gioiTinh}</td>
+                    </tr>
+                    <tr>
+                      <td>Thành phố</td>
+                      <td>{taxPayer.dchk_tinhThanhPho}</td>
+                    </tr>
+                    <tr>
+                      <td>Quận/huyện</td>
+                      <td>{taxPayer.dchk_QuanHuyen}</td>
+                    </tr>
+                    <tr>
+                      <td>Điện thoại</td>
+                      <td>{taxPayer.sdt}</td>
+                    </tr>
+                  </>
+              )}
+            </tbody>
           </table>
         </div>
         {/* ----------------------------- */}

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Layout, Flex,Button,Collapse,Image,Table } from "antd";
-import LayoutContent from "../components/LayoutContent";
-import {Outlet} from 'react-router-dom'
+  import {Outlet} from 'react-router-dom'
 import {MenuUnfoldOutlined,SearchOutlined,BellOutlined,AppstoreOutlined,UserOutlined} from '@ant-design/icons'
 import logo from '../image/logo-short.png';
 import logo_tax from '../image/logo-tax.jpeg'
@@ -42,7 +41,7 @@ function LayoutDefault() {
       case '/receipt':
         setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break
-      case '/taxpay':
+      case '/tax-pay':
         setPageTitle('Thu thuế')
         break
       default:

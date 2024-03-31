@@ -53,8 +53,9 @@
 }
 
 .header__table-payer-infor {
-  width: 60%;
+  width: 39.5%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 td, th {
   border: 1px solid #ddd;
