@@ -7,15 +7,27 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import allReducer from './reducers'
+import { AuthenTaxPayerProvider } from './context/afterAuthenTaxPayer';
+import { TaxWantPayProvider } from './context/taxWantPay';
+import { UnpaidTaxProvider } from './context/unpaidTax';
+import { SearchProvider } from './context/search';
 
 const store = createStore(allReducer)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter >
-      <App />
-    </BrowserRouter>
+    <TaxWantPayProvider>
+      <UnpaidTaxProvider>
+        <SearchProvider>
+          <AuthenTaxPayerProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AuthenTaxPayerProvider>
+        </SearchProvider>
+      </UnpaidTaxProvider>
+    </TaxWantPayProvider>
   </Provider>
 
 

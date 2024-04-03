@@ -1,55 +1,83 @@
 /* eslint-disable no-unused-vars */
-import { Button, Layout } from 'antd';
-import { Outlet, useNavigate } from "react-router-dom";
+import { Layout, Flex, Button,Collapse,Image,Table } from "antd";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import './LayoutDefault.scss'
 import { useSelector } from 'react-redux';
 import { getCookie } from '../../helpers/cookie';
-import { UserOutlined, LogoutOutlined, LoginOutlined } from '@ant-design/icons'
+import logo from '../../image/logo-short.png';
+import logo_tax from '../../image/logo-tax.jpeg';
+import { UserOutlined, MenuUnfoldOutlined, AppstoreOutlined, MenuFoldOutlined } from '@ant-design/icons'
+import MenuSider from '../../components/MenuSider';
+import { useEffect, useState } from "react";
 
-const { Header, Footer, Content } = Layout
+const { Header, Footer, Content, Sider } = Layout
 function LayoutDefault() {
-    const navigate = useNavigate();
-    const token = getCookie("token");
-    const isLogin = useSelector(state => state.loginReducer)
-    const handleRegister = () => {
-        navigate(`/register`)
-    }
-    const handleLogin = () => {
-        navigate(`/login`)
-    }
-    const handleLogout = () => {
-        navigate(`/logout`)
-    }
-    const handleMangager = () => {
-        navigate(`/admin`)
-    }
+    const [collapsed, setCollapsed] = useState(false);
+    const [pageTitle, setPageTitle] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        switch (location.pathname) {
+            case '/dang-ky-ma-so-thue':
+                setPageTitle('Đăng ký mã số thuế')
+                break
+            case '/ke-khai-thue':
+                setPageTitle('Khai Thuế Thu Nhập Cá Nhân')
+                break
+            case '/receipt':
+                setPageTitle('Hóa đơn thuế thu nhập cá nhân')
+                break
+            case '/tax-pay':
+                setPageTitle('Thu thuế')
+                break
+            default:
+                break;
+        }
+    }, [location])
+
     return (
-        <>
-            <Layout>
-                <Header className="header">
-                    <div className='header__logo'>IT Jobs</div>
-                    <div className='header__account'>
-                        {token ? (
-                            <>
-                                <Button className='header__item' onClick={handleMangager}><UserOutlined /> Quản lý</Button>
-                                <Button className='header__item' onClick={handleLogout}><LogoutOutlined /> Đăng xuất</Button>
-                            </>
-                        ) : (
-                            <>
-                                <Button className='header__item' onClick={handleLogin}><LoginOutlined /> Đăng nhập</Button>
-                                <Button type='primary' className='header__item' onClick={handleRegister}>Đăng ký</Button>
-                            </>
-                        )}
+
+        <Layout className="layout-default">
+            <header className="header">
+                <Link to="/">
+                    <div className={"header__logo " + (collapsed && "header__logo-collapsed")}>
+                        <img src={collapsed ? logo : logo_tax} alt="anh loi" />
                     </div>
-                </Header>
-                <Content className='content'>
+                </Link>
+                <div className="header__nav">
+                    <div className="header__nav-left">
+                        <div className="header__collapse" onClick={() => {
+                            setCollapsed(!collapsed);
+                        }}>
+                            {collapsed ? <Button className="header__menu-fold" icon={<MenuUnfoldOutlined />} />: <Button className="header__menu-fold" icon={<MenuFoldOutlined />} />}
+                            
+                        </div>
+                    </div>
+
+                    <div className="header__nav-center">
+                        <h1>{pageTitle}</h1>
+                    </div>
+
+                    <div className="header__nav-right">
+                        <div className="header__bell">
+                            <UserOutlined />
+                        </div>
+                        <div className="header__app-store">
+                            <AppstoreOutlined />
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <Layout>
+                <Sider width={"280px"} theme="light" collapsed={collapsed}>
+                    <MenuSider />
+                </Sider>
+                <Content className="content">
                     <Outlet />
                 </Content>
-                <Footer className='footer'>
-                    Copyright 2023 by tran kiet
-                </Footer>
             </Layout>
-        </>
-    )
+        </Layout>
+    );
 }
-export default LayoutDefault
+export default LayoutDefault;

@@ -4,14 +4,14 @@ import { Link } from "react-router-dom"
 function MenuSider() {
     const items = [
         {
-            label: <Link to={"/admin"}>Tổng quan</Link>,
+            label: <Link to={"/"}>Tổng quan</Link>,
             icon: <DashboardOutlined />,
             key: "dashboard"
         },
         {
-            label: <Link to={"register"}>Đăng ký mã số thuế</Link>,
+            label: <Link to={"dang-ky-ma-so-thue"}>Đăng ký mã số thuế</Link>,
             icon: <UserOutlined />,
-            key: "info-company"
+            key: "dang-ky-ma-so-thue"
         },
         {
             label: <Link to={"ke-khai-thue"}>Kê khai thuế</Link>,
@@ -19,7 +19,7 @@ function MenuSider() {
             key: "kekhaithue"
         },
         {
-            label: <Link to={"thanhtoan"}>Thanh toán thuế</Link>,
+            label: <Link to={"tax-pay"}>Thanh toán thuế</Link>,
             icon: <FileDoneOutlined />,
             key: "thanhtoan"
         },

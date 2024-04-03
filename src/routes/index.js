@@ -2,6 +2,10 @@ import LayoutDefault from "../layout/LayoutDefault";
 import LayoutAdmin from "../layout/LayoutAdmin";
 import Login from "../pages/Login"
 import LoaiToKhai from "../pages/LoaiToKhai";
+import DangKyMST from "../pages/DangKyMst";
+import TaxPay from "../pages/TaxPay";
+import TaxPayerInfor from "../pages/TaxPayerInfor";
+import ListUnpaidTax from "../pages/ListUnpaidTax";
 
 export const routes = [
     {
@@ -11,19 +15,31 @@ export const routes = [
                 element: <LayoutDefault />,
                 children: [
                     {
-                        path: "/login",
+                        path: "login",
                         element: <Login />
-                    }
-                ]
-            },
-            {
-                path: "/admin",
-                element: <LayoutAdmin />,
-                children: [
+                    },
                     {
                         path: "ke-khai-thue",
                         element: <LoaiToKhai />
-                    }
+                    },
+                    {
+                        path: "dang-ky-ma-so-thue",
+                        element: <DangKyMST />
+                    },
+                    {
+                        path: 'tax-pay',
+                        element: <TaxPay />,
+                        children: [
+                            {
+                                path: 'tax-payer-infor',
+                                element: <TaxPayerInfor />
+                            },
+                            {
+                                path: 'list-unpaid-tax',
+                                element: <ListUnpaidTax />
+                            }
+                        ]
+                    },
                 ]
             },
         ]
