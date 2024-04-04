@@ -1,8 +1,10 @@
 package com.sqa.project_sqa.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-
+@Data
 @Entity
 @Table(name = "ThueNhuongQuyenThuongMai")
 public class ThueNhuongQuyenThuongMai {
@@ -10,7 +12,9 @@ public class ThueNhuongQuyenThuongMai {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
+    @ManyToOne
+    @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
+    private TaxPayer taxPayer;
     @Column(name = "mst")
     private String mst;
 
@@ -25,6 +29,5 @@ public class ThueNhuongQuyenThuongMai {
 
     @Column(name = "den_ngay")
     private LocalDate denNgay;
-    @OneToOne(mappedBy = "thueNhuongQuyenThuongMai")
-    private LoaiToKhai loaiToKhai;
+
 }

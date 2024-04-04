@@ -1,8 +1,10 @@
 package com.sqa.project_sqa.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-
+@Data
 @Entity
 @Table(name = "ThueChuyenNhuongBDS")
 public class ThueChuyenNhuongBDS {
@@ -13,7 +15,9 @@ public class ThueChuyenNhuongBDS {
 
     @Column(name = "mst")
     private String mst;
-
+    @ManyToOne
+    @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
+    private TaxPayer taxPayer;
     @Column(name = "dia_chi")
     private String diaChi;
 
@@ -21,7 +25,7 @@ public class ThueChuyenNhuongBDS {
     private int loaiDat;
 
     @Column(name = "gia_tri_chuyen_nhuong")
-    private String giaTriChuyenNhuong;
+    private long giaTriChuyenNhuong;
 
     @Column(name = "tong_thue_phai_nop")
     private long tongThuePhaiNop;
@@ -31,8 +35,7 @@ public class ThueChuyenNhuongBDS {
 
     @Column(name = "den_ngay")
     private LocalDate denNgay;
-    @OneToOne(mappedBy = "thueChuyenNhuongBDS")
-    private LoaiToKhai loaiToKhai;
+
 
 
 }
