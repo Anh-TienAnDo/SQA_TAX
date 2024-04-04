@@ -82,6 +82,8 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
         return new ResponseEntity<>(mst,HttpStatus.OK);
     }
 
+
+
     private String generateRandomNumber() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();

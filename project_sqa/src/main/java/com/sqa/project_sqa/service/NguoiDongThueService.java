@@ -6,4 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface NguoiDongThueService {
     ResponseEntity<?> registerTaxCode(NguoiDongThueDTO nguoiDongThueDTO);
+
 }
