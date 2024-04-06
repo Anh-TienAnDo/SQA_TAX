@@ -1,8 +1,11 @@
-import { Button, Card, Col, DatePicker, Form, Input, InputNumber, Row, Select, Spin, message } from "antd"
+import { Button, Card, Col, DatePicker, Form, Input, InputNumber, Row, Select, Spin, Radio, notification } from "antd"
 import { useEffect, useRef, useState } from "react";
+import { getDate } from "../../helpers/getTimeCurrent";
+import { declaration } from "../../services/declarationService";
 const { RangePicker } = DatePicker;
 
 function ThueTienLuongCong() {
+    const [notificationApi, contextHolder] = notification.useNotification();
     const [form] = Form.useForm()
     const [loading, setLoading] = useState(false);
     const [mst, setMst] = useState();
@@ -15,21 +18,30 @@ function ThueTienLuongCong() {
             message: "Không được để trống"
         }
     ]
-    const handleFinish = (values) => {
-        const tuNgay = values.date[0].$d;
-        const denNgay = values.date[1].$d;
-        console.log(tuNgay)
-        console.log(denNgay)
+    const handleFinish = async (values) => {
+        values.tuNgay = getDate(values.date[0].$d);
+        values.denNgay = getDate(values.date[1].$d);
+        values.date = undefined
+        const res = await declaration(values);
+        if (!res.message) {
+            setLoading(false)
+            form.resetFields()
+            notificationApi.success({
+                message: "Kê khai thành công",
+                duration: 3
+            })
+        }
+        else {
+            setLoading(false)
+            notificationApi.error({
+                message: "Kê khai không thành công",
+                duration: 3
+            })
+        }
     }
-    // const inputElement = useRef();
-    // const focusInput = (e) => {
-    //     e.target.blur();
-    //     inputElement.current.focus({
-    //         cursor: 'start',
-    //     });
-    // };
     return (
         <>
+            {contextHolder}
             <Card title="Khai báo thuế thu nhập từ tiền lương công">
                 <Spin spinning={loading}>
                     <Form layout="vertical" onFinish={handleFinish} form={form}>
@@ -72,6 +84,14 @@ function ThueTienLuongCong() {
                             <Col span={24}>
                                 <Form.Item label="Khấu trừ cho bảo hiểm" name="khauTruChoBaoHiem" rules={rules}>
                                     <InputNumber min={0} addonAfter="VNĐ" style={{ width: "100%" }} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={24}>
+                                <Form.Item label="Trạng thái cư trú" name={"cuTru"} rules={rules}>
+                                    <Radio.Group >
+                                        <Radio value={true}> Cư trú </Radio>
+                                        <Radio value={false}> Không cư trú </Radio>
+                                    </Radio.Group>
                                 </Form.Item>
                             </Col>
                             <Col span={24}>

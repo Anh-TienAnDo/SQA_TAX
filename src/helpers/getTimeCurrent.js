@@ -1,5 +1,4 @@
-export const getTimeCurrent = () => {
-    const date = new Date();
+export const getDate = (date) => {
     let second = date.getSeconds();
     second = second > 9 ? second : `0${second}`;
 
@@ -17,5 +16,5 @@ export const getTimeCurrent = () => {
 
     const year = date.getFullYear();
 
-    return `${day}-${month}-${year} ${hour}:${minute}:${second}`;
+    return `${year}-${month}-${day}`;
 }

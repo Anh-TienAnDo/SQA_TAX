@@ -1,4 +1,4 @@
-const API_DOMAIN = "http://localhost:4000/";
+const API_DOMAIN = "http://26.32.124.179:8080/";
 
 export const get = async (path) => {
     const response = await fetch(API_DOMAIN + path);
