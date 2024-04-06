@@ -1,6 +1,12 @@
 import { Card, Select } from "antd"
-import ToKhai from "../ToKhai"
+import ThueTienLuongCong from "../ThueTienLuongCong"
 import { useState } from "react";
+import ThueChuyenNhuongBDS from "../ThueChuyenNhuongBDS";
+import ThueTrungThuong from "../ThueTrungThuong";
+import ThueChuyenNhuongBanQuyen from "../ThueChuyenNhuongBanQuyen";
+import ThueDauTuVon from "../ThueDauTuVon";
+import ThueNhuongQuyenThuongMai from "../ThueNhuongQuyenThuongMai";
+import ThueQuaTang from "../ThueQuaTang";
 
 function LoaiToKhai() {
     const [loaiToKhai, setLoaiToKhai] = useState();
@@ -26,7 +32,7 @@ function LoaiToKhai() {
             value: 5
         },
         {
-            label: "Tờ khai thuế thu nhập khi nhận thừa kế",
+            label: "Tờ khai thuế thu nhập khi đầu tư vốn",
             value: 6
         },
         {
@@ -42,7 +48,27 @@ function LoaiToKhai() {
             <Card title="Chọn thông tin loại tờ khai" style={{ marginBottom: 20 }}>
                 <Select options={options} placeholder="-- Chọn loại tờ khai --" onChange={handleChange} style={{ width: "100%" }} />
             </Card>
-            <ToKhai loaiToKhai = {loaiToKhai} />
+            {loaiToKhai === 1 && (
+                <ThueTienLuongCong />
+            )}
+            {loaiToKhai === 2 && (
+                <ThueChuyenNhuongBDS />
+            )}
+            {loaiToKhai === 3 && (
+                <ThueTrungThuong />
+            )}
+            {loaiToKhai === 4 && (
+                <ThueChuyenNhuongBanQuyen />
+            )}
+            {loaiToKhai === 5 && (
+                <ThueNhuongQuyenThuongMai />
+            )}
+            {loaiToKhai === 6 && (
+                <ThueDauTuVon />
+            )}
+            {loaiToKhai === 7 && (
+                <ThueQuaTang />
+            )}
         </>
     )
 }
