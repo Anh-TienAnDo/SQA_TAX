@@ -1,21 +1,41 @@
-package com.sqa.project_sqa.service;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package dbclpm_thuethunhapcanhan;
 
-public class ThueChuyenNhuong {
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-//  số thuế khi chuyển nhượng vốn góp
-	public float Tax_capital_transfer(float assessable_income) {
-		float tax;
-		float ratio = (float) 20.0;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
-	}
-
-//  chuyển nhượng chứng khoán
-	public float Tax_securities_transfer(float assessable_income) {
-		float tax;
-		float ratio = (float) 0.1;
-		tax = assessable_income / 100 * ratio;
-		return Math.round(tax);
-	}
-
+/**
+ *
+ * @author Admin
+ */
+// 
+public class thue_chuyen_nhuong {
+    
+//    số thuế khi chuyển nhượng vốn góp
+    public String Tax_capital_transfer(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.2");
+        if (assessable_income.compareTo(BigDecimal.ZERO) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
+    }
+    
+//    chuyển nhượng chứng khoán
+    public String Tax_securities_transfer(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.001");
+        if (assessable_income.compareTo(BigDecimal.ZERO) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
+    }
+    
 }
