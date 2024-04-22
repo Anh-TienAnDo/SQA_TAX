@@ -11,7 +11,7 @@ import java.math.RoundingMode;
  *
  * @author Admin
  */
-public class thue_bat_dong_san {
+public class ThueBatDongSan {
     
 //    chuyển nhượng bất động sản
     public String Tax_land_transfer(BigDecimal transfer_price){ //transfer_price: giá chuyển nhượng
