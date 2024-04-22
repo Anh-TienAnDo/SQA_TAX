@@ -1,7 +1,6 @@
 package com.sqa.project_sqa.service.serviceImpl;
 
 import com.sqa.project_sqa.entities.ThueChuyenNhuongBDS;
-import com.sqa.project_sqa.repositories.ThueChuyenNhuongBanQuyenRepo;
 import com.sqa.project_sqa.repositories.ThueChuyenNhuongBatDongSanRepo;
 import com.sqa.project_sqa.service.ThueChuyenNhuongBatDongSanService;
 

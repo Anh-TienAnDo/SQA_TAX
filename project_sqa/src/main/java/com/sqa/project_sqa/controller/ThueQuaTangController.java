@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +43,12 @@ public class ThueQuaTangController {
         String mst = thueQuaTang.getMst();
         TaxPayer taxPayer = taxPayerService.getTaxPayerById(mst);
         if (taxPayer != null) {
+            String thuNhapChiuThue = String.valueOf(thueQuaTang.getThuNhapChiuThue());
+            String tongThuePhaiNop = thueQuaTangService.Tax_present(new BigDecimal(thuNhapChiuThue));
+            thueQuaTang.setTongThuePhaiNop(Long.parseLong(tongThuePhaiNop));
+            System.out.println(thueQuaTang.getTongThuePhaiNop());
+
+
             ThueQuaTang a = thueQuaTangService.saveThueQuaTang(thueQuaTang);
             return ResponseEntity.ok(a);
         } else {
