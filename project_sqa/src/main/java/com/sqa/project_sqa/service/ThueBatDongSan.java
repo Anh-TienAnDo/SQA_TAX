@@ -1,13 +1,28 @@
-package com.sqa.project_sqa.service;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package dbclpm_thuethunhapcanhan;
 
-public class ThueBatDongSan {
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-//  chuyển nhượng bất động sản
-	public float Tax_land_transfer(float transfer_price) { // transfer_price: giá chuyển nhượng
-		float tax;
-		float ratio = (float) 2.0;
-		tax = transfer_price / 100 * ratio;
-		return Math.round(tax);
-	}
-
+/**
+ *
+ * @author Admin
+ */
+public class thue_bat_dong_san {
+    
+//    chuyển nhượng bất động sản
+    public String Tax_land_transfer(BigDecimal transfer_price){ //transfer_price: giá chuyển nhượng
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.02");
+        if (transfer_price.compareTo(BigDecimal.ZERO) > 0) {
+            tax = transfer_price.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
+    }
+    
 }
