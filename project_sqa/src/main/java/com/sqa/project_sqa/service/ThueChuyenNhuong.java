@@ -12,7 +12,7 @@ import java.math.RoundingMode;
  * @author Admin
  */
 // 
-public class thue_chuyen_nhuong {
+public class ThueChuyenNhuong {
     
 //    số thuế khi chuyển nhượng vốn góp
     public String Tax_capital_transfer(BigDecimal assessable_income){
