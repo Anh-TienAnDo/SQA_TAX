@@ -7,6 +7,9 @@ import com.sqa.project_sqa.service.ThueChuyenNhuongBanQuyenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Service
 public class ThueChuyenNhuongBanQuyenServiceImpl implements ThueChuyenNhuongBanQuyenService {
     @Autowired
@@ -14,5 +17,17 @@ public class ThueChuyenNhuongBanQuyenServiceImpl implements ThueChuyenNhuongBanQ
     @Override
     public ThueChuyenNhuongBanQuyen saveThueChuyenNhuongBanQuyem(ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen) {
         return thueChuyenNhuongBanQuyenRepo.save(thueChuyenNhuongBanQuyen);
+    }
+
+    @Override
+    public String Tax_license(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.05");
+        if (assessable_income.compareTo(new BigDecimal("10000000")) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
 }

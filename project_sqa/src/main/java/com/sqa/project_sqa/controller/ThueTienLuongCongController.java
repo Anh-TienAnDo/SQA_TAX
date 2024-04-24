@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,20 @@ public class ThueTienLuongCongController {
             if (thueTienLuongCong.getThuNhapChiuThue() < 0 || thueTienLuongCong.getThuNhapDuocMienGiam() < 0 || thueTienLuongCong.getKhauTruChoBanThan() < 0 || thueTienLuongCong.getKhauTruNguoiPhuThuoc() < 0 || thueTienLuongCong.getKhauTruChoTuThien() < 0 || thueTienLuongCong.getKhauTruChoBaoHiem() < 0) {
                 return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
             }
+            String thuNhapChiuThue = String.valueOf(thueTienLuongCong.getThuNhapChiuThue());
+            Long khauTruChoBanThan = thueTienLuongCong.getKhauTruChoBanThan();
+            Long khauTruNguoiPhuThuoc = thueTienLuongCong.getKhauTruNguoiPhuThuoc();
+            Long khauTruChoTuThien = thueTienLuongCong.getKhauTruChoTuThien();
+            Long khauTruChoBaoHiem = thueTienLuongCong.getKhauTruChoBaoHiem();
+            String tongKhauTru = String.valueOf(khauTruChoBanThan+khauTruNguoiPhuThuoc+khauTruChoTuThien+khauTruChoBaoHiem);
+            String tongThuePhaiNop;
+            if(thueTienLuongCong.isCuTru()){
+                tongThuePhaiNop = thueTienLuongCongService.Tax_type1(new BigDecimal(thuNhapChiuThue), new BigDecimal(tongKhauTru));
+            }else{
+                tongThuePhaiNop = thueTienLuongCongService.Tax_type3(new BigDecimal(thuNhapChiuThue));
+            }
+            thueTienLuongCong.setTongThuePhaiNop(Long.parseLong(tongThuePhaiNop));
+            System.out.println(thueTienLuongCong.getTongThuePhaiNop());
             ThueTienLuongCong a =thueTienLuongCongService.saveThueTienLuongCong(thueTienLuongCong);
             return ResponseEntity.ok(a);
         }

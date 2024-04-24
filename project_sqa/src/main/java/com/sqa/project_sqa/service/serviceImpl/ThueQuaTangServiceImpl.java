@@ -7,6 +7,9 @@ import com.sqa.project_sqa.service.ThueQuaTangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Service
 
 public class ThueQuaTangServiceImpl implements ThueQuaTangService {
@@ -15,5 +18,17 @@ public class ThueQuaTangServiceImpl implements ThueQuaTangService {
     @Override
     public ThueQuaTang saveThueQuaTang(ThueQuaTang thueQuaTang) {
         return thueQuaTangRepo.save(thueQuaTang);
+    }
+
+    @Override
+    public String Tax_present(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.1");
+        if (assessable_income.compareTo(new BigDecimal("10000000")) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
 }

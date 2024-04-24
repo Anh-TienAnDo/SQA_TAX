@@ -7,6 +7,9 @@ import com.sqa.project_sqa.service.ThueDauTuVonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Service
 
 public class ThueDauTuVonServiceImpl implements ThueDauTuVonService {
@@ -15,5 +18,17 @@ public class ThueDauTuVonServiceImpl implements ThueDauTuVonService {
     @Override
     public ThueDauTuVon saveThueDauTuVon(ThueDauTuVon thueDauTuVon) {
         return thueDauTuVonRepo.save(thueDauTuVon);
+    }
+
+    @Override
+    public String Tax_capital_investments(BigDecimal assessable_income){
+        BigDecimal tax;
+        BigDecimal ratio = new BigDecimal("0.05");
+        if (assessable_income.compareTo(BigDecimal.ZERO) > 0) {
+            tax = assessable_income.multiply(ratio);
+        } else {
+            tax = BigDecimal.ZERO;
+        }
+        return tax.setScale(0, RoundingMode.HALF_UP).toString();
     }
 }

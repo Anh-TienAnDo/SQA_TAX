@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TaxPayerService {
     List<TaxPayer> getAll();
-    TaxPayer getTaxPayerById(String id);
+    TaxPayer getTaxPayerById(String mst);
 }
