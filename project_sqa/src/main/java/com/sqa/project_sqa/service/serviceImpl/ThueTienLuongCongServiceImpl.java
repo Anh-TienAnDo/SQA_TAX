@@ -15,12 +15,14 @@ public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
     private final BigDecimal myself = new BigDecimal("11000000");
     private final BigDecimal social_insurance = new BigDecimal("0.105");
 
+
+
     public BigDecimal getMyself() {
-        return this.myself;
+        return myself;
     }
 
     public BigDecimal getSocial_insurance() {
-        return this.social_insurance;
+        return social_insurance;
     }
 
     @Autowired
