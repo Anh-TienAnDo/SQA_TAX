@@ -35,7 +35,7 @@ function TaxPay() {
   useEffect(() => {
     const get = async () => {
       try {
-        const newAllTaxPayer = await getAllTaxPayer("api/v1/tax-payer/getAll");
+        const newAllTaxPayer = await getAllTaxPayer("tax-payer");
         setAllTaxPayer(newAllTaxPayer);
       } catch (error) {
         // Handle any errors appropriately
@@ -48,7 +48,7 @@ function TaxPay() {
   // category_Tax
   useEffect(() => {
     const get = async () => {
-      const data = await getAllCategoryTax("api/v1/tax-type/getAll");
+      const data = await getAllCategoryTax("category-tax");
       // const data = []
       const newCategoryTax = data.map((item) => ({
         value: item.tenLoaiThue,

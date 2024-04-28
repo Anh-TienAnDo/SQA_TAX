@@ -1,4 +1,4 @@
-const API_DOMAIN = 'http://localhost:8080';
+const API_DOMAIN = 'http://localhost:3001';
 
 export const get = async (path) => {
   try{
@@ -9,7 +9,6 @@ export const get = async (path) => {
     console.error(err);
     return []
   }
-  
 }
 
 export const post = async (data,path) => {
@@ -22,6 +21,7 @@ export const post = async (data,path) => {
   });
   return res;
 }
+
 
 export const del = async (id,path) => {
   const res = await fetch(`${API_DOMAIN}/${path}/${id}`, {

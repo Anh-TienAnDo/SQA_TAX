@@ -4,6 +4,7 @@ import TaxPay from "../pages/TaxPay";
 import TaxPayerInfor from "../components/TaxPayerInfor";
 import UnpaidTax from "../components/UnpaidTax";
 import DangKyMST from '../components/Index'
+import LoaiToKhai from "../pages/LoaiToKhai";
 export const routes = [
   {
     path: '/',
@@ -25,7 +26,12 @@ export const routes = [
             path: 'unpaid-tax',
             element: <UnpaidTax/>
           },
+          
         ]
+      },
+      {
+        path: '/ke-khai-thue',
+        element: <LoaiToKhai />
       },
       {
         path: '/register-tax-code',
