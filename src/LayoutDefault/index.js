@@ -10,23 +10,6 @@ import MenuSider from "../components/MenuSider";
 import {Link,useLocation} from 'react-router-dom'
 import './style.scss';
 const {Footer, Sider, Content } = Layout;
-const items = [
-  {
-    key: 1,
-    label: 'Content 1',
-    children: 'Content'
-  },
-  {
-    key: 2,
-    label: 'Content 2',
-    children: 'Content'
-  },
-  {
-    key: 3,
-    label: 'Content 3',
-    children: 'Content'
-  }
-]
 
 function LayoutDefault() {
   const [collapsed,setCollapsed] = useState(false);
@@ -35,9 +18,6 @@ function LayoutDefault() {
   
   useEffect( ( ) => {
     switch (location.pathname) {
-      case '/tax-declaration':
-        setPageTitle('Khai Thuế Thu Nhập Cá Nhân')
-        break
       case '/receipt':
         setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break

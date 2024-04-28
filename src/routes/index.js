@@ -1,19 +1,14 @@
 import LayoutDefault from "../LayoutDefault";
-import TaxDeclaration from "../pages/TaxDeclaration";
 import ReceiptTax from "../pages/Receipt";
-import Register from "../pages/Register";
 import TaxPay from "../pages/TaxPay";
 import TaxPayerInfor from "../components/TaxPayerInfor";
 import UnpaidTax from "../components/UnpaidTax";
+import DangKyMST from '../components/Index'
 export const routes = [
   {
     path: '/',
     element: <LayoutDefault />,
     children: [
-      {
-        path: '/tax-declaration',
-        element: <TaxDeclaration /> 
-      },
       {
         path: '/receipt-tax',
         element: <ReceiptTax /> 
@@ -32,10 +27,11 @@ export const routes = [
           },
         ]
       },
+      {
+        path: '/register-tax-code',
+        element: <DangKyMST />
+      }
     ]
   },
-  {
-    path: '/register',
-    element: <Register /> 
-  }
+  
 ]

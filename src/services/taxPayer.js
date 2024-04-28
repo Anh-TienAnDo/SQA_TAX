@@ -1,18 +1,34 @@
-import {get,post} from '../utils/request';
+import { get, post } from "../utils/request";
 
 export const getAllTaxPayer = async (option) => {
-  const res = await get(option);
-  const data = await res.json();
-  return data;
-}
+  try {
+    const res = await get(option);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
 
 export const getTaxPayer = async (option) => {
-  const res = await get(option);
-  const data = await res.json();
-  return data;
-}
+  try {
+    const res = await get(option);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
 
-// export const postBooking = async (data,option) => {
-//   const res = await post(data,option);
-//   return res;
-// }
+export const send = async (taxpayer,option) => {
+  try {
+    const res = await post(taxpayer,option);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};

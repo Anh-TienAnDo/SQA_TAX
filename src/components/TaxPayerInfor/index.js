@@ -3,37 +3,41 @@ import "./tax_payer_infor.css";
 import AuthenTaxPayer from "../../context/afterAuthenTaxPayer";
 import { useContext, useEffect, useState,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllTaxPayer, getTaxPayer } from "../../services/taxPayer";
+import { getAllTaxPayer, getTaxPayer, send } from "../../services/taxPayer";
 import Search from "../../context/search";
+import TaxPayer from "../../context/taxPayer";
 
 function TaxPayerInfor() {
   const navigate = useNavigate();
   const [allTaxPayer, setAllTaxPayer] = useState([]);
-  const [taxPayer, setTaxPayer] = useState({});
+  const {taxPayer, setTaxPayer} = useContext(TaxPayer);
   const { afterAuthenTaxPayer, setAfterAuthenTaxPayer } =useContext(AuthenTaxPayer);
   const { search, setSearch } = useContext(Search);
-
   // get all tax-payer
-  useEffect(() => {
-    const get = async () => {
-      try {
-        const newTaxPayer = await getAllTaxPayer('tax-payer'); 
-        setAllTaxPayer(newTaxPayer);
-      } catch (error) {
-        // Handle any errors appropriately
-        console.error("An error occurred while fetching tax payers:", error);
-      }
-    };
-    get();
-  }, []);
+    useEffect(() => {
+      const get = async () => {
+        try {
+          const newTaxPayer = await getAllTaxPayer('api/v1/tax-payer/getAll'); 
+          setAllTaxPayer(newTaxPayer);
+        } catch (error) {
+          // Handle any errors appropriately
+          console.error("An error occurred while fetching tax payers:", error);
+        }
+      };
+      get();
+    }, []);
+
+    
 
   // search tax-payer
-
   useEffect(() => {
     const get = async () => {
       try {
         const findTaxPayer = allTaxPayer.find(item => item[search.type] === search.data);  
-        setTaxPayer(findTaxPayer)   
+        if(findTaxPayer){
+          setTaxPayer(findTaxPayer)
+          
+        }
       } catch (error) {
         // Handle any errors appropriately
         console.error("An error occurred while fetching tax payers:", error);
@@ -42,11 +46,12 @@ function TaxPayerInfor() {
     get();
   }, [search,allTaxPayer]);
 
+ 
   const handleClickInforAuthen = () => {
     setAfterAuthenTaxPayer(true);
     navigate("/tax-pay");
   };
-
+  console.log(taxPayer)
   return (
     <>
       <div className="content">
@@ -70,7 +75,7 @@ function TaxPayerInfor() {
                     </tr>
                     <tr>
                       <td>Căn cước công dân</td>
-                      <td>{taxPayer.CCCD}</td>
+                      <td>{taxPayer.cccd}</td>
                     </tr>
                     <tr>
                       <td>Tên người nộp thuế</td>

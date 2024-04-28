@@ -1,4 +1,12 @@
-import { Layout, Select, Button, InputNumber, Table, Checkbox } from "antd";
+import {
+  Layout,
+  Select,
+  Button,
+  InputNumber,
+  Table,
+  Checkbox,
+  Space,
+} from "antd";
 import { Outlet } from "react-router-dom";
 import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +17,7 @@ import AuthenTaxPayer from "../../context/afterAuthenTaxPayer";
 import { getAllCategoryTax } from "../../services/categoryTax";
 import Search from "../../context/search";
 import { getAllTaxPayer } from "../../services/taxPayer";
+import TaxPayer from "../../context/taxPayer";
 const { Content } = Layout;
 function TaxPay() {
   const navigate = useNavigate();
@@ -16,18 +25,18 @@ function TaxPay() {
   const [categoryTax, setCategoryTax] = useState([]);
   const { afterAuthenTaxPayer, setAfterAuthenTaxPayer } =
     useContext(AuthenTaxPayer);
-  const [taxPayer, setTaxPayer] = useState({});
+  const {taxPayer, setTaxPayer} = useContext(TaxPayer);
   const { search, setSearch } = useContext(Search);
   const taxNumberRef = useRef();
   const CCCDNumberRef = useRef();
   const searchPaymentInformationRef = useRef();
-
+  console.log(allTaxPayer);
   // get all taxpayer
   useEffect(() => {
     const get = async () => {
       try {
-        const newTaxPayer = await getAllTaxPayer('tax-payer'); 
-        setAllTaxPayer(newTaxPayer);
+        const newAllTaxPayer = await getAllTaxPayer("api/v1/tax-payer/getAll");
+        setAllTaxPayer(newAllTaxPayer);
       } catch (error) {
         // Handle any errors appropriately
         console.error("An error occurred while fetching tax payers:", error);
@@ -36,15 +45,17 @@ function TaxPay() {
     get();
   }, []);
 
-
   // category_Tax
   useEffect(() => {
     const get = async () => {
-      const data = await getAllCategoryTax("category-tax");
+      const data = await getAllCategoryTax("api/v1/tax-type/getAll");
+      // const data = []
       const newCategoryTax = data.map((item) => ({
-        value: item.name,
-        label: item.name,
+        value: item.tenLoaiThue,
+        label: item.tenLoaiThue,
+        id: item.id,
       }));
+      console.log(newCategoryTax);
       setCategoryTax(newCategoryTax);
     };
     get();
@@ -61,16 +72,17 @@ function TaxPay() {
   };
 
   const handelTaxCodeSearched = async (e) => {
-    if (Array.isArray(allTaxPayer) ) {
+    if (Array.isArray(allTaxPayer)) {
       setSearch({
         type: "mst",
         data: taxNumberRef.current.value,
       });
-      let newTaxPayer = allTaxPayer.find(item => item[search.type] === search.data)
+      let newTaxPayer = allTaxPayer.find(
+        (item) => item["mst"] === taxNumberRef.current.value
+      );
       if (newTaxPayer) {
-        await navigate('/tax-pay/tax-payer-infor');
-      }
-      else{
+        navigate("/tax-pay/tax-payer-infor");
+      } else {
         alert(
           "Mã số thuế cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
         );
@@ -79,15 +91,17 @@ function TaxPay() {
   };
 
   const handleCCCDSearched = async (e) => {
-    if (Array.isArray(allTaxPayer) ) {
+    if (Array.isArray(allTaxPayer)) {
       setSearch({
-        type: "CCCD",
+        type: "cccd",
         data: CCCDNumberRef.current.value,
       });
-      let newTaxPayer = await allTaxPayer.find(item => item[search.type] === search.data);
-      
+      let newTaxPayer = allTaxPayer.find(
+        (item) => item["cccd"] === CCCDNumberRef.current.value
+      );
+
       if (newTaxPayer) {
-        await navigate('/tax-pay/tax-payer-infor'); // Sử dụng await ở đây
+        navigate("/tax-pay/tax-payer-infor"); // Sử dụng await ở đây
       } else {
         alert(
           "Căn cước công dân cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
@@ -95,7 +109,6 @@ function TaxPay() {
       }
     }
   };
-  
 
   const handleClickInforDetail = (e) => {
     navigate("/tax-pay/tax-payer-infor");
@@ -107,9 +120,9 @@ function TaxPay() {
 
   const handelSelectCategoryTax = (value) => {
     setSearch({
-      type: value
-    })
-  }
+      type: value,
+    });
+  };
 
   return (
     <Layout className="layout-taxpay">
@@ -125,15 +138,15 @@ function TaxPay() {
             </tr>
             <tr>
               <td>Mã số thuế</td>
-              <td>123456789</td>
+              <td>{taxPayer.mst}</td>
             </tr>
             <tr>
               <td>Căn cước công dân</td>
-              <td>987654321</td>
+              <td>{taxPayer.cccd}</td>
             </tr>
             <tr>
               <td>Tên người nộp thuế</td>
-              <td>Nguyễn Văn A</td>
+              <td>{taxPayer.hoVaTen}</td>
             </tr>
           </table>
           <div className="header__infor-detailAndSearch">
@@ -164,8 +177,8 @@ function TaxPay() {
               <div className="header__tax-number">
                 <InputNumber
                   ref={taxNumberRef}
-                  min={10000000000}
-                  max={99999999999}
+                  min={10000000}
+                  max={99999999999999}
                   defaultValue={3}
                 />
               </div>
@@ -203,18 +216,21 @@ function TaxPay() {
             </div>
             <div>
               <Select
-                ref = {searchPaymentInformationRef}
+                mode="multiple"
+                allowClear
+                ref={searchPaymentInformationRef}
                 placeholder="Chọn loại thuế cần thanh toán"
                 style={{ width: 250, marginLeft: 20 }}
                 onChange={handelSelectCategoryTax}
                 options={categoryTax}
+                optionRender={(option) => <Space>{option.data.label}</Space>}
               />
-              <div className="header__search">
-                <Button type="primary" onClick={handleUnpaidTaxSearched}>
+            </div>
+            <div className="header__search">
+                <Button style={{margin: 0}} type="primary" onClick={handleUnpaidTaxSearched}>
                   Tra cứu
                 </Button>
               </div>
-            </div>
           </div>
         )}
       </div>

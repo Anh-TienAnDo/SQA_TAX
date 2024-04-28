@@ -15,7 +15,7 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem(<Link to="/tax-pay">Thu thuế</Link>, "sub1", <AccountBookOutlined />, ),
-  // getItem(<Link to="/create-room">Tính Thuế</Link>, "sub2", <PlusOutlined />, ),
+  getItem(<Link to="/register-tax-code">Đăng ký mã số thuế</Link>, "sub2", <AccountBookOutlined />, ),
 ];
 
 function MenuSider() {

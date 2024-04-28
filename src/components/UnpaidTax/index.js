@@ -7,6 +7,7 @@ import Search from "../../context/search";
 import UnpaidTax from "../../context/unpaidTax";
 import { useNavigate } from "react-router-dom";
 import TaxWantPay from "../../context/taxWantPay";
+import TaxPayer from "../../context/taxPayer";
 
 function ListUnpaidTax() {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ function ListUnpaidTax() {
   const { search, setSearch } = useContext(Search);
   const { unpaidTax, setUnpaidTax } = useContext(UnpaidTax);
   const {taxWantPay,setTaxWantPay} = useContext(TaxWantPay);
+  const {taxPayer,setTaxPayer} = useContext(TaxPayer);
+  
   const showModal = () => {
     setIsModalOpen(true);
   };
