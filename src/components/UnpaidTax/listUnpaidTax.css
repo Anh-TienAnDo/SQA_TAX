@@ -1,13 +1,18 @@
 .content__list-unpaid-tax {
-  width: 95%;
+  width: 1300px;
   padding-left: 25px;
   margin-top: 55px;
 }
 
+.container__unpaid-tax{
+  display: flex;
+  flex-direction: column;
+}
 
 .content__grid-list-unpaid-tax-container {
+  width: 1300px;
   display: grid;
-  grid-template-columns: 39% 17% 17% 10% 12%; /* Phân chia độ rộng của mỗi cột */
+  grid-template-columns: 17% 39% 17%  10% 12%; /* Phân chia độ rộng của mỗi cột */
   background-color: #fff; /* Màu nền cho container, đặt màu trắng hoặc màu khác tùy ý */
 }
 
@@ -20,7 +25,7 @@
 }
 
 .grid-item-header:nth-child(1){
-  text-align: start;
+  text-align: center;
 }
 
 .grid-item {
@@ -29,12 +34,10 @@
   justify-content: center; /* Căn nội dung bắt đầu từ cạnh trái */
   border: 1px solid #000; /* Đường viền màu đen với độ rộng 1px */
   background-color: #fff; /* Màu nền cho từng grid item, đặt màu sáng hoặc màu khác tùy ý */
-  text-align: left; /* Căn trái nội dung bên trong item */
 }
 
 .grid-item:nth-child(1) {
-  justify-content: flex-start; /* Đảm bảo nội dung của cột đầu tiên căn trái */
-  text-align: left; /* Căn trái nội dung bên trong */
+  text-align: center; /* Căn trái nội dung bên trong */
 }
 
 .custom-modal .ant-modal .ant-modal-content{
@@ -66,13 +69,13 @@
 }
 
 
-.data-table th:nth-child(1), .data-table td:nth-child(1){
-  width: 100px;
+.data-table th:nth-child(1), .data-table td:nth-child(1) {
+  min-width: 100px;
   box-sizing: border-box;
 }
 
 .data-table th:nth-child(2), .data-table td:nth-child(2){
-  width: 100px;
+  min-width: 100px;
   box-sizing: border-box;
 }
 

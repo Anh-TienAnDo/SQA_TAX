@@ -14,9 +14,9 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(<Link to="/tax-pay">Thu thuế</Link>, "sub1", <AccountBookOutlined />, ),
-  getItem(<Link to="/register-tax-code">Đăng ký mã số thuế</Link>, "sub2", <AccountBookOutlined />, ),
-  getItem(<Link to="/ke-khai-thue">Kê khai thuế</Link>, "sub2", <AccountBookOutlined />, ),
+  getItem(<Link to="/thu-thue">Thu thuế</Link>, "sub1", <AccountBookOutlined />, ),
+  getItem(<Link to="/dang-ky-ma-so-thue">Đăng ký mã số thuế</Link>, "sub2", <AccountBookOutlined />, ),
+  getItem(<Link to="/ke-khai-thue">Kê khai thuế</Link>, "sub3", <AccountBookOutlined />, ),
 ];
 
 function MenuSider() {

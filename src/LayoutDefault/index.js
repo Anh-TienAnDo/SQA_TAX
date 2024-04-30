@@ -21,9 +21,16 @@ function LayoutDefault() {
       case '/receipt':
         setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break
-      case '/tax-pay':
+      case '/thu-thue':
         setPageTitle('Thu thuế')
         break
+      case '/ke-khai-thue':
+        setPageTitle('Kê Khai Thuế')
+        break
+      case '/dang-ky-ma-so-thue':
+        setPageTitle('Đăng Ký Mã Số Thuế')
+        break
+
       default:
         break;
     }

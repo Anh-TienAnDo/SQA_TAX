@@ -16,9 +16,9 @@ function ListUnpaidTax() {
     useContext(AuthenTaxPayer);
   const { search, setSearch } = useContext(Search);
   const { unpaidTax, setUnpaidTax } = useContext(UnpaidTax);
-  const {taxWantPay,setTaxWantPay} = useContext(TaxWantPay);
-  const {taxPayer,setTaxPayer} = useContext(TaxPayer);
-  
+  const { taxWantPay, setTaxWantPay } = useContext(TaxWantPay);
+  const { taxPayer, setTaxPayer } = useContext(TaxPayer);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -29,29 +29,26 @@ function ListUnpaidTax() {
     setIsModalOpen(false);
   };
 
+  // console.log(search.type)
   useEffect(() => {
     const get = async () => {
       try {
         if (search) {
-          const data = await getUnpaidTax(
-            `unpaid-tax?tenLoaiToKhai=${encodeURIComponent(search.type)}`
-          );
-
-          if (data) {
-            const newUnpaidTax = data.filter(
-              (item) => item["tenLoaiToKhai"] === search.type
+          const data = search.type.map(async (item) => {
+            // Sử dụng `await` trong một arrow function đồng bộ
+            const res = await getUnpaidTax(
+              `unpaid-tax?tenLoaiToKhai=${encodeURIComponent(item)}`
             );
-            if (newUnpaidTax) {
-              setUnpaidTax(newUnpaidTax);
-              console.log(newUnpaidTax);
+            return res;
+          });
+
+          Promise.all(data).then((result) => {
+            if (result === undefined) {
+              console.log("getUnpaidTax Error");
             } else {
-              // Handle the case where the search did not return any matching unpaid tax
-              console.log("No matching unpaid tax found");
+              setUnpaidTax(result);
             }
-          } else {
-            // Handle the case where the data is null or undefined
-            console.log("No data received from the API");
-          }
+          });
         }
       } catch (error) {
         // Handle errors that occurred during the API call or data processing
@@ -59,49 +56,50 @@ function ListUnpaidTax() {
         // Optionally set some state to show an error message to the user
       }
     };
-
     get();
   }, [search]);
 
   const handelClickTaxWantPay = (taxItemWantPay) => {
     const newTaxWantPay = taxWantPay;
-    newTaxWantPay.push(taxItemWantPay)
-    setTaxWantPay(newTaxWantPay)
+    newTaxWantPay.push(taxItemWantPay);
+    setTaxWantPay(newTaxWantPay);
   };
   const handleClickPaymentTax = (e) => {
-    navigate('/receipt-tax')
-  }
+    navigate("/receipt-tax");
+  };
   return (
     afterAuthenTaxPayer && (
       <div className="content__list-unpaid-tax">
         <div class="content__grid-list-unpaid-tax-container">
+        <div class="grid-item-header">Mã số thuế</div>
           <div class="grid-item-header">Nội dung khoản nộp NSNN</div>
-          <div class="grid-item-header">Số tiền (VND)</div>
-          <div class="grid-item-header">Số thuế đã nộp tại NH/TT</div>
+          <div class="grid-item-header">Tổng số tiền (VND)</div>
           <div class="grid-item-header">Xem chi tiết</div>
           <div class="grid-item-header">Chọn khoản nộp</div>
-
-          {unpaidTax &&
-            unpaidTax.map((item) => {
-              return (
-                <>
-                  <div class="grid-item">
-                    4944 - Tiền chậm nộp các khoản khác điều tiết 100% ngân sách
-                    địa phương theo quy định của pháp luật do ngành thuế quản lý
-                  </div>
-                  <div class="grid-item">{item.tongThuePhaiNop}</div>
-                  <div class="grid-item">0</div>
-                  <div class="grid-item">
-                    <Button type="link" onClick={showModal}>
-                      Xem
-                    </Button>
-                    <Modal
-                      title={<h3>Chi tiết thuế phải nộp</h3>}
-                      open={isModalOpen}
-                      onOk={handleOk}
-                      onCancel={handleCancel}
-                      width={1400}
-                    >
+          <div className="container__unpaid-tax">
+            {unpaidTax &&
+              unpaidTax.map((item) => {
+                return (
+                  <div>
+                  <div className="content__grid-list-unpaid-tax-container">
+                    <div class="grid-item">0</div>
+                    <div class="grid-item">
+                      4944 - Tiền chậm nộp các khoản khác điều tiết 100% ngân
+                      sách địa phương theo quy định của pháp luật do ngành thuế
+                      quản lý
+                    </div>
+                    <div class="grid-item">{item.tongThuePhaiNop}</div>
+                    <div class="grid-item">
+                      <Button type="link" onClick={showModal}>
+                        Xem
+                      </Button>
+                      <Modal
+                        title={<h3>Chi tiết thuế phải nộp</h3>}
+                        open={isModalOpen}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        width={1400}
+                      >
                         <table class="data-table">
                           <thead>
                             <tr>
@@ -134,18 +132,23 @@ function ListUnpaidTax() {
                             </tr>
                           </tbody>
                         </table>
-                    </Modal>
+                      </Modal>
+                    </div>
+                    <div class="grid-item">
+                      <Checkbox
+                        onChange={() => handelClickTaxWantPay(item)}
+                      ></Checkbox>
+                    </div>
                   </div>
-
-                  <div class="grid-item">
-                    <Checkbox onChange={() => handelClickTaxWantPay(item)}></Checkbox>
                   </div>
-                </>
-              );
-            })}
+                );
+              })}
+          </div>
         </div>
         <div className="content__payment-tax">
-          <Button type="primary" onClick={handleClickPaymentTax}>Thu thuế</Button>
+          <Button type="primary" onClick={handleClickPaymentTax}>
+            Thu thuế
+          </Button>
         </div>
       </div>
     )

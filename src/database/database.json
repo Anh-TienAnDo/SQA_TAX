@@ -44,6 +44,51 @@
       "tongThuePhaiNop": 5000000,
       "tuNgay": "2023-01-01",
       "denNgay": "2023-12-31"
+    },
+    {
+      "id": 2,
+      "tenLoaiToKhai": "thue thu nhap bất động sản",
+      "mst": "123456789",
+      "thuNhapChiuThue": 50000000,
+      "thuNhapDuocMienGiam": 10000000,
+      "khauTruChoBanThan": 9000000,
+      "khauTruNguoiPhuThuoc": 3600000,
+      "khauTruChoTuThien": 2000000,
+      "khauTruChoBaoHiem": 5000000,
+      "cuTru": true,
+      "tongThuePhaiNop": 5000000,
+      "tuNgay": "2023-01-01",
+      "denNgay": "2023-12-31"
+    },
+    {
+      "id": 3,
+      "tenLoaiToKhai": "thue thu nhap bất động sản",
+      "mst": "123456789",
+      "thuNhapChiuThue": 50000000,
+      "thuNhapDuocMienGiam": 10000000,
+      "khauTruChoBanThan": 9000000,
+      "khauTruNguoiPhuThuoc": 3600000,
+      "khauTruChoTuThien": 2000000,
+      "khauTruChoBaoHiem": 5000000,
+      "cuTru": true,
+      "tongThuePhaiNop": 5000000,
+      "tuNgay": "2023-01-01",
+      "denNgay": "2023-12-31"
+    },
+    {
+      "id": 4,
+      "tenLoaiToKhai": "thue thu nhap bất động sản",
+      "mst": "123456789",
+      "thuNhapChiuThue": 50000000,
+      "thuNhapDuocMienGiam": 10000000,
+      "khauTruChoBanThan": 9000000,
+      "khauTruNguoiPhuThuoc": 3600000,
+      "khauTruChoTuThien": 2000000,
+      "khauTruChoBaoHiem": 5000000,
+      "cuTru": true,
+      "tongThuePhaiNop": 5000000,
+      "tuNgay": "2023-01-01",
+      "denNgay": "2023-12-31"
     }
   ]
 }

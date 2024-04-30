@@ -3,38 +3,38 @@ import ReceiptTax from "../pages/Receipt";
 import TaxPay from "../pages/TaxPay";
 import TaxPayerInfor from "../components/TaxPayerInfor";
 import UnpaidTax from "../components/UnpaidTax";
-import DangKyMST from '../components/Index'
 import LoaiToKhai from "../pages/LoaiToKhai";
+import DangKyMST from "../pages/DangKyMaSoThue";
 export const routes = [
   {
     path: '/',
     element: <LayoutDefault />,
     children: [
       {
-        path: '/receipt-tax',
+        path: 'receipt-tax',
         element: <ReceiptTax /> 
       },
       {
-        path: '/tax-pay',
+        path: '/thu-thue',
         element: <TaxPay />,
         children: [
           {
-            path: 'tax-payer-infor',
+            path: 'thong-tin-nguoi-dong-thue',
             element: <TaxPayerInfor/>
           },
           {
-            path: 'unpaid-tax',
+            path: 'thue-chua-dong',
             element: <UnpaidTax/>
           },
           
         ]
       },
       {
-        path: '/ke-khai-thue',
+        path: 'ke-khai-thue',
         element: <LoaiToKhai />
       },
       {
-        path: '/register-tax-code',
+        path: '/dang-ky-ma-so-thue',
         element: <DangKyMST />
       }
     ]

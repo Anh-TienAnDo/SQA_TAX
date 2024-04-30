@@ -49,9 +49,8 @@ function TaxPayerInfor() {
  
   const handleClickInforAuthen = () => {
     setAfterAuthenTaxPayer(true);
-    navigate("/tax-pay");
+    navigate("/thu-thue");
   };
-  console.log(taxPayer)
   return (
     <>
       <div className="content">
