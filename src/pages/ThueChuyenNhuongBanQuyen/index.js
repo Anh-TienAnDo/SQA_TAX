@@ -16,7 +16,7 @@ function ThueChuyenNhuongBanQuyen () {
         }
     ]
     const handleFinish = async (values) => {
-        let path = `api/tk-thue-chuyen-nhuong-ban-quyen/submit`;
+        let path = `api/to-khai-thue-chuyen-nhuong-ban-quyen/submit`;
         values.tuNgay = getDate(values.date[0].$d);
         values.denNgay = getDate(values.date[1].$d);
         values.date = undefined;
@@ -39,8 +39,8 @@ function ThueChuyenNhuongBanQuyen () {
 
     const handelGetInforTaxPayer = async (e) => {
         const fetch = async () => {
-            const res = await getTaxPayer(`tax-payer?mst=${e.target.value}`);
-            setTaxPayer(res[0]);
+            const res = await getTaxPayer(`api/v1/tax-payer/getByMaSoThue?mst=${e.target.value}`);
+            setTaxPayer(res);
             console.log(res);
         };
         fetch();
@@ -58,10 +58,10 @@ function ThueChuyenNhuongBanQuyen () {
                                             validator: async (_, value) => {
                                                 if (value) {
                                                     const res = await getTaxPayer(
-                                                        `tax-payer?mst=${value}`
+                                                        `api/v1/tax-payer/getByMaSoThue?mst=${value}`
                                                     );
-                                                    if (res?.length > 0) {
-                                                        setTaxPayer(res[0]);
+                                                    setTaxPayer(res);
+                                                    if (res) {
                                                         return Promise.resolve();
                                                     } else {
                                                         return Promise.reject("Không tồn tại");

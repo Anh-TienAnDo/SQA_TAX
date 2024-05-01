@@ -37,8 +37,9 @@ function ListUnpaidTax() {
           const data = search.type.map(async (item) => {
             // Sử dụng `await` trong một arrow function đồng bộ
             const res = await getUnpaidTax(
-              `unpaid-tax?tenLoaiToKhai=${encodeURIComponent(item)}`
+              `api/v1/chi-tiet-thue/getAll`
             );
+            console.log(res);
             return res;
           });
 

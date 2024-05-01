@@ -18,7 +18,7 @@ export const getTaxPayer = async (option) => {
     return data;
   } catch (err) {
     console.log(err);
-    return [];
+    return null;
   }
 };
 

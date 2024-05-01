@@ -251,7 +251,7 @@ const DangKyMST = () => {
                 });
 
                 const responseData = await response.json();
-
+                console.log(responseData)
                 // Xử lý phản hồi từ máy chủ nếu cần
                 if (response.ok) {
                     setHoTen('');

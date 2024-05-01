@@ -70,7 +70,6 @@ function TaxPay() {
       let newTaxPayer = allTaxPayer.find(
         (item) => item["mst"] === taxNumberRef.current.value
       );
-      console.log(newTaxPayer);
       if (newTaxPayer) {
         navigate("/thu-thue/thong-tin-nguoi-dong-thue");
       } else {
@@ -114,7 +113,9 @@ function TaxPay() {
       type: value ,
     });
     if (afterAuthenTaxPayer) {
-      navigate("/thu-thue/thue-chua-dong");
+      navigate("/thu-thue/thue-chua-dong",{
+        taxPayer: taxPayer
+      });
     } else {
       alert(
         "Vui lòng xác thực thông tin người đóng thuế trước khi tra cứu thông tin khoản nộp"
