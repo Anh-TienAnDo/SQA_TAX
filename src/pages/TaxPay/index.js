@@ -48,7 +48,7 @@ function TaxPay() {
   // category_Tax
   useEffect(() => {
     const get = async () => {
-      const data = await getAllCategoryTax("api/v1/tax-type/getAll");
+      const data = await getAllCategoryTax("api/v1/loai-thue/getAll");
       // const data = []
       const newCategoryTax = data.map((item) => ({
         value: item.name,

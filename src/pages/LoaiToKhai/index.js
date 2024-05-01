@@ -1,45 +1,33 @@
 import { Card, Select } from "antd"
 import ThueTienLuongCong from "../ThueTienLuongCong"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThueChuyenNhuongBDS from "../ThueChuyenNhuongBDS";
 import ThueTrungThuong from "../ThueTrungThuong";
 import ThueChuyenNhuongBanQuyen from "../ThueChuyenNhuongBanQuyen";
 import ThueDauTuVon from "../ThueDauTuVon";
 import ThueNhuongQuyenThuongMai from "../ThueNhuongQuyenThuongMai";
 import ThueQuaTang from "../ThueQuaTang";
+import { getAllLoaiThue } from "../../services/loaiThueService";
 
 function LoaiToKhai() {
     const [loaiToKhai, setLoaiToKhai] = useState();
-    const options = [
-        {
-            label: "Tờ khai thuế thu nhập cá nhân theo tiền lương công",
-            value: 1
-        },
-        {
-            label: "Tờ khai thuế thu nhập từ chuyển nhượng bất động sản",
-            value: 2
-        },
-        {
-            label: "Tờ khai thuế thu nhập từ trúng thưởng",
-            value: 3
-        },
-        {
-            label: "Tờ khai thuế thu nhập từ bản quyền",
-            value: 4
-        },
-        {
-            label: "Tờ khai thuế thu nhập từ nhượng quyền thương mại",
-            value: 5
-        },
-        {
-            label: "Tờ khai thuế thu nhập khi đầu tư vốn",
-            value: 6
-        },
-        {
-            label: "Tờ khai thuế thu nhập từ nhận quà tặng",
-            value: 7
-        },
-    ]
+    const [danhSachLoaiToKhai, setDanhSachLoaiToKhai] = useState();
+    useEffect(() => {
+        const fetch = async () => {
+            const res = await getAllLoaiThue('api/v1/loai-thue/getAll')
+            setDanhSachLoaiToKhai(res)
+        }
+        fetch()
+    },[])
+    
+    const options = danhSachLoaiToKhai?.map( (item) => {
+        const data = {
+            label: "Tờ khai " + item.name.toLowerCase(),
+            value: item.id
+        }
+        return data
+    })
+
     const handleChange = (value) => {
         setLoaiToKhai(value)
     }
@@ -55,19 +43,19 @@ function LoaiToKhai() {
                 <ThueChuyenNhuongBDS />
             )}
             {loaiToKhai === 3 && (
-                <ThueTrungThuong />
+                <ThueDauTuVon />
             )}
             {loaiToKhai === 4 && (
-                <ThueChuyenNhuongBanQuyen />
+                <ThueQuaTang />
             )}
             {loaiToKhai === 5 && (
                 <ThueNhuongQuyenThuongMai />
             )}
             {loaiToKhai === 6 && (
-                <ThueDauTuVon />
+                <ThueTrungThuong />
             )}
             {loaiToKhai === 7 && (
-                <ThueQuaTang />
+                <ThueChuyenNhuongBanQuyen />
             )}
         </>
     )
