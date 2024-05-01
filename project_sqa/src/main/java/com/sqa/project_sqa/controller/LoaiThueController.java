@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/tax-type")
+@RequestMapping("/api/v1/loai-thue")
 public class LoaiThueController {
 
     @Autowired

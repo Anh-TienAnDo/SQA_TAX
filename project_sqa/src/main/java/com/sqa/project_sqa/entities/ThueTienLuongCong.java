@@ -2,6 +2,7 @@
     package com.sqa.project_sqa.entities;
 
     import com.fasterxml.jackson.annotation.JsonBackReference;
+    import com.fasterxml.jackson.annotation.JsonIgnore;
     import lombok.AllArgsConstructor;
     import lombok.Getter;
     import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@
         private String mst;
         @ManyToOne
         @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
+        @JsonIgnore
         private NguoiDongThue nguoiDongThue;
 //        @Min(value = 0, message = "Giá trị không hợp lệ")
         @Column(name = "thu_nhap_chiu_thue")

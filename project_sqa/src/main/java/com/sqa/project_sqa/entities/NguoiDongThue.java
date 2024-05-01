@@ -69,29 +69,37 @@ public class NguoiDongThue implements Serializable {
     private List<ChiTietThue> chiTietThueList;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<HoaDon> hoaDonList;
 
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList;
 
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueChuyenNhuongBDS> thueChuyenNhuongBDSList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueDauTuVon> thueDauTuVonList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueNhuongQuyenThuongMai> thueNhuongQuyenThuongMaiList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueQuaTang> thueQuaTangList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueTienLuongCong> thueTienLuongCongList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
+    @JsonManagedReference
     private List<ThueTrungThuong> thueTrungThuongList;
 }
 

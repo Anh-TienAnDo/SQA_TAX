@@ -1,6 +1,7 @@
 package com.sqa.project_sqa.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class ThueChuyenNhuongBDS {
     private String mst;
     @ManyToOne
     @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
+    @JsonIgnore
     private NguoiDongThue nguoiDongThue;
     @Column(name = "dia_chi")
     private String diaChi;
