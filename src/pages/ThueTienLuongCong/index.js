@@ -19,7 +19,7 @@ import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueLuongCong } from "../../services/thueLuongCongService";
 const { RangePicker } = DatePicker;
 
-function ThueTienLuongCong() {
+function ThueTienLuongCong({loai_thue_id}) {
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -31,10 +31,11 @@ function ThueTienLuongCong() {
     },
   ];
   const handleFinish = async (values) => {
-    let path = `api/to-khai-thue-tien-luong-cong/submit`;
-    values.tuNgay = getDate(values.date[0].$d);
-    values.denNgay = getDate(values.date[1].$d);
+    let path = `api/v1/to-khai-thue-tien-luong-cong/submit`;
+    values.thuNhapTuNgay = getDate(values.date[0].$d);
+    values.thuNhapDenNgay = getDate(values.date[1].$d);
     values.date = undefined;
+    values.loaiThueId = loai_thue_id
     const res = await saveKeKhaiThueLuongCong(values, path);
     if (!res.message) {
       setLoading(false);

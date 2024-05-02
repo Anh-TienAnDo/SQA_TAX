@@ -12,7 +12,7 @@
 .content__grid-list-unpaid-tax-container {
   width: 1300px;
   display: grid;
-  grid-template-columns: 17% 39% 17%  10% 12%; /* Phân chia độ rộng của mỗi cột */
+  grid-template-columns: 45% 22%  13% 14%; /* Phân chia độ rộng của mỗi cột */
   background-color: #fff; /* Màu nền cho container, đặt màu trắng hoặc màu khác tùy ý */
 }
 

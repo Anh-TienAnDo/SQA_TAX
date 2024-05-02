@@ -37,25 +37,25 @@ function LoaiToKhai() {
                 <Select options={options} placeholder="-- Chọn loại tờ khai --" onChange={handleChange} style={{ width: "100%" }} />
             </Card>
             {loaiToKhai === 1 && (
-                <ThueTienLuongCong />
+                <ThueTienLuongCong loai_thue_id={1}/>
             )}
             {loaiToKhai === 2 && (
-                <ThueChuyenNhuongBDS />
+                <ThueChuyenNhuongBDS loai_thue_id={2}/>
             )}
             {loaiToKhai === 3 && (
-                <ThueDauTuVon />
+                <ThueDauTuVon loai_thue_id={3}/>
             )}
             {loaiToKhai === 4 && (
-                <ThueQuaTang />
+                <ThueQuaTang loai_thue_id={4}/>
             )}
             {loaiToKhai === 5 && (
-                <ThueNhuongQuyenThuongMai />
+                <ThueNhuongQuyenThuongMai loai_thue_id={5}/>
             )}
             {loaiToKhai === 6 && (
-                <ThueTrungThuong />
+                <ThueTrungThuong loai_thue_id={6}/>
             )}
             {loaiToKhai === 7 && (
-                <ThueChuyenNhuongBanQuyen />
+                <ThueChuyenNhuongBanQuyen loai_thue_id={7}/>
             )}
         </>
     )

@@ -34,20 +34,20 @@ function ListUnpaidTax() {
     const get = async () => {
       try {
         if (search) {
+          console.log(search.type)
           const data = search.type.map(async (item) => {
             // Sử dụng `await` trong một arrow function đồng bộ
             const res = await getUnpaidTax(
-              `api/v1/chi-tiet-thue/getAll`
+              `api/v1/to-khai-${item}/getAll`
             );
-            console.log(res);
             return res;
           });
-
+          
           Promise.all(data).then((result) => {
             if (result === undefined) {
               console.log("getUnpaidTax Error");
             } else {
-              setUnpaidTax(result);
+              setUnpaidTax(result.flat());
             }
           });
         }
@@ -72,7 +72,6 @@ function ListUnpaidTax() {
     afterAuthenTaxPayer && (
       <div className="content__list-unpaid-tax">
         <div class="content__grid-list-unpaid-tax-container">
-        <div class="grid-item-header">Mã số thuế</div>
           <div class="grid-item-header">Nội dung khoản nộp NSNN</div>
           <div class="grid-item-header">Tổng số tiền (VND)</div>
           <div class="grid-item-header">Xem chi tiết</div>
@@ -83,11 +82,8 @@ function ListUnpaidTax() {
                 return (
                   <div>
                   <div className="content__grid-list-unpaid-tax-container">
-                    <div class="grid-item">0</div>
                     <div class="grid-item">
-                      4944 - Tiền chậm nộp các khoản khác điều tiết 100% ngân
-                      sách địa phương theo quy định của pháp luật do ngành thuế
-                      quản lý
+                      {item.noiDung}
                     </div>
                     <div class="grid-item">{item.tongThuePhaiNop}</div>
                     <div class="grid-item">
@@ -104,7 +100,6 @@ function ListUnpaidTax() {
                         <table class="data-table">
                           <thead>
                             <tr>
-                              <th>Mã số thuế</th>
                               <th>Thu Nhập Chịu Thuế</th>
                               <th>Thu Nhập Được Miễn Giảm</th>
                               <th>Khấu Trừ Cho Bản Thân</th>
