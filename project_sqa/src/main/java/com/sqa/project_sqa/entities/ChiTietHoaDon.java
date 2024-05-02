@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,17 @@ public class ChiTietHoaDon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chi_tiet_thue_id")
-    private ChiTietThue chiTietThue;
-
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "hoa_don_id")
     private HoaDon hoaDon;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "loai_thue_id")
+    private LoaiThue loaiThue;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private HoaDonQuaHan hoaDonQuaHan;
+    private Integer thue_qua_han_id;
 
 }

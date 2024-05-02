@@ -1,6 +1,7 @@
 package com.sqa.project_sqa.service.serviceImpl;
 
 import com.sqa.project_sqa.entities.ThueChuyenNhuongBDS;
+import com.sqa.project_sqa.entities.ThueChuyenNhuongBanQuyen;
 import com.sqa.project_sqa.repositories.ThueChuyenNhuongBanQuyenRepo;
 import com.sqa.project_sqa.repositories.ThueChuyenNhuongBatDongSanRepo;
 import com.sqa.project_sqa.service.ThueChuyenNhuongBatDongSanService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 public class ThueChuyenNhuongBDSServiceImpl implements ThueChuyenNhuongBatDongSanService {
@@ -29,5 +31,10 @@ public class ThueChuyenNhuongBDSServiceImpl implements ThueChuyenNhuongBatDongSa
             tax = BigDecimal.ZERO;
         }
         return tax.setScale(0, RoundingMode.HALF_UP).toString();
+    }
+
+    @Override
+    public List<ThueChuyenNhuongBDS> getAll() {
+        return thueChuyenNhuongBatDongSanRepo.findAll();
     }
 }

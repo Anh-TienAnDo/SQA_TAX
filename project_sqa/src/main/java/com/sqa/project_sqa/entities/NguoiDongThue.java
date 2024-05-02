@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -64,42 +65,38 @@ public class NguoiDongThue implements Serializable {
 
     private String taxAgency;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
-    private List<ChiTietThue> chiTietThueList;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<HoaDon> hoaDonList;
 
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList;
 
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueChuyenNhuongBDS> thueChuyenNhuongBDSList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueDauTuVon> thueDauTuVonList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueNhuongQuyenThuongMai> thueNhuongQuyenThuongMaiList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueQuaTang> thueQuaTangList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueTienLuongCong> thueTienLuongCongList;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ThueTrungThuong> thueTrungThuongList;
 }
 

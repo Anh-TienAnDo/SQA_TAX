@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class HoaDon {
     private List<ChiTietHoaDon> chiTietHoaDonList;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonBackReference
     @JoinColumn(name = "nguoi_dong_thue_id")
     private NguoiDongThue nguoiDongThue;
 

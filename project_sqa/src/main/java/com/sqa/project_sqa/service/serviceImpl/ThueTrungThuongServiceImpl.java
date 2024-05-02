@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 
@@ -30,5 +31,10 @@ public class ThueTrungThuongServiceImpl implements ThueTrungThuongService {
             tax = BigDecimal.ZERO;
         }
         return tax.setScale(0, RoundingMode.HALF_UP).toString();
+    }
+
+    @Override
+    public List<ThueTrungThuong> getAll() {
+        return thueTrungThuongRepo.findAll();
     }
 }

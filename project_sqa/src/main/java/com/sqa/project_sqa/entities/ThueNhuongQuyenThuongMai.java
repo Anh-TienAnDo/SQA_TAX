@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Entity
 //@Table(name = "ThueNhuongQuyenThuongMai")
 public class ThueNhuongQuyenThuongMai {
+    @Transient
+    private Integer loaiThueId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,6 +19,10 @@ public class ThueNhuongQuyenThuongMai {
 
     @Column(name = "noi_dung")
     private String noiDung;
+
+    @Column(name = "trang_thai_da_dong")
+    private boolean trangThaiDaDong=false;
+
     @ManyToOne
     @JoinColumn(name = "mst", referencedColumnName = "mst", insertable = false, updatable = false)
     @JsonIgnore
@@ -30,15 +36,21 @@ public class ThueNhuongQuyenThuongMai {
     @Column(name = "tong_thue_phai_nop")
     private long tongThuePhaiNop;
 
-    @Column(name = "tu_ngay")
-    private LocalDate tuNgay;
+    @Column(name = "thu_nhap_tu_ngay")
+    private LocalDate thuNhapTuNgay;
 
-    @Column(name = "den_ngay")
-    private LocalDate denNgay;
+    @Column(name = "thu_nhap_den_ngay")
+    private LocalDate thuNhapDenNgay;
+
+    @Column(name = "han_nop_tu_ngay")
+    private LocalDate hanNopTuNgay;
+
+    @Column(name = "han_nop_den_ngay")
+    private LocalDate hanNopDenNgay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loai_thue_id")
-    @JsonBackReference
+    @JsonIgnore
     private LoaiThue loaiThue;
 
 }

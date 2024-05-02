@@ -1,9 +1,12 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.entities.LoaiThue;
 import com.sqa.project_sqa.entities.ThueTienLuongCong;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
+import com.sqa.project_sqa.service.LoaiThueService;
 import com.sqa.project_sqa.service.ThueTienLuongCongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,7 @@ import java.util.Map;
 
 @Service
 @Controller
-@RequestMapping("/api/to-khai-thue-tien-luong-cong")
+@RequestMapping("/api/v1/to-khai-thue-tien-luong-cong")
 
 public class ThueTienLuongCongController {
 
@@ -27,6 +30,8 @@ public class ThueTienLuongCongController {
     @Autowired
     private NguoiDongThueRepository nguoiDongThueRepository;
 
+    @Autowired
+    private LoaiThueService loaiThueService;
 
     // xử lí lưu thông tin tờ khai lương công
     @PostMapping("/submit")
@@ -38,6 +43,12 @@ public class ThueTienLuongCongController {
                 errorMessage.append(error.getDefaultMessage()).append("; ");
             }
             return ResponseEntity.badRequest().body("lỗi");
+        }
+
+        if (thueTienLuongCong.getLoaiThueId() != null) {
+            LoaiThue loaiThue = loaiThueService.getById(thueTienLuongCong.getLoaiThueId())
+                    .orElseThrow(() -> new RuntimeException("Loại thuế không tồn tại!"));
+            thueTienLuongCong.setLoaiThue(loaiThue);
         }
 
         String mst = thueTienLuongCong.getMst();
@@ -66,6 +77,16 @@ public class ThueTienLuongCongController {
             Map<String, String> obj = new HashMap<>();
             obj.put("message", "MST không tồn tại");
             return ResponseEntity.badRequest().body(obj);
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAll(){
+        try{
+            return new ResponseEntity<>(thueTienLuongCongService.getAll(), HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Something get all thue tien luong cong wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

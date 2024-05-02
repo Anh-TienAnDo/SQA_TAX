@@ -56,4 +56,9 @@ public class LoaiThue implements Serializable {
     @JsonManagedReference
     private List<ThueTrungThuong> thueTrungThuongList;
 
+    @OneToMany(mappedBy = "loaiThue",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<HoaDonQuaHan> hoaDonQuaHanList;
+
+    @OneToMany(mappedBy = "loaiThue",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<ChiTietHoaDon> chiTietHoaDonList;
 }

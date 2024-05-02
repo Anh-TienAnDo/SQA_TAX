@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,8 +23,13 @@ public class HoaDonQuaHan {
     private int soNgayQuaHan;
 
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "chi_tiet_thue_id")
-    private ChiTietThue chiTietThue;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "loai_thue_id")
+    private LoaiThue loaiThue;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "hoaDonQuaHan")
+    private ChiTietHoaDon chiTietHoaDon;
+    private Integer thue_qua_han_id;
 
 }

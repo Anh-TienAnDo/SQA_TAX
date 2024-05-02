@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.service;
 
+import com.sqa.project_sqa.entities.ThueChuyenNhuongBanQuyen;
 import com.sqa.project_sqa.entities.ThueTienLuongCong;
 
 import java.math.BigDecimal;
@@ -19,4 +20,5 @@ public interface ThueTienLuongCongService {
     // Khoản giảm trừ
     String Deductible(BigDecimal taxable_income, int dependent_person, BigDecimal benevolent);
     String Deductible(BigDecimal taxable_income, BigDecimal dependent_person, BigDecimal benevolent);
+
 }
