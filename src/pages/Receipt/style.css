@@ -6,6 +6,7 @@
   margin: 15px
 
 }
+
 .header__center{
   display: flex;
   flex-direction: column;
@@ -55,5 +56,19 @@
 }
 
 .content__two-list-tax{
-  margin-left: 100px;
+  margin-left: 20px;
+}
+
+table {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  width: 500px;
+}
+table,th,td{
+ border: 1px solid;
+ border-collapse: collapse;
+}
+
+th, td{
+  text-align: center;
 }

@@ -5,21 +5,36 @@ import TaxWantPay from "../../context/taxWantPay";
 import TaxPayer from "../../context/taxPayer";
 import UnpaidTax from "../../context/unpaidTax";
 import { readVietnameseNumber } from "../../utils/readNumber";
+import { useLocation } from "react-router-dom";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function ReceiptTax() {
-  const {taxWantPay,setTaxWantPay} = useContext(TaxWantPay)
+  const location = useLocation()
+  const {taxWantPay} = location.state
   const { taxPayer, setTaxPayer } = useContext(TaxPayer);
   const { unpaidTax, setUnpaidTax } = useContext(UnpaidTax);
+
+  var date = new Date();
+
+  // Lấy ngày
+  var day = date.getDate();
+
+  // Lấy tháng (lưu ý rằng tháng trong JavaScript được đánh số từ 0 đến 11)
+  var month = date.getMonth() + 1; // Cộng thêm 1 vì tháng được đánh số từ 0
+
+  // Lấy năm
+  var year = date.getFullYear();
+
   let tongTienCuoiCungPhaiNop = 0;
-  if(taxWantPay?.length > 0) {
-    taxWantPay.forEach( (item) => {
-       tongTienCuoiCungPhaiNop += item.tongThuePhaiNop 
-    })
+  if (taxWantPay?.length > 0) {
+    taxWantPay.forEach((item) => {
+      tongTienCuoiCungPhaiNop += item.tongThuePhaiNop;
+    });
   }
+
   return (
     <>
       <div className="container">
@@ -30,7 +45,7 @@ function ReceiptTax() {
               <p>TỔNG CỤC THUẾ </p>
               <p>----------</p>
               <p>Cơ quan thu:</p>
-              <p>??????</p>
+              <p>Sở thuế nhà nước</p>
             </div>
           </Col>
           <Col span={12}>
@@ -38,7 +53,7 @@ function ReceiptTax() {
               <p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
               <p>Độc lập - Tự do - Hạnh phúc</p>
               <p> ----------------- </p>
-              <p>BIÊN LAI THU THUẾ THU NHẬP CÁ NHÂN</p>
+              <p style={{ fontSize: "larger" }}>BIÊN LAI THU THUẾ</p>
             </div>
           </Col>
           <Col span={6}>
@@ -69,7 +84,11 @@ function ReceiptTax() {
             <div className="content__one">
               <p>Người nộp thuế: {taxPayer.hoVaTen}</p>
               <p>Mã số thuế: {taxPayer.mst}</p>
-              <p>Địa chỉ: {taxPayer.dchk_soNhaDuongXom} - {taxPayer.dchk_xaPhuong} - {taxPayer.dchk_QuanHuyen} - {taxPayer.dchk_tinhThanhPho}</p>
+              <p>
+                Địa chỉ: {taxPayer.dchk_soNhaDuongXom} -{" "}
+                {taxPayer.dchk_xaPhuong} - {taxPayer.dchk_QuanHuyen} -{" "}
+                {taxPayer.dchk_tinhThanhPho}
+              </p>
             </div>
           </Col>
         </Row>
@@ -78,24 +97,37 @@ function ReceiptTax() {
             <div className="content__two">
               <p>Danh sách thuế muốn nộp: </p>
               <div className="content__two-list-tax">
-                {taxWantPay && (
-                  taxWantPay.map( (item) => {
-                    return (
-                      <>
-                        <div className="tax-item">
-                          <p>{item.noiDung}</p>
-                          <p>Thu nhập từ ngày: {item.thuNhapTuNgay}</p>
-                          <p>Thu nhập từ ngày: {item.thuNhapDenNgay}</p>  
-                          <p>Tổng tiền: {item.tongThuePhaiNop}</p>
-                        </div>
-                      </>
-                    )
-                  })
+                {taxWantPay?.length>0 && (
+                  <table className="table__list-tax">
+                    <thead style={{width: 500}}>
+                      <th>Nội dung</th>
+                      <th>Tổng tiền</th>
+                    </thead>
+                    <tbody>
+                      {taxWantPay.map((item) => {
+                        return (
+                          <>
+                            <tr>
+                              <td>Thuế bất động sản</td>
+                              <td>{item.tongThuePhaiNop}</td>
+                            </tr>
+                          </>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 )}
               </div>
-              <p>Thuế thu nhập cá nhân :???????????</p>
-              <p>Tổng số tiền thuế phải nộp:</p>
-              <p>Số tiền bằng chữ phải nộp: { capitalizeFirstLetter(readVietnameseNumber(tongTienCuoiCungPhaiNop))}</p>
+              <p>
+                Tổng số tiền thuế phải nộp:{" "}
+                {tongTienCuoiCungPhaiNop.toLocaleString("de-DE")} đồng
+              </p>
+              <p>
+                Số tiền bằng chữ phải nộp:{" "}
+                {capitalizeFirstLetter(
+                  readVietnameseNumber(tongTienCuoiCungPhaiNop)
+                )}
+              </p>
             </div>
           </Col>
         </Row>
@@ -109,9 +141,11 @@ function ReceiptTax() {
             </div>
           </Col>
 
-          <Col span={8} offset={4}>
+          <Col span={8} offset={4} style={{ textAlign: "center" }}>
             <div className="footer__right">
-              <p>ngày ? tháng ? năm ?</p>
+              <p>
+                Ngày {day} tháng {month} năm {year}
+              </p>
               <p>NGƯỜI NỘP THUẾ </p>
               <p> (Kí, ghi rõ họ, tên) </p>
             </div>

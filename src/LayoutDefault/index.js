@@ -18,6 +18,9 @@ function LayoutDefault() {
   
   useEffect( ( ) => {
     switch (location.pathname) {
+      case '/':
+        setPageTitle('Trang chủ')
+        break
       case '/receipt':
         setPageTitle('Hóa đơn thuế thu nhập cá nhân')
         break

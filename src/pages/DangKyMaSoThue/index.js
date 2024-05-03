@@ -320,7 +320,7 @@ const DangKyMST = () => {
 
     return (
         <div>
-            <h2>Đăng Ký Mã Số Thuế</h2>
+            <h2 style={{marginLeft: 50}}>Đăng Ký Mã Số Thuế</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Họ và tên:</label>

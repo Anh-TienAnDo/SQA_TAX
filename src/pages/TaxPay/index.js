@@ -38,9 +38,8 @@ function removeVietnameseAccents(str) {
     .replace(/Đ/g, "D");
 }
 function replaceSpacesWithDashes(str) {
-  return str.replace(/\s+/g, '-');
+  return str.replace(/\s+/g, "-");
 }
-
 
 function TaxPay() {
   const navigate = useNavigate();
@@ -53,14 +52,15 @@ function TaxPay() {
   const taxNumberRef = useRef();
   const CCCDNumberRef = useRef();
   const searchPaymentInformationRef = useRef();
-
+  const [isNumberTaxCode, setIsNumberTaxCode] = useState(true);
+  const [isNumberCCCD, setIsNumberCCCD] = useState(true);
   // get all taxpayer
   useEffect(() => {
     const get = async () => {
       try {
         const newAllTaxPayer = await getAllTaxPayer("api/v1/tax-payer/getAll");
         setAllTaxPayer(newAllTaxPayer);
-        console.log(newAllTaxPayer)
+        console.log(newAllTaxPayer);
       } catch (error) {
         console.error("An error occurred while fetching tax payers:", error);
       }
@@ -74,7 +74,9 @@ function TaxPay() {
       const data = await getAllCategoryTax("api/v1/loai-thue/getAll");
       // const data = []
       const newCategoryTax = data.map((item) => ({
-        value: replaceSpacesWithDashes(removeVietnameseAccents(item.name.toLowerCase())),
+        value: replaceSpacesWithDashes(
+          removeVietnameseAccents(item.name.toLowerCase())
+        ),
         label: item.name,
         id: item.id,
       }));
@@ -83,22 +85,26 @@ function TaxPay() {
     get();
   }, []);
 
-
   const handelTaxCodeSearched = async (e) => {
     if (Array.isArray(allTaxPayer)) {
-      setSearch({
-        type: "mst",
-        data: taxNumberRef.current.value,
-      });
-      let newTaxPayer = allTaxPayer.find(
-        (item) => item["mst"] === taxNumberRef.current.value
-      );
-      if (newTaxPayer) {
-        navigate("/thu-thue/thong-tin-nguoi-dong-thue");
-      } else {
-        alert(
-          "Mã số thuế cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
+      const numberTaxCode = taxNumberRef.current.value.toString();
+      if (numberTaxCode.length >= 12) {
+        setSearch({
+          type: "mst",
+          data: taxNumberRef.current.value,
+        });
+        let newTaxPayer = allTaxPayer.find(
+          (item) => item["mst"] === taxNumberRef.current.value
         );
+        if (newTaxPayer) {
+          navigate("/thu-thue/thong-tin-nguoi-dong-thue");
+        } else {
+          alert(
+            "Mã số thuế cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
+          );
+        }
+      } else {
+        setIsNumberTaxCode(false);
       }
     }
   };
@@ -136,8 +142,8 @@ function TaxPay() {
       type: value,
     });
     if (afterAuthenTaxPayer) {
-      navigate("/thu-thue/thue-chua-dong",{
-        taxPayer: taxPayer
+      navigate("/thu-thue/thue-chua-dong", {
+        taxPayer: taxPayer,
       });
     } else {
       alert(
@@ -200,14 +206,21 @@ function TaxPay() {
               <div className="header__tax-title">Tra cứu mã số thuế:</div>
               <div className="header__tax-number">
                 <InputNumber
+                  style={{ width: 200 }}
                   ref={taxNumberRef}
-                  min={10000000}
-                  max={99999999999999}
+                  onPressEnter={handelTaxCodeSearched}
                 />
+                {!isNumberTaxCode && (
+                  <p style={{color: "red"}}>Phải đủ 12 chữ số và không chứa ký tự</p>
+                )}
               </div>
 
               <div className="header__search">
-                <Button type="primary" onClick={handelTaxCodeSearched}>
+                <Button
+                  style={{ margin: 0 }}
+                  type="primary"
+                  onClick={handelTaxCodeSearched}
+                >
                   Tra cứu
                 </Button>
               </div>
@@ -218,13 +231,17 @@ function TaxPay() {
               </div>
               <div className="header__cccd-number">
                 <InputNumber
+                  style={{ width: 200 }}
                   ref={CCCDNumberRef}
-                  min={100000000000}
-                  max={999999999999}
+                  onPressEnter={handleCCCDSearched}
                 />
               </div>
               <div className="header__search">
-                <Button type="primary" onClick={handleCCCDSearched}>
+                <Button
+                  style={{ margin: 0 }}
+                  type="primary"
+                  onClick={handleCCCDSearched}
+                >
                   Tra cứu
                 </Button>
               </div>

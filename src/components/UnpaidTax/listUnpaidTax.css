@@ -51,7 +51,9 @@
 
 .container{
   max-width: none;
-  width: 1400px;
+  width: 1360px;
+  margin-left: 23px;
+  margin-bottom: 20px;
 }
 
 .data-table {

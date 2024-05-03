@@ -14,9 +14,10 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(<Link to="/thu-thue">Thu thuế</Link>, "sub1", <AccountBookOutlined />, ),
+  getItem(<Link to="/">Trang chủ</Link>, "sub1", <AccountBookOutlined />, ),
   getItem(<Link to="/dang-ky-ma-so-thue">Đăng ký mã số thuế</Link>, "sub2", <AccountBookOutlined />, ),
   getItem(<Link to="/ke-khai-thue">Kê khai thuế</Link>, "sub3", <AccountBookOutlined />, ),
+  getItem(<Link to="/thu-thue">Thu thuế</Link>, "sub4", <AccountBookOutlined />, ),
 ];
 
 function MenuSider() {
