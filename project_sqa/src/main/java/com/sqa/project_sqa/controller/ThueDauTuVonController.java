@@ -1,7 +1,6 @@
 package com.sqa.project_sqa.controller;
 
 import com.sqa.project_sqa.entities.LoaiThue;
-import com.sqa.project_sqa.entities.thueDauTuVon;
 import com.sqa.project_sqa.entities.ThueDauTuVon;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;

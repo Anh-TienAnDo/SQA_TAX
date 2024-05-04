@@ -51,7 +51,7 @@ public class ThueChuyenNhuongBDSController {
         }
 
         String mst = thueChuyenNhuongBDS.getMst();
-        if (thueChuyenNhuongBDS.getThuNhapChiuThue() < 0) {
+        if (thueChuyenNhuongBDS.getGiaTriChuyenNhuong() < 0) {
             return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
         }
 
