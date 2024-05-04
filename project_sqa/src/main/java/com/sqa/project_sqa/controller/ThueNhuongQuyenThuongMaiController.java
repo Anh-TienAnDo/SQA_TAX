@@ -50,6 +50,9 @@ public class ThueNhuongQuyenThuongMaiController {
         }
 
         String mst = thueNhuongQuyenThuongMai.getMst();
+        if (thueNhuongQuyenThuongMai.getThuNhapChiuThue() < 0) {
+            return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
+        }
         if(nguoiDongThueRepository.existsByMst(mst)) {
             String thuNhapChiuThue = String.valueOf(thueNhuongQuyenThuongMai.getThuNhapChiuThue());
             String tongThuePhaiNop = thueNhuongQuyenThuongMaiService.Tax_ecommerce(new BigDecimal(thuNhapChiuThue));

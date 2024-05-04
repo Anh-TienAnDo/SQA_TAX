@@ -2,11 +2,15 @@ package com.sqa.project_sqa.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 @Data
 @Entity
+@Getter
+@Setter
 //@Table(name = "ThueDauTuVon")
 public class ThueDauTuVon {
     @Transient
@@ -47,7 +51,7 @@ public class ThueDauTuVon {
     @Column(name = "han_nop_den_ngay")
     private LocalDate hanNopDenNgay;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loai_thue_id")
     @JsonIgnore
     private LoaiThue loaiThue;

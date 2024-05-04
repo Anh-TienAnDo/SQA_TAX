@@ -1,6 +1,7 @@
 package com.sqa.project_sqa.controller;
 
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.thueDauTuVon;
 import com.sqa.project_sqa.entities.ThueDauTuVon;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -50,6 +52,9 @@ public class ThueDauTuVonController {
         }
 
         String mst = thueDauTuVon.getMst();
+        if (thueDauTuVon.getThuNhapChiuThue() < 0) {
+            return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
+        }
         if(nguoiDongThueRepository.existsByMst(mst)) {
             String thuNhapChiuThue = String.valueOf(thueDauTuVon.getThuNhapChiuThue());
             String tongThuePhaiNop = thueDauTuVonService.Tax_capital_investments(new BigDecimal(thuNhapChiuThue));
@@ -67,7 +72,11 @@ public class ThueDauTuVonController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{
-            return new ResponseEntity<>(thueDauTuVonService.getAll(), HttpStatus.OK);
+            List<ThueDauTuVon> thueDauTuVonList = thueDauTuVonService.getAll();
+            thueDauTuVonList.forEach(item -> {
+                item.setLoaiThueId(item.getLoaiThue().getId());
+            });
+            return new ResponseEntity<>(thueDauTuVonList, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something get all thue dau tu von wrong", HttpStatus.INTERNAL_SERVER_ERROR);

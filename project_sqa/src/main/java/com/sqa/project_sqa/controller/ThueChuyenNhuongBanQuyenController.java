@@ -51,6 +51,10 @@ public class ThueChuyenNhuongBanQuyenController {
         }
 
         String mst = thueChuyenNhuongBanQuyen.getMst();
+
+        if (thueChuyenNhuongBanQuyen.getThuNhapChiuThue() < 0) {
+            return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
+        }
         if(nguoiDongThueRepository.existsByMst(mst)) {
             String thuNhapChiuThue = String.valueOf(thueChuyenNhuongBanQuyen.getThuNhapChiuThue());
             String tongThuePhaiNop = thueChuyenNhuongBanQuyenService.Tax_license(new BigDecimal(thuNhapChiuThue));

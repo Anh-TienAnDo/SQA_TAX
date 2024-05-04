@@ -50,6 +50,9 @@ public class ThueTrungThuongController {
         }
 
         String mst = thueTrungThuong.getMst();
+        if (thueTrungThuong.getThuNhapChiuThue() < 0) {
+            return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
+        }
         if(nguoiDongThueRepository.existsByMst(mst)) {
             String thuNhapChiuThue = String.valueOf(thueTrungThuong.getThuNhapChiuThue());
             String tongThuePhaiNop = thueTrungThuongService.Tax_win_prize(new BigDecimal(thuNhapChiuThue));

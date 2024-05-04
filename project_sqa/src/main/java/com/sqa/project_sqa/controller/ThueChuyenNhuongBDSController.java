@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -50,6 +51,10 @@ public class ThueChuyenNhuongBDSController {
         }
 
         String mst = thueChuyenNhuongBDS.getMst();
+        if (thueChuyenNhuongBDS.getThuNhapChiuThue() < 0) {
+            return ResponseEntity.badRequest().body("Giá trị không hợp lệ");
+        }
+
         if(nguoiDongThueRepository.existsByMst(mst)) {
             String giaTriChuyenNhuong = String.valueOf(thueChuyenNhuongBDS.getGiaTriChuyenNhuong());
             String tongThuePhaiNop = thueChuyenNhuongBatDongSanService.Tax_land_transfer(new BigDecimal(giaTriChuyenNhuong));
@@ -67,7 +72,11 @@ public class ThueChuyenNhuongBDSController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{
-            return new ResponseEntity<>(thueChuyenNhuongBatDongSanService.getAll(), HttpStatus.OK);
+            List<ThueChuyenNhuongBDS> thueChuyenNhuongBDSList = thueChuyenNhuongBatDongSanService.getAll();
+            thueChuyenNhuongBDSList.forEach(item -> {
+                item.setLoaiThueId(item.getLoaiThue().getId());
+            });
+           return new ResponseEntity<>(thueChuyenNhuongBDSList, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something get all thue chuyen nhuong bat dong san wrong", HttpStatus.INTERNAL_SERVER_ERROR);
