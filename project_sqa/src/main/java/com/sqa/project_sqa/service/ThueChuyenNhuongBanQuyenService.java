@@ -11,4 +11,6 @@ public interface ThueChuyenNhuongBanQuyenService {
     String Tax_license(BigDecimal assessable_income);
 
     List<ThueChuyenNhuongBanQuyen> getAll();
+
+    String CapNhatTrangThaiDaDong(ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen);
 }

@@ -14,6 +14,9 @@ spring:
 jwt:
   secretKey: ite@123!456
   expiration: 86400000
+jackson:
+  date-format: dd-MM-yyyy HH:mm:ss
+  time-zone: Asia/Ho_Chi_Minh
 
 # spring:
 #   datasource:

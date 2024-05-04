@@ -37,4 +37,9 @@ public class ThueChuyenNhuongBDSServiceImpl implements ThueChuyenNhuongBatDongSa
     public List<ThueChuyenNhuongBDS> getAll() {
         return thueChuyenNhuongBatDongSanRepo.findAll();
     }
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueChuyenNhuongBDS thueChuyenNhuongBDS) {
+        thueChuyenNhuongBDS.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
 }

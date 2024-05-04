@@ -13,7 +13,6 @@ public class NguoiDongThueController {
     @Autowired
     private NguoiDongThueService nguoiDongThueService;
 
-
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{

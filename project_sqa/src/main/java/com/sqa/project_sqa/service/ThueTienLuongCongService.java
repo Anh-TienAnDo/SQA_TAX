@@ -21,4 +21,5 @@ public interface ThueTienLuongCongService {
     String Deductible(BigDecimal taxable_income, int dependent_person, BigDecimal benevolent);
     String Deductible(BigDecimal taxable_income, BigDecimal dependent_person, BigDecimal benevolent);
 
+    String CapNhatTrangThaiDaDong(ThueTienLuongCong thueTienLuongCong);
 }

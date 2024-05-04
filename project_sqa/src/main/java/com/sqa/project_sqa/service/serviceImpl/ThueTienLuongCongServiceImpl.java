@@ -117,4 +117,10 @@ public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
                 .add(benevolent);
         return deductible.setScale(0, RoundingMode.HALF_UP).toString(); // Làm tròn số về 2 chữ số sau dấu thập phân
     }
+
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueTienLuongCong thueTienLuongCong) {
+        thueTienLuongCong.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
 }

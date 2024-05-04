@@ -36,4 +36,11 @@ public class ThueNhuongQuyenThuongMaiServiceiMPL implements ThueNhuongQuyenThuon
     public List<ThueNhuongQuyenThuongMai> getAll() {
         return thueNhuongQuyenThuongMaiRepo.findAll();
     }
+
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueNhuongQuyenThuongMai thueNhuongQuyenThuongMai) {
+
+        thueNhuongQuyenThuongMai.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
 }

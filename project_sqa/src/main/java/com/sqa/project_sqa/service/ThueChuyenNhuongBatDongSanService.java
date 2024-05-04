@@ -11,4 +11,6 @@ public interface ThueChuyenNhuongBatDongSanService {
     String Tax_land_transfer(BigDecimal transfer_price);
 
     List<ThueChuyenNhuongBDS> getAll();
+
+    String CapNhatTrangThaiDaDong(ThueChuyenNhuongBDS thueChuyenNhuongBDS);
 }

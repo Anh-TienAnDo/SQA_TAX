@@ -36,4 +36,10 @@ public class ThueChuyenNhuongBanQuyenServiceImpl implements ThueChuyenNhuongBanQ
     public List<ThueChuyenNhuongBanQuyen> getAll() {
         return thueChuyenNhuongBanQuyenRepo.findAll();
     }
+
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen) {
+        thueChuyenNhuongBanQuyen.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
 }

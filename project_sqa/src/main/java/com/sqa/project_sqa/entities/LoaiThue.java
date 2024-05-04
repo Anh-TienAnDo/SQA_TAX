@@ -61,4 +61,5 @@ public class LoaiThue implements Serializable {
 
     @OneToMany(mappedBy = "loaiThue",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ChiTietHoaDon> chiTietHoaDonList;
+
 }

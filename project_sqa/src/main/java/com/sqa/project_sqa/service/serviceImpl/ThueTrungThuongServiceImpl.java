@@ -37,4 +37,10 @@ public class ThueTrungThuongServiceImpl implements ThueTrungThuongService {
     public List<ThueTrungThuong> getAll() {
         return thueTrungThuongRepo.findAll();
     }
+
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueTrungThuong thueTrungThuong ) {
+        thueTrungThuong.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
 }

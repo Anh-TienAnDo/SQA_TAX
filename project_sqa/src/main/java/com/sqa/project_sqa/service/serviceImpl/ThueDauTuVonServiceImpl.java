@@ -38,4 +38,10 @@ public class ThueDauTuVonServiceImpl implements ThueDauTuVonService {
         return thueDauTuVonRepo.findAll();
     }
 
+    @Override
+    public String CapNhatTrangThaiDaDong(ThueDauTuVon thueDauTuVon) {
+        thueDauTuVon.setTrangThaiDaDong(true);
+        return "Cap nhật thành công";
+    }
+
 }

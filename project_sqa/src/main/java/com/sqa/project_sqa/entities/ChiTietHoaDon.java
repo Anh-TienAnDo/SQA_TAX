@@ -16,10 +16,11 @@ import javax.persistence.*;
 public class ChiTietHoaDon {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "hoa_don_id")
     private HoaDon hoaDon;
 
@@ -28,8 +29,9 @@ public class ChiTietHoaDon {
     @JoinColumn(name = "loai_thue_id")
     private LoaiThue loaiThue;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "chiTietHoaDon")
     private HoaDonQuaHan hoaDonQuaHan;
-    private Integer thue_qua_han_id;
 
+    @Column(name = "thue_id")
+    private int thueId;
 }

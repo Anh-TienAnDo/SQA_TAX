@@ -22,14 +22,12 @@ public class HoaDonQuaHan {
     @Column(name = "so_ngay_qua_han")
     private int soNgayQuaHan;
 
-
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "loai_thue_id")
     private LoaiThue loaiThue;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "hoaDonQuaHan")
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "chi_tiet_hoa_don_id")
     private ChiTietHoaDon chiTietHoaDon;
-    private Integer thue_qua_han_id;
-
 }

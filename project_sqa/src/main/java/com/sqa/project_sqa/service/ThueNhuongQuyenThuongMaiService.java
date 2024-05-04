@@ -12,4 +12,6 @@ public interface ThueNhuongQuyenThuongMaiService {
     String Tax_ecommerce(BigDecimal assessable_income);
 
     List<ThueNhuongQuyenThuongMai> getAll();
+
+    String CapNhatTrangThaiDaDong(ThueNhuongQuyenThuongMai thueNhuongQuyenThuongMai);
 }

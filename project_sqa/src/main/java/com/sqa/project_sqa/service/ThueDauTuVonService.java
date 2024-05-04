@@ -11,4 +11,6 @@ public interface ThueDauTuVonService {
     String Tax_capital_investments(BigDecimal assessable_income);
 
     List<ThueDauTuVon> getAll();
+
+    String CapNhatTrangThaiDaDong(ThueDauTuVon thueDauTuVon);
 }

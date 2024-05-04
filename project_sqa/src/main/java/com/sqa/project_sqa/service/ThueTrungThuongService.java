@@ -12,4 +12,6 @@ public interface ThueTrungThuongService {
 
     List<ThueTrungThuong> getAll();
 
+    String CapNhatTrangThaiDaDong(ThueTrungThuong thueTrungThuong);
+
 }
