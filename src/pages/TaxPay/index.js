@@ -6,20 +6,19 @@ import {
   Table,
   Checkbox,
   Space,
+  ConfigProvider,
 } from "antd";
 import { Outlet } from "react-router-dom";
 import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // import { EyeOutlined } from "@ant-design/icons";
-import "./taxpay.css";
-
 import AuthenTaxPayer from "../../context/afterAuthenTaxPayer";
 import { getAllCategoryTax } from "../../services/categoryTax";
 import Search from "../../context/search";
 import { getAllTaxPayer } from "../../services/taxPayer";
 import TaxPayer from "../../context/taxPayer";
+import "./taxpay.css";
 const { Content } = Layout;
-
 function removeVietnameseAccents(str) {
   return str
     .replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a")
@@ -88,7 +87,11 @@ function TaxPay() {
   const handelTaxCodeSearched = async (e) => {
     if (Array.isArray(allTaxPayer)) {
       const numberTaxCode = taxNumberRef.current.value.toString();
-      if (numberTaxCode.length >= 12) {
+      if (
+        numberTaxCode.length === 13 ||
+        numberTaxCode.length === 10 ||
+        numberTaxCode.length === 11
+      ) {
         setSearch({
           type: "mst",
           data: taxNumberRef.current.value,
@@ -103,6 +106,7 @@ function TaxPay() {
             "Mã số thuế cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
           );
         }
+        setIsNumberTaxCode(true);
       } else {
         setIsNumberTaxCode(false);
       }
@@ -111,20 +115,25 @@ function TaxPay() {
 
   const handleCCCDSearched = async (e) => {
     if (Array.isArray(allTaxPayer)) {
+      const numberCCCD = CCCDNumberRef.current.value.toString();
       setSearch({
         type: "cccd",
         data: CCCDNumberRef.current.value,
       });
-      let newTaxPayer = allTaxPayer.find(
-        (item) => item["cccd"] === CCCDNumberRef.current.value
-      );
-
-      if (newTaxPayer) {
-        navigate("/thu-thue/thong-tin-nguoi-dong-thue"); // Sử dụng await ở đây
-      } else {
-        alert(
-          "Căn cước công dân cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
+      if (numberCCCD?.length === 12) {
+        let newTaxPayer = allTaxPayer.find(
+          (item) => item["cccd"] === CCCDNumberRef.current.value
         );
+        if (newTaxPayer) {
+          navigate("/thu-thue/thong-tin-nguoi-dong-thue"); // Sử dụng await ở đây
+        } else {
+          alert(
+            "Căn cước công dân cần tìm không có trong cơ sở dữ liệu. Vui lòng nhập lại"
+          );
+        }
+        setIsNumberCCCD(true);
+      } else {
+        setIsNumberCCCD(false);
       }
     }
   };
@@ -152,6 +161,22 @@ function TaxPay() {
     }
   };
 
+  // const handleChangeTaxNumber = () => {
+  //   const numberTaxCode = taxNumberRef.current.value.toString();
+  //   if (numberTaxCode?.length === 12) {
+  //     setIsNumberTaxCode(true);
+  //   } else {
+  //     setIsNumberTaxCode(false);
+  //   }
+  // };
+  // const handleChangeNumberCCCD = () => {
+  //   const numbetCCCD = CCCDNumberRef.current.value.toString();
+  //   if (numbetCCCD?.length === 12) {
+  //     setIsNumberCCCD(true);
+  //   } else {
+  //     setIsNumberCCCD(false);
+  //   }
+  // };
   return (
     <Layout className="layout-taxpay">
       {afterAuthenTaxPayer && (
@@ -206,15 +231,14 @@ function TaxPay() {
               <div className="header__tax-title">Tra cứu mã số thuế:</div>
               <div className="header__tax-number">
                 <InputNumber
+                  status={!isNumberTaxCode ? "error" : "none"}
+                  autoFocus
                   style={{ width: 200 }}
                   ref={taxNumberRef}
                   onPressEnter={handelTaxCodeSearched}
+                  // onChange={handleChangeTaxNumber}
                 />
-                {!isNumberTaxCode && (
-                  <p style={{color: "red"}}>Phải đủ 12 chữ số và không chứa ký tự</p>
-                )}
               </div>
-
               <div className="header__search">
                 <Button
                   style={{ margin: 0 }}
@@ -225,15 +249,22 @@ function TaxPay() {
                 </Button>
               </div>
             </div>
+            {!isNumberTaxCode && (
+              <p style={{ color: "red", margin: "5px 0 0 143px" }}>
+                Phải đủ 12 chữ số và không chứa ký tự
+              </p>
+            )}
             <div className="header__cccd-code">
               <div className="header__cccd-title">
                 Tra cứu căn cước công dân:
               </div>
               <div className="header__cccd-number">
                 <InputNumber
+                  status={!isNumberCCCD ? "error" : "none"}
                   style={{ width: 200 }}
                   ref={CCCDNumberRef}
                   onPressEnter={handleCCCDSearched}
+                  // onChange={handleChangeNumberCCCD}
                 />
               </div>
               <div className="header__search">
@@ -246,6 +277,11 @@ function TaxPay() {
                 </Button>
               </div>
             </div>
+            {!isNumberCCCD && (
+              <p style={{ color: "red", margin: "5px 0 0 143px" }}>
+                Phải đủ 12 chữ số và không chứa ký tự
+              </p>
+            )}
           </div>
         )}
         {afterAuthenTaxPayer && (
@@ -253,17 +289,25 @@ function TaxPay() {
             <div className="header__title">
               <h3>Tra cứu thông tin khoản nộp:</h3>
             </div>
-            <div>
-              <Select
-                mode="multiple"
-                allowClear
-                ref={searchPaymentInformationRef}
-                placeholder="Chọn loại thuế cần thanh toán"
-                style={{ width: 250, marginLeft: 20 }}
-                onChange={handelSelectCategoryTax}
-                options={categoryTax}
-                optionRender={(option) => <Space>{option.data.label}</Space>}
-              />
+            <div style={{ width: 250 }}>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    width: 250
+                  },
+                }}
+              >
+                <Select
+                  mode="multiple"
+                  allowClear
+                  ref={searchPaymentInformationRef}
+                  placeholder="Chọn loại thuế cần thanh toán"
+                  style={{ width: 250, marginLeft: 20 }}
+                  onChange={handelSelectCategoryTax}
+                  options={categoryTax}
+                  optionRender={(option) => <Space>{option.data.label}</Space>}
+                />
+              </ConfigProvider>
             </div>
           </div>
         )}

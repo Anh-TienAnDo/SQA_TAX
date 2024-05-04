@@ -8,6 +8,13 @@ import UnpaidTax from "../../context/unpaidTax";
 import { useNavigate } from "react-router-dom";
 import TaxWantPay from "../../context/taxWantPay";
 import TaxPayer from "../../context/taxPayer";
+import ChiTietThueTienLuongCong from "../ChiTietThueTienLuongCong/chiTietThueTienLuongCong";
+import ChiTietThueBDS from "../ChiTietThueBDS/chiTietThueBDS";
+import ChiTietThueDauTuVon from "../ChiTietThueDauTuVon/chiTietThueDauTuVon";
+import ChiTietThueQuaTang from "../ChiTietThueQuaTang/chiTietThueQuaTang";
+import ChiTietThueNhuongQuyenThuongMai from "../ChiTietThueNhuongQuyenThuongMai/chiTietThueNhuongQuyenThuongMai";
+import ChiTietThueTrungThuong from "../ChiTietThueTrungThuong/chiTietThueTrungThuong";
+import ChiTietThueChuyenNhuongBanQuyen from "../ChiTietThueChuyenNhuongBanQuyen/chiTietThueChuyenNhuongBanQuyen";
 
 function ListUnpaidTax() {
   const navigate = useNavigate();
@@ -31,7 +38,7 @@ function ListUnpaidTax() {
   useEffect(() => {
     const get = async () => {
       try {
-        if (search?.type?.length>0) {
+        if (search?.type?.length > 0) {
           const data = search.type.map(async (item) => {
             // Sử dụng `await` trong một arrow function đồng bộ
             const res = await getUnpaidTax(`api/v1/to-khai-${item}/getAll`);
@@ -45,10 +52,8 @@ function ListUnpaidTax() {
               setUnpaidTax(result.flat());
             }
           });
-          
-        }
-        else{
-          setTaxWantPay([])
+        } else {
+          setTaxWantPay([]);
         }
       } catch (error) {
         // Handle errors that occurred during the API call or data processing
@@ -59,22 +64,26 @@ function ListUnpaidTax() {
     get();
   }, [search]);
 
-  const handelClickTaxWantPay = (taxItemWantPay,checked) => {
+  const handelClickTaxWantPay = (taxItemWantPay, checked) => {
     let newTaxWantPay = taxWantPay;
-    if(checked===true){
+    if (checked === true) {
       newTaxWantPay.push(taxItemWantPay);
-    }
-    else{
-      newTaxWantPay =  taxWantPay.filter((item) => (item.id !== taxItemWantPay.id || item.loaiThueId !== taxItemWantPay.loaiThueId))
+    } else {
+      newTaxWantPay = taxWantPay.filter(
+        (item) =>
+          item.id !== taxItemWantPay.id ||
+          item.loaiThueId !== taxItemWantPay.loaiThueId
+      );
     }
     setTaxWantPay(newTaxWantPay);
-
   };
   const handleClickPaymentTax = (e) => {
     navigate("/receipt-tax", { state: { taxWantPay: taxWantPay } });
   };
+  console.log(unpaidTax);
   return (
-    (afterAuthenTaxPayer && search?.type?.length>0) && (
+    afterAuthenTaxPayer &&
+    search?.type?.length > 0 && (
       <div className="content__list-unpaid-tax">
         <div class="content__grid-list-unpaid-tax-container">
           <div class="grid-item-header">Nội dung khoản nộp NSNN</div>
@@ -88,7 +97,9 @@ function ListUnpaidTax() {
                   <div key={index}>
                     <div className="content__grid-list-unpaid-tax-container">
                       <div class="grid-item">{item.noiDung}</div>
-                      <div class="grid-item">{item.tongThuePhaiNop}</div>
+                      <div class="grid-item">
+                        {item.tongThuePhaiNop.toLocaleString("de-DE")}{" "}
+                      </div>
                       <div class="grid-item">
                         <Button type="link" onClick={showModal}>
                           Xem
@@ -100,50 +111,50 @@ function ListUnpaidTax() {
                           onCancel={handleCancel}
                           width={1400}
                         >
-                          <table class="data-table">
-                            <thead>
-                              <tr>
-                                <th>Thu Nhập Chịu Thuế</th>
-                                <th>Thu Nhập Được Miễn Giảm</th>
-                                <th>Khấu Trừ Cho Bản Thân</th>
-                                <th>Khấu Trừ Người Phụ Thuộc</th>
-                                <th>Khấu Trừ Cho Từ Thiện</th>
-                                <th>Khấu Trừ Cho Bảo Hiểm</th>
-                                <th>Cư Trú</th>
-                                <th>Tổng Thuế Phải Nộp</th>
-                                <th>Từ Ngày</th>
-                                <th>Đến Ngày</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>123456789</td>
-                                <td>50,000,000</td>
-                                <td>10,000,000</td>
-                                <td>9,000,000</td>
-                                <td>3,600,000</td>
-                                <td>2,000,000</td>
-                                <td>5,000,000</td>
-                                <td>Yes</td>
-                                <td>5,000,000</td>
-                                <td>2023-01-01</td>
-                                <td>2023-12-31</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <>
+                            {() => {
+                              if (item.loaiThueId === 1) {
+                                return <ChiTietThueTienLuongCong item={item} />;
+                              } else if (item.loaiThueId === 2) {
+                                return <ChiTietThueBDS item={item} />;
+                              } else if (item.loaiThueId === 3) {
+                                return <ChiTietThueDauTuVon item={item} />;
+                              } else if (item.loaiThueId === 4) {
+                                return <ChiTietThueQuaTang item={item} />;
+                              } else if (item.loaiThueId === 5) {
+                                return (
+                                  <ChiTietThueNhuongQuyenThuongMai
+                                    item={item}
+                                  />
+                                );
+                              } else if (item.loaiThueId === 6) {
+                                return <ChiTietThueTrungThuong item={item} />;
+                              } else if (item.loaiThueId === 7) {
+                                return (
+                                  <ChiTietThueChuyenNhuongBanQuyen
+                                    item={item}
+                                  />
+                                );
+                              }
+                            }}
+                          </>
                         </Modal>
                       </div>
                       <div class="grid-item">
-                        {taxWantPay.find((element) => item.id === element.id && item.loaiThueId===element.loaiThueId)  ? (
-                          <Checkbox checked
-                          onChange={() => handelClickTaxWantPay(item,false)}
-                        ></Checkbox>
-                        ): (
-                          <Checkbox 
-                          onChange={() => handelClickTaxWantPay(item,true)}
-                        ></Checkbox>
+                        {taxWantPay.find(
+                          (element) =>
+                            item.id === element.id &&
+                            item.loaiThueId === element.loaiThueId
+                        ) ? (
+                          <Checkbox
+                            checked
+                            onChange={() => handelClickTaxWantPay(item, false)}
+                          ></Checkbox>
+                        ) : (
+                          <Checkbox
+                            onChange={() => handelClickTaxWantPay(item, true)}
+                          ></Checkbox>
                         )}
-                        
                       </div>
                     </div>
                   </div>
