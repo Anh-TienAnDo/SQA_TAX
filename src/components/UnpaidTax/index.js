@@ -57,14 +57,23 @@ function ListUnpaidTax() {
 
   const handleOkVerifyTaxWantPay = () => {
 
-    const date = new Date()
+    const now = new Date()
     setIsModalOpenVerifyTaxWantPay(false);
     const receipt = {
       tongThuePhaiDong: tongTienCuoiCungPhaiNop,
       nguoiDongThueId: taxPayer.id,
-      thoiGianNopThue: formatDateTime(date),
-      // userId: 1
+      thoiGianNopThue: formatDateTime(now),
+      userId: 1,
+      danhSachThueMuonDong: [
+        ...taxWantPay.map( (item) => {
+          return {
+            loaiThueId: item.loaiThueId,
+            idThue: item.id
+          }
+        })
+      ]
     }
+    console.log(receipt);
     const fetch = async () => {
       const data = await saveReceipt(receipt,'api/v1/hoa-don/save')
       console.log(data)
@@ -87,7 +96,8 @@ function ListUnpaidTax() {
             if (result === undefined) {
               console.log("getUnpaidTax Error");
             } else {
-              setUnpaidTax(result.flat());
+              const data = result.flat().filter( (item) => item.trangThaiDaDong===false)
+              setUnpaidTax(data);
             }
           });
         } else {

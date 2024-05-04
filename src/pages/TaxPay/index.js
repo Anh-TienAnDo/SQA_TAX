@@ -71,7 +71,6 @@ function TaxPay() {
   useEffect(() => {
     const get = async () => {
       const data = await getAllCategoryTax("api/v1/loai-thue/getAll");
-      // const data = []
       const newCategoryTax = data.map((item) => ({
         value: replaceSpacesWithDashes(
           removeVietnameseAccents(item.name.toLowerCase())
