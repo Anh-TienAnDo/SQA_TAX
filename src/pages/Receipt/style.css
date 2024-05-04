@@ -56,7 +56,8 @@
 }
 
 .content__two-list-tax{
-  margin-left: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 table {
@@ -71,4 +72,7 @@ table,th,td{
 
 th, td{
   text-align: center;
+}
+.table__list-tax{
+  width: 1300px;
 }

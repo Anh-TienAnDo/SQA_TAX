@@ -15,9 +15,10 @@ import ChiTietThueQuaTang from "../ChiTietThueQuaTang/chiTietThueQuaTang";
 import ChiTietThueNhuongQuyenThuongMai from "../ChiTietThueNhuongQuyenThuongMai/chiTietThueNhuongQuyenThuongMai";
 import ChiTietThueTrungThuong from "../ChiTietThueTrungThuong/chiTietThueTrungThuong";
 import ChiTietThueChuyenNhuongBanQuyen from "../ChiTietThueChuyenNhuongBanQuyen/chiTietThueChuyenNhuongBanQuyen";
+import { saveReceipt } from "../../services/hoaDonService";
+import formatDateTime from "../../utils/FormatDateTime.js";
 
 function ListUnpaidTax() {
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { afterAuthenTaxPayer, setAfterAuthenTaxPayer } =
     useContext(AuthenTaxPayer);
@@ -25,6 +26,16 @@ function ListUnpaidTax() {
   const { unpaidTax, setUnpaidTax } = useContext(UnpaidTax);
   const { taxWantPay, setTaxWantPay } = useContext(TaxWantPay);
   const { taxPayer, setTaxPayer } = useContext(TaxPayer);
+  const [isModalOpenVerifyTaxWantPay, setIsModalOpenVerifyTaxWantPay] = useState(false);
+
+  let tongTienCuoiCungPhaiNop = 0;
+  if (taxWantPay?.length > 0) {
+    taxWantPay.forEach((item) => {
+      tongTienCuoiCungPhaiNop += item.tongThuePhaiNop;
+    });
+  }
+
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -34,6 +45,33 @@ function ListUnpaidTax() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const showModalVerifyTaxWantPay = () => {
+    setIsModalOpenVerifyTaxWantPay(true);
+  };
+  
+  const handleCancelVerifyTaxWantPay = () => {
+    setIsModalOpenVerifyTaxWantPay(false);
+  };
+
+
+  const handleOkVerifyTaxWantPay = () => {
+
+    const date = new Date()
+    setIsModalOpenVerifyTaxWantPay(false);
+    const receipt = {
+      tongThuePhaiDong: tongTienCuoiCungPhaiNop,
+      nguoiDongThueId: taxPayer.id,
+      thoiGianNopThue: formatDateTime(date),
+      // userId: 1
+    }
+    const fetch = async () => {
+      const data = await saveReceipt(receipt,'api/v1/hoa-don/save')
+      console.log(data)
+    }
+    fetch()
+  };
+
   // console.log(search.type)
   useEffect(() => {
     const get = async () => {
@@ -64,31 +102,34 @@ function ListUnpaidTax() {
     get();
   }, [search]);
 
-  const handelClickTaxWantPay = (taxItemWantPay, checked) => {
-    let newTaxWantPay = taxWantPay;
-    if (checked === true) {
-      newTaxWantPay.push(taxItemWantPay);
+  const handleClickTaxWantPay = (taxItemWantPay, checked) => {
+    if (checked) {
+      // Tạo một bản sao mới của mảng và thêm item mới
+      const newTaxWantPay = [...taxWantPay, taxItemWantPay];
+      setTaxWantPay(newTaxWantPay);
     } else {
-      newTaxWantPay = taxWantPay.filter(
+      // Tạo một bản sao mới của mảng khi lọc item ra
+      const newTaxWantPay = taxWantPay.filter(
         (item) =>
           item.id !== taxItemWantPay.id ||
           item.loaiThueId !== taxItemWantPay.loaiThueId
       );
+      setTaxWantPay(newTaxWantPay);
     }
-    setTaxWantPay(newTaxWantPay);
   };
-  const handleClickPaymentTax = (e) => {
-    navigate("/receipt-tax", { state: { taxWantPay: taxWantPay } });
-  };
-  console.log(unpaidTax);
+  // const handleClickPaymentTax = (e) => {
+  //   navigate("/receipt-tax", { state: { taxWantPay: taxWantPay } });
+  // };
+
+  const handleClickPaymentTax = (e) => {};
   return (
     afterAuthenTaxPayer &&
     search?.type?.length > 0 && (
       <div className="content__list-unpaid-tax">
         <div class="content__grid-list-unpaid-tax-container">
           <div class="grid-item-header">Nội dung khoản nộp NSNN</div>
-          <div class="grid-item-header">Tổng số tiền (VND)</div>
           <div class="grid-item-header">Xem chi tiết</div>
+          <div class="grid-item-header">Tổng số tiền (VND)</div>
           <div class="grid-item-header">Chọn khoản nộp</div>
           <div className="container__unpaid-tax">
             {unpaidTax &&
@@ -97,9 +138,6 @@ function ListUnpaidTax() {
                   <div key={index}>
                     <div className="content__grid-list-unpaid-tax-container">
                       <div class="grid-item">{item.noiDung}</div>
-                      <div class="grid-item">
-                        {item.tongThuePhaiNop.toLocaleString("de-DE")}{" "}
-                      </div>
                       <div class="grid-item">
                         <Button type="link" onClick={showModal}>
                           Xem
@@ -141,6 +179,10 @@ function ListUnpaidTax() {
                         </Modal>
                       </div>
                       <div class="grid-item">
+                        {item.tongThuePhaiNop.toLocaleString("de-DE")}{" "}
+                      </div>
+
+                      <div class="grid-item">
                         {taxWantPay.find(
                           (element) =>
                             item.id === element.id &&
@@ -148,11 +190,11 @@ function ListUnpaidTax() {
                         ) ? (
                           <Checkbox
                             checked
-                            onChange={() => handelClickTaxWantPay(item, false)}
+                            onChange={() => handleClickTaxWantPay(item, false)}
                           ></Checkbox>
                         ) : (
                           <Checkbox
-                            onChange={() => handelClickTaxWantPay(item, true)}
+                            onChange={() => handleClickTaxWantPay(item, true)}
                           ></Checkbox>
                         )}
                       </div>
@@ -160,13 +202,35 @@ function ListUnpaidTax() {
                   </div>
                 );
               })}
+            <div className="content__grid-list-unpaid-tax-container box-container">
+              <div class="grid-item box1"></div>
+              <div class="grid-item box2" style={{ padding: "0 0px 0px 85px" }}>
+                <h3>Tổng tiền : </h3>
+              </div>
+              <div class="grid-item box3">
+                <h3>{tongTienCuoiCungPhaiNop.toLocaleString("de-DE")}</h3>
+              </div>
+              <div class="grid-item box4>" style={{ borderLeft: "none" }}></div>
+            </div>
           </div>
         </div>
         <div className="content__payment-tax">
-          <Button type="primary" onClick={handleClickPaymentTax}>
+          <Button
+            style={{ marginLeft: -28 }}
+            type="primary"
+            onClick={showModalVerifyTaxWantPay}
+          >
             Thu thuế
           </Button>
         </div>
+        <Modal
+          title="Xác nhận thu thuế"
+          open={isModalOpenVerifyTaxWantPay}
+          onOk={handleOkVerifyTaxWantPay}
+          onCancel={handleCancelVerifyTaxWantPay}
+        >
+          <p>Bạn có chắc là muốn thu thuế không</p>
+        </Modal>
       </div>
     )
   );

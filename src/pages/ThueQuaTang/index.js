@@ -18,7 +18,7 @@ import { getDate } from "../../helpers/getTimeCurrent";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueQuaTang } from "../../services/thueQuaTangService";
 const { RangePicker } = DatePicker;
-function ThueQuaTang({loai_thue_id}) {
+function ThueQuaTang({ loai_thue_id }) {
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ function ThueQuaTang({loai_thue_id}) {
     values.thuNhapTuNgay = getDate(values.date[0].$d);
     values.thuNhapDenNgay = getDate(values.date[1].$d);
     values.date = undefined;
-    values.loaiThueId = loai_thue_id
+    values.loaiThueId = loai_thue_id;
     const res = await saveKeKhaiThueQuaTang(values, path);
     if (!res.message) {
       setLoading(false);
@@ -161,7 +161,20 @@ function ThueQuaTang({loai_thue_id}) {
                 <Form.Item
                   label="Thu nhập chịu thuế"
                   name="thuNhapChiuThue"
-                  rules={rules}
+                  rules={[
+                    {
+                      validator: async (_, value) => {
+                        if (value) {
+                          if (value > 0) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject("Không được nhận giá trị âm");
+                          }
+                        }
+                      },
+                    },
+                    ...rules,
+                  ]}
                 >
                   <InputNumber
                     min={0}

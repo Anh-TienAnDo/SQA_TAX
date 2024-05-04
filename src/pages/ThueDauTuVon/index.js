@@ -160,7 +160,20 @@ function ThueDauTuVon({loai_thue_id}) {
                 <Form.Item
                   label="Thu nhập chịu thuế"
                   name="thuNhapChiuThue"
-                  rules={rules}
+                  rules={[
+                    {
+                        validator: async (_, value) => {
+                            if (value) {
+                                if (value > 0) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject("Không được nhận giá trị âm");
+                                }
+                            }
+                        },
+                    },
+                    ...rules
+                ]}
                 >
                   <InputNumber
                     min={0}

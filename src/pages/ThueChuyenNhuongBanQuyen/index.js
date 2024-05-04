@@ -161,7 +161,20 @@ function ThueChuyenNhuongBanQuyen({loai_thue_id}) {
                 <Form.Item
                   label="Thu nhập chịu thuế"
                   name="thuNhapChiuThue"
-                  rules={rules}
+                  rules={[
+                    {
+                        validator: async (_, value) => {
+                            if (value) {
+                                if (value > 0) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject("Không được nhận giá trị âm");
+                                }
+                            }
+                        },
+                    },
+                    ...rules
+                ]}
                 >
                   <InputNumber
                     min={0}
@@ -174,7 +187,20 @@ function ThueChuyenNhuongBanQuyen({loai_thue_id}) {
                 <Form.Item
                   label="Khoảng thời gian thu nhập"
                   name="date"
-                  rules={rules}
+                  rules={[
+                    {
+                        validator: async (_, value) => {
+                            if (value) {
+                                if (value > 0) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject("Không được nhận giá trị âm");
+                                }
+                            }
+                        },
+                    },
+                    ...rules
+                ]}
                 >
                   <RangePicker style={{ width: "100%" }} />
                 </Form.Item>

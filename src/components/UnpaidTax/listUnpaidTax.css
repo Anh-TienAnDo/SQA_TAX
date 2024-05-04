@@ -12,7 +12,7 @@
 .content__grid-list-unpaid-tax-container {
   width: 1300px;
   display: grid;
-  grid-template-columns: 45% 22%  13% 14%; /* Phân chia độ rộng của mỗi cột */
+  grid-template-columns: 45% 13% 22% 14%; /* Phân chia độ rộng của mỗi cột */
   background-color: #fff; /* Màu nền cho container, đặt màu trắng hoặc màu khác tùy ý */
 }
 
@@ -142,4 +142,27 @@
   margin-top: 35px;
   margin-left: 1165px;
 
+}
+.sum__payment-tax{
+  margin-left: 1200px;
+}
+.box1{
+  border-right: none;
+}
+.box2{
+  border-left: none;
+  border-right: none;
+}
+
+.box3{
+  border-left: none;
+  border-right: none;
+}
+
+
+.box-container{
+  height:42px;
+}
+.box-container .box4 {
+  border-left: none;
 }

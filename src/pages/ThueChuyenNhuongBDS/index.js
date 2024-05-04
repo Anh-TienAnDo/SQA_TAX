@@ -164,7 +164,20 @@ function ThueChuyenNhuongBDS({loai_thue_id}) {
                 <Form.Item
                   label="Giá trị chuyển nhượng"
                   name="giaTriChuyenNhuong"
-                  rules={rules}
+                  rules={[
+                    {
+                        validator: async (_, value) => {
+                            if (value) {
+                                if (value > 0) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject("Không được nhận giá trị âm");
+                                }
+                            }
+                        },
+                    },
+                    ...rules
+                ]}
                 >
                   <InputNumber
                     min={0}

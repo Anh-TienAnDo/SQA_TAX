@@ -101,7 +101,7 @@ function ReceiptTax() {
                   <table className="table__list-tax">
                     <thead style={{width: 500}}>
                       <th>Nội dung</th>
-                      <th>Tổng tiền</th>
+                      <th>Tổng tiền (VND)</th>
                     </thead>
                     <tbody>
                       {taxWantPay.map((item) => {
@@ -109,7 +109,7 @@ function ReceiptTax() {
                           <>
                             <tr>
                               <td>Thuế bất động sản</td>
-                              <td>{item.tongThuePhaiNop}</td>
+                              <td>{item.tongThuePhaiNop.toLocaleString("de-DE")} </td>
                             </tr>
                           </>
                         );
@@ -152,6 +152,7 @@ function ReceiptTax() {
           </Col>
         </Row>
       </div>
+      <Button  type="primary">IN</Button>
     </>
   );
 }
