@@ -39,6 +39,7 @@
   padding: 10px 10px 10px 15px;
 }
 .layout-default .header__nav-right {
+  align-items: center;
   display: flex;
   font-size: 20px;
 }
