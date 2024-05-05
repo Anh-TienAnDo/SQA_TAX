@@ -99,7 +99,9 @@ public class HoaDonServiceImpl implements HoaDonService {
                 int idThue = danhSachThueMuonDongDTOList.get(i).getIdThue();
                 for(ThueChuyenNhuongBanQuyen tmp: thueChuyenNhuongBanQuyenList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueChuyenNhuongBanQuyenService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueChuyenNhuongBanQuyenService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }

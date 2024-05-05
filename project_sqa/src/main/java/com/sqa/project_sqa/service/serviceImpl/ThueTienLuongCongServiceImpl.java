@@ -121,6 +121,7 @@ public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
     @Override
     public String CapNhatTrangThaiDaDong(ThueTienLuongCong thueTienLuongCong) {
         thueTienLuongCong.setTrangThaiDaDong(true);
+        thueTienLuongCongRepository.save(thueTienLuongCong);
         return "Cap nhật thành công";
     }
 }

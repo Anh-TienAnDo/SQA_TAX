@@ -41,6 +41,7 @@ public class ThueNhuongQuyenThuongMaiServiceiMPL implements ThueNhuongQuyenThuon
     public String CapNhatTrangThaiDaDong(ThueNhuongQuyenThuongMai thueNhuongQuyenThuongMai) {
 
         thueNhuongQuyenThuongMai.setTrangThaiDaDong(true);
+        thueNhuongQuyenThuongMaiRepo.save(thueNhuongQuyenThuongMai);
         return "Cap nhật thành công";
     }
 }

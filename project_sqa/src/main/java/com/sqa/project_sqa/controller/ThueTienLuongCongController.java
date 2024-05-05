@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -83,7 +84,11 @@ public class ThueTienLuongCongController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{
-            return new ResponseEntity<>(thueTienLuongCongService.getAll(), HttpStatus.OK);
+            List<ThueTienLuongCong> thueTienLuongCongList = thueTienLuongCongService.getAll();
+            for(ThueTienLuongCong thueTienLuongCong: thueTienLuongCongList){
+                thueTienLuongCong.setLoaiThueId(thueTienLuongCong.getLoaiThue().getId());
+            }
+            return new ResponseEntity<>(thueTienLuongCongList, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something get all thue tien luong cong wrong", HttpStatus.INTERNAL_SERVER_ERROR);

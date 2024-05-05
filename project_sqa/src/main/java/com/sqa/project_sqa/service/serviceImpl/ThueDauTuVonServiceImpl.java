@@ -41,6 +41,7 @@ public class ThueDauTuVonServiceImpl implements ThueDauTuVonService {
     @Override
     public String CapNhatTrangThaiDaDong(ThueDauTuVon thueDauTuVon) {
         thueDauTuVon.setTrangThaiDaDong(true);
+        thueDauTuVonRepo.save(thueDauTuVon);
         return "Cap nhật thành công";
     }
 

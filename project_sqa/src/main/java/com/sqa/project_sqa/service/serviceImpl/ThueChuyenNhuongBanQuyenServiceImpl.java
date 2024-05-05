@@ -40,6 +40,7 @@ public class ThueChuyenNhuongBanQuyenServiceImpl implements ThueChuyenNhuongBanQ
     @Override
     public String CapNhatTrangThaiDaDong(ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen) {
         thueChuyenNhuongBanQuyen.setTrangThaiDaDong(true);
+        thueChuyenNhuongBanQuyenRepo.save(thueChuyenNhuongBanQuyen);
         return "Cap nhật thành công";
     }
 }

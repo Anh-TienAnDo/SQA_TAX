@@ -41,6 +41,7 @@ public class ThueQuaTangServiceImpl implements ThueQuaTangService {
     @Override
     public String CapNhatTrangThaiDaDong(ThueQuaTang thueQuaTang) {
         thueQuaTang.setTrangThaiDaDong(true);
+        thueQuaTangRepo.save(thueQuaTang);
         return "Cap nhật thành công";
     }
 

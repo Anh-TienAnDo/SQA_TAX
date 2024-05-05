@@ -2,6 +2,7 @@ package com.sqa.project_sqa.controller;
 
 import com.sqa.project_sqa.entities.LoaiThue;
 import com.sqa.project_sqa.entities.ThueChuyenNhuongBanQuyen;
+import com.sqa.project_sqa.entities.ThueTienLuongCong;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
 import com.sqa.project_sqa.service.ThueChuyenNhuongBanQuyenService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -72,7 +74,11 @@ public class ThueChuyenNhuongBanQuyenController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{
-            return new ResponseEntity<>(thueChuyenNhuongBanQuyenService.getAll(), HttpStatus.OK);
+            List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList = thueChuyenNhuongBanQuyenService.getAll();
+            for(ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen: thueChuyenNhuongBanQuyenList){
+                thueChuyenNhuongBanQuyen.setLoaiThueId(thueChuyenNhuongBanQuyen.getLoaiThue().getId());
+            }
+            return new ResponseEntity<>(thueChuyenNhuongBanQuyenList, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something get all thue chuyen nhuong ban quyen wrong", HttpStatus.INTERNAL_SERVER_ERROR);

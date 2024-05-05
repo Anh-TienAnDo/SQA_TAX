@@ -1,6 +1,7 @@
 package com.sqa.project_sqa.controller;
 
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.ThueNhuongQuyenThuongMai;
 import com.sqa.project_sqa.entities.ThueQuaTang;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -75,7 +77,11 @@ public class ThueQuaTangController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         try{
-            return new ResponseEntity<>(thueQuaTangService.getAll(), HttpStatus.OK);
+            List<ThueQuaTang> thueQuaTangList = thueQuaTangService.getAll();
+            thueQuaTangList.forEach(item -> {
+                item.setLoaiThueId(item.getLoaiThue().getId());
+            });
+            return new ResponseEntity<>(thueQuaTangList, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something get all thue qua tang wrong", HttpStatus.INTERNAL_SERVER_ERROR);
