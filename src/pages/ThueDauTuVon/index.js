@@ -33,7 +33,7 @@ function ThueDauTuVon({loai_thue_id}) {
     let path = `api/v1/to-khai-thue-dau-tu-von/submit`;
     values.thuNhapTuNgay = getDate(values.date[0].$d);
     values.thuNhapDenNgay = getDate(values.date[1].$d);
-    
+
     values.date = undefined;
     values.loaiThueId = loai_thue_id
     const res = await saveKeKhaiThueDauTuVon(values, path);
@@ -177,7 +177,6 @@ function ThueDauTuVon({loai_thue_id}) {
                 ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />

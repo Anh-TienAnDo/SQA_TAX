@@ -219,7 +219,7 @@ function ListUnpaidTax() {
                 <h3>Tổng tiền : </h3>
               </div>
               <div class="grid-item box3">
-                <h3>{tongTienCuoiCungPhaiNop.toLocaleString("de-DE")}</h3>
+                <h3>{tongTienCuoiCungPhaiNop.toLocaleString("de-DE")} VND</h3>
               </div>
               <div class="grid-item box4>" style={{ borderLeft: "none" }}></div>
             </div>

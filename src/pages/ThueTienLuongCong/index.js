@@ -181,7 +181,6 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
@@ -207,7 +206,6 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
@@ -233,7 +231,6 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
@@ -259,7 +256,6 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
@@ -285,7 +281,7 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
+                    min
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
@@ -311,7 +307,6 @@ function ThueTienLuongCong({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />

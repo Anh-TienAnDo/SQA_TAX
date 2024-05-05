@@ -177,7 +177,6 @@ function ThueQuaTang({ loai_thue_id }) {
                   ]}
                 >
                   <InputNumber
-                    min={0}
                     addonAfter="VNĐ"
                     style={{ width: "100%" }}
                   />
