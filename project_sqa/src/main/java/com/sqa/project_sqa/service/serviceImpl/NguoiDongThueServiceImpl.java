@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 @Service
 public class NguoiDongThueServiceImpl implements NguoiDongThueService {
@@ -21,6 +22,9 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
     @Override
     public ResponseEntity<?> registerTaxCode(NguoiDongThueDTO nguoiDongThueDTO) {
         NguoiDongThue nguoiDongThue = new NguoiDongThue();
+        if (!isValidNguoiDongThueDTO(nguoiDongThueDTO)) {
+            return ResponseUtil.getResponseEntity("04", "Dữ liệu không hợp lệ.", HttpStatus.BAD_REQUEST);
+        }
         if(nguoiDongThueRepository.existsByEmail(nguoiDongThueDTO.getEmail())){
 
 //            return new ResponseEntity<>("Email đã được đăng kí.", HttpStatus.BAD_REQUEST);
@@ -29,14 +33,10 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
         if(nguoiDongThueRepository.existsBySdt(nguoiDongThueDTO.getSdt())){
             return ResponseUtil.getResponseEntity("02", "Số điện thoại đã được đăng kí.",HttpStatus.BAD_REQUEST);
         }
-        if(nguoiDongThueDTO.getLoaiGiayTo().equals("cccd")){
-            if(nguoiDongThueRepository.existsByCCCD(nguoiDongThueDTO.getSoGiayTo())){
-                return ResponseUtil.getResponseEntity("03", "Số CCCD đã được đăng kí MST.",HttpStatus.BAD_REQUEST);
-            }
-        }else {
-            if(nguoiDongThueRepository.existsByCMND(nguoiDongThueDTO.getSoGiayTo())){
-                return ResponseUtil.getResponseEntity("04", "Số CMND đã được đăng kí MST.",HttpStatus.BAD_REQUEST);
-            }
+
+        if(nguoiDongThueRepository.existsByCCCD(nguoiDongThueDTO.getSoGiayTo())){
+            return ResponseUtil.getResponseEntity("03", "Số CCCD đã được đăng kí MST.",HttpStatus.BAD_REQUEST);
+
         }
 
 
@@ -47,17 +47,11 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
         nguoiDongThue.setSdt(nguoiDongThueDTO.getSdt());
         nguoiDongThue.setEmail(nguoiDongThueDTO.getEmail());
 
-        if(nguoiDongThueDTO.getLoaiGiayTo().equals("cccd")){
-            nguoiDongThue.setCCCD(nguoiDongThueDTO.getSoGiayTo());
-            nguoiDongThue.setCCCD_ngayCap(nguoiDongThueDTO.getNgayCap());
-            nguoiDongThue.setCCCD_noiCap(nguoiDongThueDTO.getNoiCap());
-        }
 
-        if(nguoiDongThueDTO.getLoaiGiayTo().equals("cmnd")){
-            nguoiDongThue.setCMND(nguoiDongThueDTO.getSoGiayTo());
-            nguoiDongThue.setCMND_ngayCap(nguoiDongThueDTO.getNgayCap());
-            nguoiDongThue.setCMND_noiCap(nguoiDongThueDTO.getNoiCap());
-        }
+        nguoiDongThue.setCCCD(nguoiDongThueDTO.getSoGiayTo());
+        nguoiDongThue.setCCCD_ngayCap(nguoiDongThueDTO.getNgayCap());
+        nguoiDongThue.setCCCD_noiCap(nguoiDongThueDTO.getNoiCap());
+
 
         nguoiDongThue.setDcct_QuanHuyen(nguoiDongThueDTO.getDcct_QuanHuyen());
         nguoiDongThue.setDcct_xaPhuong(nguoiDongThueDTO.getDcct_xaPhuong());
@@ -102,6 +96,59 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
 
     public List<NguoiDongThue> getAll() {
         return nguoiDongThueRepository.findAll();
+    }
+
+    public boolean isValidNguoiDongThueDTO(NguoiDongThueDTO nguoiDongThueDTO) {
+        // Kiểm tra các trường không được để trống
+        if (nguoiDongThueDTO.getHoVaTen() == null || nguoiDongThueDTO.getHoVaTen().isEmpty() ||
+                nguoiDongThueDTO.getGioiTinh() == null || nguoiDongThueDTO.getGioiTinh().isEmpty() ||
+                nguoiDongThueDTO.getNgaySinh() == null ||
+                nguoiDongThueDTO.getSdt() == null || nguoiDongThueDTO.getSdt().isEmpty() ||
+                nguoiDongThueDTO.getEmail() == null || nguoiDongThueDTO.getEmail().isEmpty() ||
+                nguoiDongThueDTO.getSoGiayTo() == null || nguoiDongThueDTO.getSoGiayTo().isEmpty() ||
+                nguoiDongThueDTO.getNgayCap() == null ||
+                nguoiDongThueDTO.getNoiCap() == null || nguoiDongThueDTO.getNoiCap().isEmpty() ||
+                nguoiDongThueDTO.getDchk_soNhaDuongXom() == null || nguoiDongThueDTO.getDchk_soNhaDuongXom().isEmpty() ||
+                nguoiDongThueDTO.getDchk_tinhThanhPho() == null || nguoiDongThueDTO.getDchk_tinhThanhPho().isEmpty() ||
+                nguoiDongThueDTO.getDchk_QuanHuyen() == null || nguoiDongThueDTO.getDchk_QuanHuyen().isEmpty() ||
+                nguoiDongThueDTO.getDchk_xaPhuong() == null || nguoiDongThueDTO.getDchk_xaPhuong().isEmpty() ||
+                nguoiDongThueDTO.getDcct_soNhaDuongXom() == null || nguoiDongThueDTO.getDcct_soNhaDuongXom().isEmpty() ||
+                nguoiDongThueDTO.getDcct_tinhThanhPho() == null || nguoiDongThueDTO.getDcct_tinhThanhPho().isEmpty() ||
+                nguoiDongThueDTO.getDcct_QuanHuyen() == null || nguoiDongThueDTO.getDcct_QuanHuyen().isEmpty() ||
+                nguoiDongThueDTO.getDcct_xaPhuong() == null || nguoiDongThueDTO.getDcct_xaPhuong().isEmpty() ||
+                nguoiDongThueDTO.getTaxAgency() == null || nguoiDongThueDTO.getTaxAgency().isEmpty()) {
+            return false;
+        }
+
+        // Kiểm tra định dạng email
+        String emailRegex = "^[a-zA-Z0-9]+([.]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$";
+        Pattern emailPattern = Pattern.compile(emailRegex);
+        if (!emailPattern.matcher(nguoiDongThueDTO.getEmail()).matches()) {
+            return false;
+        }
+
+        // Kiểm tra số điện thoại có 10 chữ số và không chứa kí tự đặc biệt
+        String phoneRegex = "^[0-9]{10}$";
+        Pattern phonePattern = Pattern.compile(phoneRegex);
+        if (!phonePattern.matcher(nguoiDongThueDTO.getSdt()).matches()) {
+            return false;
+        }
+
+        // Kiểm tra số giấy tờ chỉ chứa số và có đúng 12 chữ số
+        String idCardRegex = "^[0-9]{12}$";
+        Pattern idCardPattern = Pattern.compile(idCardRegex);
+        if (!idCardPattern.matcher(nguoiDongThueDTO.getSoGiayTo()).matches()) {
+            return false;
+        }
+
+        // Kiểm tra họ và tên không chứa số và kí tự đặc biệt, có thể chứa tiếng Việt có dấu
+        String nameRegex = "^[a-zA-Z\\p{L}\\s]+$"; // Chỉ chấp nhận kí tự chữ cái, khoảng trắng và tiếng Việt có dấu
+        Pattern namePattern = Pattern.compile(nameRegex);
+        if (!namePattern.matcher(nguoiDongThueDTO.getHoVaTen()).matches()) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

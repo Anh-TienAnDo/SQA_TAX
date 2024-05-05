@@ -90,6 +90,9 @@ public class UserServiceImpl implements UserService {
             String jwt = jwtUtil.generateToken(customUserDetailsService.getUserDetail());
             JwtResponse response = new JwtResponse();
             response.setJwt(jwt);
+            response.setName(customUserDetailsService.getUserDetail().getName());
+            response.setEmail(customUserDetailsService.getUserDetail().getEmail());
+            response.setId(customUserDetailsService.getUserDetail().getUserId());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (AuthenticationException exception) {
             return new ResponseEntity<>("Wrong login name or password.", HttpStatus.BAD_REQUEST);

@@ -9,7 +9,6 @@ public interface NguoiDongThueRepository extends JpaRepository<NguoiDongThue,Str
     boolean existsByEmail(String email);
     boolean existsByMst(String mst);
     boolean existsByCCCD(String cccd);
-    boolean existsByCMND(String cmnd);
     boolean existsBySdt(String sdt);
 
     NguoiDongThue findByMst(String mst);

@@ -22,8 +22,6 @@ public class NguoiDongThueDTO {
 
     private String email;
 
-    private String loaiGiayTo;
-
     private String soGiayTo;
 
     private Date ngayCap;

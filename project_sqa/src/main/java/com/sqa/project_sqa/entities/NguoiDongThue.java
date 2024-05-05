@@ -35,11 +35,11 @@ public class NguoiDongThue implements Serializable {
 
     private String email;
 
-    private String CMND;
-
-    private Date CMND_ngayCap;
-
-    private String CMND_noiCap;
+//    private String CMND;
+//
+//    private Date CMND_ngayCap;
+//
+//    private String CMND_noiCap;
 
     private String CCCD;
 
