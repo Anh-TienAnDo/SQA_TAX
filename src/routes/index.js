@@ -8,8 +8,8 @@ import DangKyMST from "../pages/DangKyMaSoThue";
 import Login from "../pages/Login/Login";
 export const routes = [
   {
-    index: true,
     path: "/dang-nhap",
+    index: true,
     element: <Login></Login>,
   },
   {

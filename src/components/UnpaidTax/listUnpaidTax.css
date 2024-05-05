@@ -136,9 +136,12 @@
   display: block;
 }
 
-
+.update_table{
+  margin-left: -255px;
+}
 
 .content__payment-tax{
+  display: flex;
   margin-top: 35px;
   margin-left: 1165px;
 
