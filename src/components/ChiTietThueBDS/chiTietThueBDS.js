@@ -1,7 +1,6 @@
 import React from "react";
 import "./chiThietThueBDS.css";
 function ChiTietThueBDS(item) {
-  console.log("ookok");
   return (
     <table>
       <thead>

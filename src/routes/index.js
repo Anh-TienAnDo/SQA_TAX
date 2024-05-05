@@ -16,10 +16,7 @@ export const routes = [
     path: "/",
     element: <LayoutDefault />,
     children: [
-      {
-        path: "receipt-tax",
-        element: <ReceiptTax />,
-      },
+      
       {
         path: "/thu-thue",
         element: <TaxPay />,

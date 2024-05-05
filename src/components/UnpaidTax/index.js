@@ -28,13 +28,14 @@ function ListUnpaidTax() {
   const { taxPayer, setTaxPayer } = useContext(TaxPayer);
   const [isModalOpenVerifyTaxWantPay, setIsModalOpenVerifyTaxWantPay] = useState(false);
 
+  const user = localStorage.getItem('info');
+  
   let tongTienCuoiCungPhaiNop = 0;
   if (taxWantPay?.length > 0) {
     taxWantPay.forEach((item) => {
       tongTienCuoiCungPhaiNop += item.tongThuePhaiNop;
     });
   }
-
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -56,14 +57,14 @@ function ListUnpaidTax() {
 
 
   const handleOkVerifyTaxWantPay = () => {
-
     const now = new Date()
     setIsModalOpenVerifyTaxWantPay(false);
+    console.log(taxWantPay)
     const receipt = {
       tongThuePhaiDong: tongTienCuoiCungPhaiNop,
       nguoiDongThueId: taxPayer.id,
       thoiGianNopThue: formatDateTime(now),
-      userId: 1,
+      userId: JSON.parse(user).id,
       danhSachThueMuonDong: [
         ...taxWantPay.map( (item) => {
           return {

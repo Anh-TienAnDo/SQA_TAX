@@ -18,7 +18,17 @@ import { getDate } from "../../helpers/getTimeCurrent";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueChuyenNhuongBDS } from "../../services/thueChuyenNhuongBDSService";
 const { RangePicker } = DatePicker;
-function ThueChuyenNhuongBDS({loai_thue_id}) {
+
+function adjustDateIfNewYear(originalDate, addedDays) {
+  let resultDate = new Date(originalDate); // Tạo một bản sao của ngày ban đầu
+  resultDate.setDate(originalDate.getDate() + addedDays); // Thêm ngày
+
+  resultDate = new Date(originalDate.getFullYear() + 1, 1, 1);
+
+  return resultDate;
+}
+
+function ThueChuyenNhuongBDS({ loai_thue_id }) {
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -31,12 +41,20 @@ function ThueChuyenNhuongBDS({loai_thue_id}) {
   ];
   const handleFinish = async (values) => {
     let path = `api/v1/to-khai-thue-chuyen-nhuong-bat-dong-san/submit`;
-    values.thuNhapTuNgay = getDate(values.date[0].$d);
-    values.thuNhapDenNgay = getDate(values.date[1].$d);
-    values.hanNopTuNgay = getDate(values.date[0].$d);
-    values.hanNopDenNgay = getDate(values.date[1].$d);
-    values.loaiThueId = loai_thue_id
-    console.log(values)
+    let thuNhapTuNgay = new Date(values.date[0].$d);
+    thuNhapTuNgay.setDate(thuNhapTuNgay.getDate() + 1); // Cộng thêm 1 ngày vào ngày bắt đầu
+    values.thuNhapTuNgay = thuNhapTuNgay;
+
+    values.thuNhapDenNgay = new Date(values.date[1].$d);
+
+    let hanNopTuNgay = adjustDateIfNewYear(thuNhapTuNgay, 1); // Điều chỉnh ngày nếu qua năm mới
+    values.hanNopTuNgay = hanNopTuNgay;
+
+    let hanNopDenNgay = adjustDateIfNewYear(hanNopTuNgay, 90); // Điều chỉnh ngày nếu qua năm mới
+    values.hanNopDenNgay = hanNopDenNgay;
+    values.loaiThueId = loai_thue_id;
+
+    console.log(values);
     values.date = undefined;
     const res = await saveKeKhaiThueChuyenNhuongBDS(values, path);
     if (!res.message) {
@@ -166,18 +184,18 @@ function ThueChuyenNhuongBDS({loai_thue_id}) {
                   name="giaTriChuyenNhuong"
                   rules={[
                     {
-                        validator: async (_, value) => {
-                            if (value) {
-                                if (value > 0) {
-                                    return Promise.resolve();
-                                } else {
-                                    return Promise.reject("Không được nhận giá trị âm");
-                                }
-                            }
-                        },
+                      validator: async (_, value) => {
+                        if (value) {
+                          if (value > 0) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject("Không được nhận giá trị âm");
+                          }
+                        }
+                      },
                     },
-                    ...rules
-                ]}
+                    ...rules,
+                  ]}
                 >
                   <InputNumber
                     min={0}
