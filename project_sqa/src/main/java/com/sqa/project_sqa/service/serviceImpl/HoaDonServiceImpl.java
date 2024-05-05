@@ -96,6 +96,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
             for(int i=0;i<danhSachThueMuonDongDTOList.size();i++){
                 int loaiThueId = danhSachThueMuonDongDTOList.get(i).getLoaiThueId();
+                int idThue = danhSachThueMuonDongDTOList.get(i).getIdThue();
                 for(ThueChuyenNhuongBanQuyen tmp: thueChuyenNhuongBanQuyenList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
                         thueChuyenNhuongBanQuyenService.CapNhatTrangThaiDaDong(tmp);
@@ -105,42 +106,55 @@ public class HoaDonServiceImpl implements HoaDonService {
 
                 for(ThueChuyenNhuongBDS tmp: thueChuyenNhuongBDSList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueChuyenNhuongBatDongSanService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueChuyenNhuongBatDongSanService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }
 
                 for(ThueDauTuVon tmp: thueDauTuVonList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueDauTuVonService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueDauTuVonService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }
 
                 for(ThueNhuongQuyenThuongMai tmp: thueNhuongQuyenThuongMaiList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+
+                        }
                     }
                     else break;
                 }
 
                 for(ThueNhuongQuyenThuongMai tmp: thueNhuongQuyenThuongMaiList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }
 
                 for(ThueQuaTang tmp: thueQuaTangList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueQuaTangService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueQuaTangService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }
 
                 for(ThueTienLuongCong tmp: thueTienLuongCongList){
                     if(tmp.getLoaiThue().getId()==loaiThueId){
-                        thueTienLuongCongService.CapNhatTrangThaiDaDong(tmp);
+                        if(tmp.getId()==idThue){
+                            thueTienLuongCongService.CapNhatTrangThaiDaDong(tmp);
+                        }
                     }
                     else break;
                 }

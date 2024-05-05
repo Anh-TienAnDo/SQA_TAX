@@ -31,7 +31,6 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
     }
 
