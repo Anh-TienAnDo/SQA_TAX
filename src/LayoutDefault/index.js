@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Layout, Flex, Button, Collapse, Image, Table } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   MenuUnfoldOutlined,
   SearchOutlined,
@@ -10,22 +10,38 @@ import {
 } from "@ant-design/icons";
 import logo from "../image/logo-short.png";
 import logo_tax from "../image/logo-tax.jpeg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DropDownNotify from "./DropDownNotify";
 import MenuSider from "../components/MenuSider";
 import { Link, useLocation } from "react-router-dom";
 import "./style.scss";
+import { render } from "@testing-library/react";
+import RenderFirst from "../context/renderFirst";
+import TaxWantPay from "../context/taxWantPay";
 const { Footer, Sider, Content } = Layout;
 
 function LayoutDefault() {
+  const { taxWantPay, setTaxWantPay } = useContext(TaxWantPay);
+  const navigate = useNavigate()
   const [collapsed, setCollapsed] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
+  const {renderFirst, setRenderFirst} = useContext(RenderFirst)
+
+  useEffect( () => {
+    console.log(renderFirst)
+    if(!renderFirst){
+      setRenderFirst(true)
+      navigate('/dang-nhap')
+    }
+  },[])
+
   const location = useLocation();
   const userInfo = localStorage.getItem("info")
     ? JSON.parse(localStorage.getItem("info"))
     : null;
 
   useEffect(() => {
+    setTaxWantPay([])
     switch (location.pathname) {
       case "/":
         setPageTitle("Trang chủ");

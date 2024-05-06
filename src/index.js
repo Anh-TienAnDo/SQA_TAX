@@ -8,11 +8,13 @@ import { SearchProvider } from "./context/search";
 import { UnpaidTaxProvider } from "./context/unpaidTax";
 import { TaxWantPayProvider } from "./context/taxWantPay";
 import { TaxPayerProvider } from "./context/taxPayer";
+import RenderFirst, { RenderFirstProvider } from "./context/renderFirst";
 // import { createStore } from "redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // const store = createStore(allReducers);
 root.render(
   <StrictMode>
+    <RenderFirstProvider>
     <TaxPayerProvider>
       <TaxWantPayProvider>
         <UnpaidTaxProvider>
@@ -26,6 +28,7 @@ root.render(
         </UnpaidTaxProvider>
       </TaxWantPayProvider>
     </TaxPayerProvider>
+    </RenderFirstProvider>
   </StrictMode>
 );
 

@@ -13,8 +13,7 @@ import {
   message,
   notification,
 } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { getDate } from "../../helpers/getTimeCurrent";
+import { useRef, useState } from "react";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueChuyenNhuongBDS } from "../../services/thueChuyenNhuongBDSService";
 const { RangePicker } = DatePicker;
@@ -33,6 +32,7 @@ function ThueChuyenNhuongBDS({ loai_thue_id }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [taxPayer, setTaxPayer] = useState(null);
+  
   const rules = [
     {
       required: true,

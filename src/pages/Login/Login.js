@@ -28,8 +28,6 @@ const Login = () => {
         localStorage.setItem('info',JSON.stringify(data) )
       }
       navigate('/')
-
-      
       // Redirect or do something else after successful login
     } catch (error) {
       setError("Tài khoản hoặc mật khẩu không đúng");

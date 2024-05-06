@@ -150,8 +150,9 @@ function ListUnpaidTax() {
 
   const handleClickPaymentTax = (e) => {};
   const handleClickUpdateTable = () => {
-    if(isTaxPay){
+    if(isTaxPay&&taxWantPay?.length>0){
       setTaxWantPay([])
+      setIsTaxPay(false)
     }
   }
   console.log(isTaxPay)
@@ -216,20 +217,20 @@ function ListUnpaidTax() {
                         </Modal>
                       </div>
                       <div class="grid-item">
-                        {item.tongThuePhaiNop.toLocaleString("de-DE")}{" "}
+                        {item.tongThuePhaiNop.toLocaleString("de-DE")}{" "} 
                       </div>
-
                       <div class="grid-item">
                         {taxWantPay.find(
                           (element) =>
                             item.id === element.id &&
                             item.loaiThueId === element.loaiThueId
                         ) ? (
-                          <Checkbox
-                            checked
-                            disabled= {isTaxPay ? true : false}
-                            onChange={() => handleClickTaxWantPay(item, false)}
-                          ></Checkbox>
+                            <Checkbox
+                              checked
+                              disabled= {isTaxPay ? true : false}
+                              onChange={() => handleClickTaxWantPay(item, false)}
+                            ></Checkbox>
+                          
                         ) : (
                           <Checkbox
                             onChange={() => handleClickTaxWantPay(item, true)}

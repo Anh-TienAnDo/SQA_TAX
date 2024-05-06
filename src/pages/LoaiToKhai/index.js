@@ -1,6 +1,6 @@
 import { Card, Select } from "antd"
 import ThueTienLuongCong from "../ThueTienLuongCong"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThueChuyenNhuongBDS from "../ThueChuyenNhuongBDS";
 import ThueTrungThuong from "../ThueTrungThuong";
 import ThueChuyenNhuongBanQuyen from "../ThueChuyenNhuongBanQuyen";
@@ -8,11 +8,14 @@ import ThueDauTuVon from "../ThueDauTuVon";
 import ThueNhuongQuyenThuongMai from "../ThueNhuongQuyenThuongMai";
 import ThueQuaTang from "../ThueQuaTang";
 import { getAllLoaiThue } from "../../services/loaiThueService";
+import TaxWantPay from "../../context/taxWantPay";
 
 function LoaiToKhai() {
+    const { taxWantPay, setTaxWantPay } = useContext(TaxWantPay);
     const [loaiToKhai, setLoaiToKhai] = useState();
     const [danhSachLoaiToKhai, setDanhSachLoaiToKhai] = useState();
     useEffect(() => {
+        setTaxWantPay([])
         const fetch = async () => {
             const res = await getAllLoaiThue('api/v1/loai-thue/getAll')
             setDanhSachLoaiToKhai(res)

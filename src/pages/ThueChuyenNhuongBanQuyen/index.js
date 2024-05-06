@@ -13,16 +13,19 @@ import {
   message,
   notification,
 } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getTaxPayer } from "../../services/taxPayer";
 import { getDate } from "../../helpers/getTimeCurrent";
 import { saveKeKhaiThueChuyenNhuongBanQuyen } from "../../services/thueChuyenNhuongBanQuyenService";
+import UnpaidTax from "../../context/unpaidTax";
+import TaxWantPay from "../../context/taxWantPay";
 const { RangePicker } = DatePicker;
 function ThueChuyenNhuongBanQuyen({loai_thue_id}) {
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [taxPayer, setTaxPayer] = useState(null);
+ 
   const rules = [
     {
       required: true,
@@ -186,20 +189,7 @@ function ThueChuyenNhuongBanQuyen({loai_thue_id}) {
                 <Form.Item
                   label="Khoảng thời gian thu nhập"
                   name="date"
-                  rules={[
-                    {
-                        validator: async (_, value) => {
-                            if (value) {
-                                if (value > 0) {
-                                    return Promise.resolve();
-                                } else {
-                                    return Promise.reject("Không được nhận giá trị âm");
-                                }
-                            }
-                        },
-                    },
-                    ...rules
-                ]}
+                  rules={rules}
                 >
                   <RangePicker style={{ width: "100%" }} />
                 </Form.Item>

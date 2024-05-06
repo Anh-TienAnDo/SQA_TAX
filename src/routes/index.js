@@ -8,15 +8,9 @@ import DangKyMST from "../pages/DangKyMaSoThue";
 import Login from "../pages/Login/Login";
 export const routes = [
   {
-    path: "/dang-nhap",
-    index: true,
-    element: <Login></Login>,
-  },
-  {
     path: "/",
     element: <LayoutDefault />,
     children: [
-      
       {
         path: "/thu-thue",
         element: <TaxPay />,
@@ -40,5 +34,10 @@ export const routes = [
         element: <DangKyMST />,
       },
     ],
+  },
+  {
+    path: "/dang-nhap",
+    index: true,
+    element: <Login></Login>,
   },
 ];

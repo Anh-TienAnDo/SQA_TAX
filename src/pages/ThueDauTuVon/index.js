@@ -13,16 +13,18 @@ import {
   message,
   notification,
 } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getDate } from "../../helpers/getTimeCurrent";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueDauTuVon } from "../../services/thueDauTuVonService";
+import UnpaidTax from "../../context/unpaidTax";
 const { RangePicker } = DatePicker;
 function ThueDauTuVon({loai_thue_id}) {
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [taxPayer, setTaxPayer] = useState(null);
+  
   const rules = [
     {
       required: true,

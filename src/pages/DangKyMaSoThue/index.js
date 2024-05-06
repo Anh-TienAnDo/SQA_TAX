@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ConfigProvider, Input, Select } from "antd";
 import "./styles.css";
+import TaxWantPay from "../../context/taxWantPay";
 
 const DangKyMST = () => {
+  const { taxWantPay, setTaxWantPay } = useContext(TaxWantPay);
   const [popupTitle, setPopupTitle] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
 
@@ -14,6 +16,9 @@ const DangKyMST = () => {
   const [soGiayTo, setSoGiayTo] = useState("");
   const [ngayCap, setNgayCap] = useState("");
   const [noiCap, setNoiCap] = useState("");
+  useEffect(() => {
+    setTaxWantPay([])
+  })
   const [diaChiHoKhau, setDiaChiHoKhau] = useState({
     soNhaDuong: "",
     xaPhuong: "",
