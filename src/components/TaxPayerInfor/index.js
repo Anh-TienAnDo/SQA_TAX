@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllTaxPayer, getTaxPayer, send } from "../../services/taxPayer";
 import Search from "../../context/search";
 import TaxPayer from "../../context/taxPayer";
+import FormatDateTime, { FormatTimeOnlyDMY } from "../../utils/FormatDateTime";
 
 function TaxPayerInfor() {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ function TaxPayerInfor() {
     setAfterAuthenTaxPayer(true);
     navigate("/thu-thue");
   };
+  // const ngaySinh = taxPayer.ngaySinh;
   return (
     <>
       <div className="content">
@@ -82,7 +84,7 @@ function TaxPayerInfor() {
                     </tr>
                     <tr>
                       <td>Ngày sinh</td>
-                      <td>{taxPayer.ngaySinh}</td>
+                    <td>{ FormatTimeOnlyDMY(taxPayer.ngaySinh) }</td>
                     </tr>
                     <tr>
                       <td>Giới tính</td>

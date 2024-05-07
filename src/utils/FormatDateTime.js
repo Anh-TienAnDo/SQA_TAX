@@ -9,4 +9,22 @@ const  FormatDateTime = (date) => {
   return `${day}-${month}-${year} ${hour}:${minute}:${second}`;
 }
 
+export const  FormatTimeOnlyDMY = (date) => {
+  try {
+    date = new Date(date.toString());
+    var dateFormat = date.toLocaleDateString('vi-VN', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+  });
+    return dateFormat
+  } 
+  catch (error) {
+    return "123"
+  }
+  
+
+}
+
+
 export default FormatDateTime
