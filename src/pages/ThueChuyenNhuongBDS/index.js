@@ -18,14 +18,6 @@ import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueChuyenNhuongBDS } from "../../services/thueChuyenNhuongBDSService";
 const { RangePicker } = DatePicker;
 
-function adjustDateIfNewYear(originalDate, addedDays) {
-  let resultDate = new Date(originalDate); // Tạo một bản sao của ngày ban đầu
-  resultDate.setDate(originalDate.getDate() + addedDays); // Thêm ngày
-
-  resultDate = new Date(originalDate.getFullYear() + 1, 1, 1);
-
-  return resultDate;
-}
 
 function ThueChuyenNhuongBDS({ loai_thue_id }) {
   const [notificationApi, contextHolder] = notification.useNotification();
@@ -46,16 +38,9 @@ function ThueChuyenNhuongBDS({ loai_thue_id }) {
     values.thuNhapTuNgay = thuNhapTuNgay;
 
     values.thuNhapDenNgay = new Date(values.date[1].$d);
-
-    let hanNopTuNgay = adjustDateIfNewYear(thuNhapTuNgay, 1); // Điều chỉnh ngày nếu qua năm mới
-    values.hanNopTuNgay = hanNopTuNgay;
-
-    let hanNopDenNgay = adjustDateIfNewYear(hanNopTuNgay, 90); // Điều chỉnh ngày nếu qua năm mới
-    values.hanNopDenNgay = hanNopDenNgay;
     values.loaiThueId = loai_thue_id;
 
     console.log(values);
-    values.date = undefined;
     const res = await saveKeKhaiThueChuyenNhuongBDS(values, path);
     if (!res.message) {
       setLoading(false);

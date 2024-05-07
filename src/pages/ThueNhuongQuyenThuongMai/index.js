@@ -35,7 +35,6 @@ function ThueNhuongQuyenThuongMai({ loai_thue_id }) {
     let path = `api/v1/to-khai-thue-nhuong-quyen-thuong-mai/submit`;
     values.thuNhapTuNgay = getDate(values.date[0].$d);
     values.thuNhapDenNgay = getDate(values.date[1].$d);
-    values.date = undefined;
     values.loaiThueId = loai_thue_id;
     const res = await saveKeKhaiThueNhuongQuyenThuongMai(values, path);
     if (!res.message) {

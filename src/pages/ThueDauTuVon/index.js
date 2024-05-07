@@ -36,7 +36,6 @@ function ThueDauTuVon({loai_thue_id}) {
     values.thuNhapTuNgay = getDate(values.date[0].$d);
     values.thuNhapDenNgay = getDate(values.date[1].$d);
 
-    values.date = undefined;
     values.loaiThueId = loai_thue_id
     const res = await saveKeKhaiThueDauTuVon(values, path);
     if (!res.message) {

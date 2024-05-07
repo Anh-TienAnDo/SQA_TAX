@@ -119,6 +119,7 @@ function TaxPay() {
         type: "cccd",
         data: CCCDNumberRef.current.value,
       });
+      console.log(numberCCCD.length);
       if (numberCCCD?.length === 12) {
         let newTaxPayer = allTaxPayer.find(
           (item) => item["cccd"] === CCCDNumberRef.current.value
