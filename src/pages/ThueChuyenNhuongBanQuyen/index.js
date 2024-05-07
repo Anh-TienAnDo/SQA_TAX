@@ -42,6 +42,7 @@ function ThueChuyenNhuongBanQuyen({loai_thue_id}) {
     if (!res.message) {
       setLoading(false);
       form.resetFields();
+      setTaxPayer(null);
       notificationApi.success({
         message: "Kê khai thành công",
         duration: 3,
