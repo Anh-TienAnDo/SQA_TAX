@@ -104,7 +104,7 @@ function ListUnpaidTax() {
             if (result === undefined) {
               console.log("getUnpaidTax Error");
             } else {
-              const data = result.flat().filter( (item) => item.trangThaiDaDong===false)
+              const data = result.flat().filter( (item) => item.trangThaiDaDong===false&&taxPayer.mst===item.mst)
               setUnpaidTax(data);
             }
           });
