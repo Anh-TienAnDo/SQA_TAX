@@ -18,6 +18,7 @@ import { getDate } from "../../helpers/getTimeCurrent";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueQuaTang } from "../../services/thueQuaTangService";
 import UnpaidTax from "../../context/unpaidTax";
+import FormatDateTime from "../../utils/FormatDateTime";
 const { RangePicker } = DatePicker;
 function ThueQuaTang({ loai_thue_id }) {
   const [notificationApi, contextHolder] = notification.useNotification();
@@ -130,7 +131,7 @@ function ThueQuaTang({ loai_thue_id }) {
                                     </tr>
                                     <tr>
                                       <td>Ngày sinh</td>
-                                      <td>{taxPayer.ngaySinh}</td>
+                                      <td>{FormatDateTime(taxPayer.ngaySinh)}</td>
                                     </tr>
                                     <tr>
                                       <td>Giới tính</td>
