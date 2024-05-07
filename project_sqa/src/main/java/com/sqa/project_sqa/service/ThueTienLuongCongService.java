@@ -21,4 +21,5 @@ public interface ThueTienLuongCongService {
     String Deductible(long ban_than, long nguoi_phu_thuoc, long tu_thien, long bao_hiem);
 
     String CapNhatTrangThaiDaDong(ThueTienLuongCong thueTienLuongCong);
+	
 }
