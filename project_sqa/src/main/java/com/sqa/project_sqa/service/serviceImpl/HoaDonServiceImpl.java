@@ -160,6 +160,15 @@ public class HoaDonServiceImpl implements HoaDonService {
                     }
                     else break;
                 }
+
+                for(ThueTrungThuong tmp: thueTrungThuongList){
+                    if(tmp.getLoaiThue().getId()==loaiThueId){
+                        if(tmp.getId()==idThue){
+                            thueTrungThuongService.CapNhatTrangThaiDaDong(tmp);
+                        }
+                    }
+                    else break;
+                }
             }
 
 
