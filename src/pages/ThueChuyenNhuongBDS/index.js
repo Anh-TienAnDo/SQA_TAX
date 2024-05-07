@@ -16,7 +16,7 @@ import {
 import { useRef, useState } from "react";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueChuyenNhuongBDS } from "../../services/thueChuyenNhuongBDSService";
-import FormatDateTime from "../../utils/FormatDateTime";
+import {FormatTimeOnlyDMY} from "../../utils/FormatDateTime";
 const { RangePicker } = DatePicker;
 
 
@@ -136,7 +136,7 @@ function ThueChuyenNhuongBDS({ loai_thue_id }) {
                                     </tr>
                                     <tr>
                                       <td>Ngày sinh</td>
-                                      <td>{FormatDateTime(taxPayer.ngaySinh)}</td>
+                                      <td>{FormatTimeOnlyDMY(taxPayer.ngaySinh)}</td>
                                     </tr>
                                     <tr>
                                       <td>Giới tính</td>
