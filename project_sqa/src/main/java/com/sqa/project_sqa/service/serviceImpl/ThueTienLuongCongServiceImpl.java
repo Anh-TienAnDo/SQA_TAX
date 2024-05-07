@@ -99,23 +99,20 @@ public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
     }
 
     // Khoản giảm trừ
-    @Override
-    public String Deductible(BigDecimal taxable_income, int dependent_person, BigDecimal benevolent) {
-        BigDecimal deductible = taxable_income.multiply(this.social_insurance)
-                .add(new BigDecimal("4400000").multiply(BigDecimal.valueOf(dependent_person)))
-                .add(this.myself)
-                .add(benevolent);
-        return deductible.setScale(0, RoundingMode.HALF_UP).toString(); // Làm tròn số về 2 chữ số sau dấu thập phân
-    }
+    // @Override
+    // public String Deductible(BigDecimal taxable_income, int dependent_person, BigDecimal benevolent) {
+    //     BigDecimal deductible = taxable_income.multiply(this.social_insurance)
+    //             .add(new BigDecimal("4400000").multiply(BigDecimal.valueOf(dependent_person)))
+    //             .add(this.myself)
+    //             .add(benevolent);
+    //     return deductible.setScale(0, RoundingMode.HALF_UP).toString(); // Làm tròn số về 2 chữ số sau dấu thập phân
+    // }
 
     // Khoản giảm trừ
     @Override
-    public String Deductible(BigDecimal taxable_income, BigDecimal dependent_person, BigDecimal benevolent) {
-        BigDecimal deductible = taxable_income.multiply(this.social_insurance)
-                .add(dependent_person)
-                .add(this.myself)
-                .add(benevolent);
-        return deductible.setScale(0, RoundingMode.HALF_UP).toString(); // Làm tròn số về 2 chữ số sau dấu thập phân
+    public String Deductible(long ban_than, long nguoi_phu_thuoc, long tu_thien, long bao_hiem) {
+        BigDecimal deductible = new BigDecimal(String.valueOf(ban_than + nguoi_phu_thuoc + tu_thien + bao_hiem));
+        return deductible.setScale(0, RoundingMode.HALF_UP).toString(); // Làm tròn số
     }
 
     @Override
