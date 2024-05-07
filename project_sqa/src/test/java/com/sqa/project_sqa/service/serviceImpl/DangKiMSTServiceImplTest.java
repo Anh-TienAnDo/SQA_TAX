@@ -2,6 +2,7 @@ package com.sqa.project_sqa.service.serviceImpl;
 
 import com.sqa.project_sqa.payload.dto.NguoiDongThueDTO;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
+import com.sqa.project_sqa.service.DangKiMSTService;
 import com.sqa.project_sqa.service.NguoiDongThueService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,15 +16,15 @@ import org.springframework.http.ResponseEntity;
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-class NguoiDongThueServiceImplTest {
+class DangKiMSTServiceImplTest {
+
     @Mock
     private NguoiDongThueRepository nguoiDongThueRepository;
 
     @InjectMocks
-    private NguoiDongThueService nguoiDongThueService = new NguoiDongThueServiceImpl();
+    private DangKiMSTService dangKiMSTService = new DangKiMSTServiceImpl();
 
 
     @BeforeEach
@@ -37,7 +38,7 @@ class NguoiDongThueServiceImplTest {
 
     @Test
     public void testValidNguoiDongThueDTO() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
 
         // Tạo một đối tượng DTO hợp lệ
         NguoiDongThueDTO validDTO = new NguoiDongThueDTO();
@@ -62,9 +63,10 @@ class NguoiDongThueServiceImplTest {
         // Kiểm tra xem DTO có được coi là hợp lệ không
         assertTrue(service.isValidNguoiDongThueDTO(validDTO));
     }
+
     @Test
     public void testInValidNguoiDongThueDTO_HasFieldNull() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen(null); // Set hoVaTen to null
         invalidDTO.setGioiTinh("Nam");
@@ -89,7 +91,7 @@ class NguoiDongThueServiceImplTest {
 
     @Test
     public void testInValidNguoiDongThueDTO_HasFieldEmpty() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen(""); // Set hoVaTen to empty string
         invalidDTO.setGioiTinh("Nam");
@@ -116,7 +118,7 @@ class NguoiDongThueServiceImplTest {
 
     @Test
     public void testInValidNguoiDongThueDTO_InvalidHoVaTen_HasNumericCharacters() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A 123"); // họ tên chứa số và kí tự đặc biệt
         invalidDTO.setGioiTinh("Nam");
@@ -139,7 +141,7 @@ class NguoiDongThueServiceImplTest {
     }
     @Test
     public void testInValidNguoiDongThueDTO_InvalidHoVaTen_HasSpecialCharacters() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A *"); // họ tên chứa kí tự đặc biệt
         invalidDTO.setGioiTinh("Nam");
@@ -163,7 +165,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSDT_Has11NumericCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -188,7 +190,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSDT_HasSpecialCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -212,7 +214,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSDT_HasLetterCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -236,7 +238,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSDT_Has9NumericCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -261,7 +263,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSoGiayTo_Has11NumericCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -285,7 +287,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSoGiayTo_Has13NumericCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -309,7 +311,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSoGiayTo_HasSpecialCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -333,7 +335,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testInValidNguoiDongThueDTO_InvalidSoGiayTo_HasLetterCharacters() {
         boolean expectedResult = false;
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -357,7 +359,7 @@ class NguoiDongThueServiceImplTest {
 
     @Test
     public void testInValidNguoiDongThueDTO_InvalidEmail() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
         invalidDTO.setHoVaTen("Nguyễn Văn A");
         invalidDTO.setGioiTinh("Nam");
@@ -381,7 +383,7 @@ class NguoiDongThueServiceImplTest {
 
     @Test
     public void testInvalidNguoiDongThueDTO() {
-        NguoiDongThueServiceImpl service = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl service = new DangKiMSTServiceImpl();
 
         // Tạo một đối tượng DTO không hợp lệ
         NguoiDongThueDTO invalidDTO = new NguoiDongThueDTO();
@@ -431,7 +433,7 @@ class NguoiDongThueServiceImplTest {
         when(nguoiDongThueRepository.existsByEmail(nguoiDongThueDTO.getEmail())).thenReturn(true);
 
         // Act
-        ResponseEntity<?> responseEntity = nguoiDongThueService.registerTaxCode(nguoiDongThueDTO);
+        ResponseEntity<?> responseEntity = dangKiMSTService.registerTaxCode(nguoiDongThueDTO);
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -462,7 +464,7 @@ class NguoiDongThueServiceImplTest {
         when(nguoiDongThueRepository.existsBySdt(nguoiDongThueDTO.getSdt())).thenReturn(true);
 
         // Act
-        ResponseEntity<?> responseEntity = nguoiDongThueService.registerTaxCode(nguoiDongThueDTO);
+        ResponseEntity<?> responseEntity = dangKiMSTService.registerTaxCode(nguoiDongThueDTO);
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -495,7 +497,7 @@ class NguoiDongThueServiceImplTest {
         when(nguoiDongThueRepository.existsByCCCD(nguoiDongThueDTO.getSoGiayTo())).thenReturn(true);
 
         // Act
-        ResponseEntity<?> responseEntity = nguoiDongThueService.registerTaxCode(nguoiDongThueDTO);
+        ResponseEntity<?> responseEntity = dangKiMSTService.registerTaxCode(nguoiDongThueDTO);
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -505,7 +507,7 @@ class NguoiDongThueServiceImplTest {
     @Test
     public void testRegisterTaxCode_WhenInvalidData() {
         // Arrange
-        NguoiDongThueServiceImpl serviceImpl = new NguoiDongThueServiceImpl();
+        DangKiMSTServiceImpl serviceImpl = new DangKiMSTServiceImpl();
 
         NguoiDongThueDTO nguoiDongThueDTO = new NguoiDongThueDTO();
         nguoiDongThueDTO.setHoVaTen("Nguyễn Văn A 123 !!!!"); // họ tên chứa số và kí tự đặc biệt
@@ -531,7 +533,7 @@ class NguoiDongThueServiceImplTest {
         when(nguoiDongThueRepository.existsByCCCD(nguoiDongThueDTO.getSoGiayTo())).thenReturn(false);
 
         // Act
-        ResponseEntity<?> responseEntity = nguoiDongThueService.registerTaxCode(nguoiDongThueDTO);
+        ResponseEntity<?> responseEntity = dangKiMSTService.registerTaxCode(nguoiDongThueDTO);
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -565,11 +567,10 @@ class NguoiDongThueServiceImplTest {
         when(nguoiDongThueRepository.existsByCCCD(nguoiDongThueDTO.getSoGiayTo())).thenReturn(false);
 
         // Act
-        ResponseEntity<?> responseEntity = nguoiDongThueService.registerTaxCode(nguoiDongThueDTO);
+        ResponseEntity<?> responseEntity = dangKiMSTService.registerTaxCode(nguoiDongThueDTO);
 
         // Assert
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         // Add more assertions here if needed
     }
-
 }

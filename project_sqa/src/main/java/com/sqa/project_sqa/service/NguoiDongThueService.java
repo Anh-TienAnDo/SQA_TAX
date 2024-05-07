@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface NguoiDongThueService {
-    ResponseEntity<?> registerTaxCode(NguoiDongThueDTO nguoiDongThueDTO);
+
     List<NguoiDongThue> getAll();
 
     NguoiDongThue getNguoiDongThueByMaSoThue(String mst);
