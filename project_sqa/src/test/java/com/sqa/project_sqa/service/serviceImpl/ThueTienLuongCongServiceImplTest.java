@@ -134,6 +134,37 @@ public class ThueTienLuongCongServiceImplTest {
         assertEquals(expResult, result);
     }
 
-   
+    @Test
+    public void testDeductible_cac_tham_so_bang_0() {
+    	long ban_than = 0;
+    	long nguoi_phu_thuoc = 0;
+    	long tu_thien = 0;
+    	long bao_hiem = 0;
+        expResult = "0";
+        result = instance.Deductible(ban_than, nguoi_phu_thuoc, tu_thien, bao_hiem);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testDeductible_co_1_tham_so_bang_0() {
+    	long ban_than = 11000000;
+    	long nguoi_phu_thuoc = 4400000;
+    	long tu_thien = 0;
+    	long bao_hiem = 1000000;
+        expResult = "16400000";
+        result = instance.Deductible(ban_than, nguoi_phu_thuoc, tu_thien, bao_hiem);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testDeductible_so_cuc_lon() {
+    	long ban_than = 11000000;
+    	long nguoi_phu_thuoc = 0;
+    	long tu_thien = Long.valueOf("1000000000000000000"); // 1.000.000.000.000.000.000
+    	long bao_hiem = 0;
+        expResult = "1000000000011000000";
+        result = instance.Deductible(ban_than, nguoi_phu_thuoc, tu_thien, bao_hiem);
+        assertEquals(expResult, result);
+    }
     
 }
