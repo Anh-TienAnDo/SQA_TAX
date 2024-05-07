@@ -18,8 +18,7 @@ public interface ThueTienLuongCongService {
     // thuế thu nhập đối với cá nhân không cư trú
     String Tax_type3(BigDecimal taxable_income);
     // Khoản giảm trừ
-    String Deductible(BigDecimal taxable_income, int dependent_person, BigDecimal benevolent);
-    String Deductible(BigDecimal taxable_income, BigDecimal dependent_person, BigDecimal benevolent);
+    String Deductible(long ban_than, long nguoi_phu_thuoc, long tu_thien, long bao_hiem);
 
     String CapNhatTrangThaiDaDong(ThueTienLuongCong thueTienLuongCong);
 }
