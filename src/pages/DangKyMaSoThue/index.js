@@ -17,8 +17,8 @@ const DangKyMST = () => {
   const [ngayCap, setNgayCap] = useState("");
   const [noiCap, setNoiCap] = useState("");
   useEffect(() => {
-    setTaxWantPay([])
-  })
+    setTaxWantPay([]);
+  });
   const [diaChiHoKhau, setDiaChiHoKhau] = useState({
     soNhaDuong: "",
     xaPhuong: "",
@@ -71,20 +71,13 @@ const DangKyMST = () => {
     const data = await response.json();
 
     if (type === "cutru") {
-      setDiaChiCuTru((prev)=> ({...prev,
-        xaPhuong: "",
-        quanHuyen: ""
-      }))
+      setDiaChiCuTru((prev) => ({ ...prev, xaPhuong: "", quanHuyen: "" }));
       setQuanHuyenOptions((prev) => ({
         ...prev,
         cuTru: data,
       }));
-    
     } else {
-      setDiaChiHoKhau((prev)=> ({...prev,
-        xaPhuong: "",
-        quanHuyen: ""
-      }))
+      setDiaChiHoKhau((prev) => ({ ...prev, xaPhuong: "", quanHuyen: "" }));
       setQuanHuyenOptions((prev) => ({
         ...prev,
         hoKhau: data,
@@ -106,22 +99,17 @@ const DangKyMST = () => {
     const data = await response.json();
     // Assuming the response data is an array of objects with 'name' and 'value' properties
     if (type === "cutru") {
-      setDiaChiCuTru((prev)=> ({...prev,
-        xaPhuong: "",
-      }))
+      setDiaChiCuTru((prev) => ({ ...prev, xaPhuong: "" }));
       setXaPhuongOptions((prev) => ({
         ...prev,
         cuTru: data,
       }));
     } else {
-      setDiaChiHoKhau((prev)=> ({...prev,
-        xaPhuong: "",
-      }))
+      setDiaChiHoKhau((prev) => ({ ...prev, xaPhuong: "" }));
       setXaPhuongOptions((prev) => ({
         ...prev,
         hoKhau: data,
       }));
- 
     }
   };
 
@@ -144,7 +132,7 @@ const DangKyMST = () => {
     if (selectedDate > today) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        ngaySinh: "Không được chọn ngày trong tương lai",
+        ngaySinh: "Ngày tháng năm sinh không hợp lệ",
       }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, ngaySinh: "" }));
@@ -159,7 +147,7 @@ const DangKyMST = () => {
     if (selectedDate > today) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        ngayCap: "Ngày cấp không được lớn hơn ngày hiện tại",
+        ngayCap: "Ngày cấp không hợp lệ",
       }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, ngayCap: "" }));
@@ -254,13 +242,12 @@ const DangKyMST = () => {
       newErrors.gioiTinh = "Vui lòng chọn giới tính";
     }
 
-    if (loaiGiayTo.trim() === "cmnd" && soGiayTo.trim() === "") {
-      newErrors.soGiayTo = "Vui lòng nhập số CMND";
-    } else if (loaiGiayTo.trim() === "cccd" && soGiayTo.trim() === "") {
+    if (soGiayTo.trim() === "") {
       newErrors.soGiayTo = "Vui lòng nhập số CCCD";
-    }
-    if (validateNumber(soGiayTo.trim()) == false) {
-      newErrors.soGiayTo = "Số CCCD là 12 chữ số & không chứa khoảng trắng";
+    } else {
+      if (validateNumber(soGiayTo.trim()) == false) {
+        newErrors.soGiayTo = "Số CCCD không hợp lệ";
+      }
     }
 
     if (ngayCap.trim() === "") {
@@ -305,21 +292,26 @@ const DangKyMST = () => {
 
     if (dienThoai.trim() === "") {
       newErrors.dienThoai = "Vui lòng nhập số điện thoại";
-    }
-    if (!validateSdt(dienThoai)) {
-      newErrors.dienThoai = "Số điện thoại không hợp lệ";
+    } else {
+      if (!validateSdt(dienThoai)) {
+        newErrors.dienThoai = "Số điện thoại không hợp lệ";
+      }
     }
 
     if (email.trim() === "") {
       newErrors.email = "Vui lòng nhập địa chỉ email";
+    } else {
+      if (!validateEmail(email)) {
+        newErrors.email = "Email không hợp lệ";
+      }
     }
-    if (!validateEmail(email)) {
-      newErrors.email = "Email không hợp lệ";
-    }
-    console.log(email);
+
     if (coQuanChiTra.trim() === "") {
       newErrors.coQuanChiTra = "Vui lòng nhập cơ quan chi trả";
     }
+    console.log(
+     diaChiHoKhau.xaPhuong
+    );
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
       // Thực hiện hành động submit ở đây
@@ -336,7 +328,7 @@ const DangKyMST = () => {
         dchk_soNhaDuongXom: diaChiHoKhau.soNhaDuong,
         dchk_tinhThanhPho: JSON.parse(diaChiHoKhau.tinhThanhPho).name,
         dchk_QuanHuyen: JSON.parse(diaChiHoKhau.quanHuyen).name,
-        dchk_xaPhuong: diaChiHoKhau.xaPhuong,
+        dchk_xaPhuong: JSON.parse(diaChiHoKhau.xaPhuong).name,
 
         dcct_soNhaDuongXom: diaChiCuTru.soNhaDuong,
         dcct_tinhThanhPho: JSON.parse(diaChiCuTru.tinhThanhPho).name,
@@ -471,7 +463,9 @@ const DangKyMST = () => {
             ]}
           />
           {errors.gioiTinh && (
-            <span style={{display: 'block'}} className="error-message">{errors.gioiTinh}</span>
+            <span style={{ display: "block" }} className="error-message">
+              {errors.gioiTinh}
+            </span>
           )}
         </div>
 
@@ -537,9 +531,9 @@ const DangKyMST = () => {
           <h3>Địa chỉ theo hộ khẩu:</h3>
 
           <label>Tỉnh, thành phố:</label>
-          <div style={{ minHeight: "75px"}}>
+          <div style={{ minHeight: "75px" }}>
             <Select
-              style={{ width:"190px" }}
+              style={{ width: "190px" }}
               placeholder="Chọn tỉnh/thành phố"
               onClick={() => handleInputClick("tinhThanhPhoHoKhau")}
               value={diaChiHoKhau.tinhThanhPho || undefined}
@@ -565,14 +559,16 @@ const DangKyMST = () => {
               ))}
             </Select>
             {errors.tinhThanhPhoHoKhau && (
-              <span style={{display: 'block'}} className="error-message">{errors.tinhThanhPhoHoKhau}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.tinhThanhPhoHoKhau}
+              </span>
             )}
           </div>
 
           <label>Quận, huyện:</label>
           <div style={{ minHeight: "75px" }}>
             <Select
-             style={{ width:"190px" }}
+              style={{ width: "190px" }}
               placeholder="Chọn quận/huyện"
               onClick={() => handleInputClick("quanHuyenHoKhau")}
               value={diaChiHoKhau.quanHuyen || undefined}
@@ -594,14 +590,16 @@ const DangKyMST = () => {
               ))}
             </Select>
             {errors.quanHuyenHoKhau && (
-              <span style={{display: 'block'}} className="error-message">{errors.quanHuyenHoKhau}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.quanHuyenHoKhau}
+              </span>
             )}
           </div>
 
           <label>Xã, phường:</label>
           <div style={{ minHeight: "75px" }}>
             <Select
-              style={{ width:"190px" }}
+              style={{ width: "190px" }}
               placeholder="Chọn xã/phường"
               onClick={() => handleInputClick("xaPhuongHoKhau")}
               value={diaChiHoKhau.xaPhuong || undefined}
@@ -610,13 +608,15 @@ const DangKyMST = () => {
               }
             >
               {xaPhuongOptions.hoKhau.map((xaPhuong, index) => (
-                <option key={index} value={JSON.stringify(xaPhuong).name}>
+                <option key={index} value={JSON.stringify(xaPhuong)}>
                   {xaPhuong.name}
                 </option>
               ))}
             </Select>
             {errors.xaPhuongHoKhau && (
-              <span style={{display: 'block'}} className="error-message">{errors.xaPhuongHoKhau}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.xaPhuongHoKhau}
+              </span>
             )}
           </div>
 
@@ -642,8 +642,7 @@ const DangKyMST = () => {
           <div style={{ minHeight: "75px" }}>
             <label>Tỉnh, thành phố:</label>
             <Select
-              style={{ width:"190px" }}
-
+              style={{ width: "190px" }}
               placeholder="Chọn tỉnh, thành phố"
               onClick={() => handleInputClick("tinhThanhPhoCuTru")}
               value={diaChiCuTru.tinhThanhPho || undefined}
@@ -669,15 +668,16 @@ const DangKyMST = () => {
               ))}
             </Select>
             {errors.tinhThanhPhoCuTru && (
-              <span style={{display: 'block'}} className="error-message">{errors.tinhThanhPhoCuTru}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.tinhThanhPhoCuTru}
+              </span>
             )}
           </div>
 
           <div style={{ minHeight: "75px" }}>
             <label>Quận, huyện:</label>
             <Select
-              style={{ width:"190px" }}
-
+              style={{ width: "190px" }}
               placeholder="Chọn quận, huyện"
               onClick={() => handleInputClick("quanHuyenCuTru")}
               value={diaChiCuTru.quanHuyen || undefined}
@@ -699,15 +699,16 @@ const DangKyMST = () => {
               ))}
             </Select>
             {errors.quanHuyenCuTru && (
-              <span style={{display: 'block'}} className="error-message">{errors.quanHuyenCuTru}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.quanHuyenCuTru}
+              </span>
             )}
           </div>
 
-          <div style={{minHeight: '75px'}}>
+          <div style={{ minHeight: "75px" }}>
             <label>Xã, phường:</label>
             <Select
-              style={{ width:"190px" }}
-
+              style={{ width: "190px" }}
               placeholder="Chọn xã, phường"
               onClick={() => handleInputClick("xaPhuongCuTru")}
               value={diaChiCuTru.xaPhuong || undefined}
@@ -720,7 +721,9 @@ const DangKyMST = () => {
               ))}
             </Select>
             {errors.xaPhuongCuTru && (
-              <span style={{display: 'block'}} className="error-message">{errors.xaPhuongCuTru}</span>
+              <span style={{ display: "block" }} className="error-message">
+                {errors.xaPhuongCuTru}
+              </span>
             )}
           </div>
           <div style={{ minHeight: "75px" }}>
@@ -740,7 +743,7 @@ const DangKyMST = () => {
           </div>
         </div>
 
-        <div style={{minHeight: '75px'}}>
+        <div style={{ minHeight: "75px" }}>
           <label>Điện thoại liên hệ:</label>
           <Input
             onClick={() => handleInputClick("dienThoai")}
@@ -752,7 +755,7 @@ const DangKyMST = () => {
             <span className="error-message">{errors.dienThoai}</span>
           )}
         </div>
-        <div style={{minHeight: '75px'}}>
+        <div style={{ minHeight: "75px" }}>
           <label>Email liên hệ:</label>
           <Input
             type="text"
@@ -765,8 +768,8 @@ const DangKyMST = () => {
           )}
         </div>
 
-        <div style={{minHeight: '75px'}}>
-          <label>Cơ quan chi trả thu phận tại thời điểm đăng ký:</label>
+        <div style={{ minHeight: "75px" }}>
+          <label>Cơ quan chi trả thu nhập tại thời điểm đăng ký:</label>
           <Input
             onClick={() => handleInputClick("coQuanChiTra")}
             type="text"
