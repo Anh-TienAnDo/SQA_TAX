@@ -30,6 +30,7 @@ function LayoutDefault() {
   useEffect( () => {
     console.log(renderFirst)
     if(!renderFirst){
+      console.log(renderFirst)
       setRenderFirst(true)
       navigate('/dang-nhap')
     }
@@ -58,7 +59,6 @@ function LayoutDefault() {
       case "/dang-ky-ma-so-thue":
         setPageTitle("Đăng Ký Mã Số Thuế");
         break;
-
       default:
         break;
     }

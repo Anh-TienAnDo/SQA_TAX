@@ -88,8 +88,7 @@ function TaxPay() {
       const numberTaxCode = taxNumberRef.current.value.toString();
       if (
         numberTaxCode.length === 13 ||
-        numberTaxCode.length === 10 ||
-        numberTaxCode.length === 11
+        numberTaxCode.length === 10 
       ) {
         setSearch({
           type: "mst",

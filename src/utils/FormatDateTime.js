@@ -9,7 +9,7 @@ const  FormatDateTime = (date) => {
 
   return `${day}-${month}-${year} ${hour}:${minute}:${second}`;
   } catch (error) {
-    return "123"
+    return ""
   }
 }
 
@@ -24,7 +24,7 @@ export const  FormatTimeOnlyDMY = (date) => {
     return dateFormat
   } 
   catch (error) {
-    return "123"
+    return ""
   }
   
 
