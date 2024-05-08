@@ -1,6 +1,8 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.controller.ThueQuaTangController;
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.ThueQuaTang;
 import com.sqa.project_sqa.entities.ThueQuaTang;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -160,12 +162,22 @@ public class ThueQuaTangControllerTest {
         ThueQuaTang2.setMst("987654321");
         ThueQuaTangList.add(ThueQuaTang2);
 
+        // Create a LoaiThue object and set it to the ThueQuaTang objects
+        LoaiThue loaiThue = new LoaiThue();
+        loaiThue.setId(1);
+        ThueQuaTang1.setLoaiThue(loaiThue);
+        ThueQuaTang2.setLoaiThue(loaiThue);
+
+        // Mock the getAll() method of the service to return the predefined list
         when(thueQuaTangService.getAll()).thenReturn(ThueQuaTangList);
 
+        // Call the getAll() method of the controller
         ResponseEntity<?> responseEntity = thueQuaTangController.getAll();
 
+        // Assert that the response has the HTTP status code OK
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
+        // Assert that the body of the response matches the predefined list
         assertEquals(ThueQuaTangList, responseEntity.getBody());
     }
 }

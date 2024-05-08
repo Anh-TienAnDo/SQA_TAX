@@ -1,6 +1,8 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.controller.ThueChuyenNhuongBDSController;
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.ThueChuyenNhuongBDS;
 import com.sqa.project_sqa.entities.ThueChuyenNhuongBDS;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -160,12 +162,22 @@ public class ThueChuyenNhuongBDSControllerTest {
         ThueChuyenNhuongBDS2.setMst("987654321");
         ThueChuyenNhuongBDSList.add(ThueChuyenNhuongBDS2);
 
+        // Create a LoaiThue object and set it to the ThueChuyenNhuongBDS objects
+        LoaiThue loaiThue = new LoaiThue();
+        loaiThue.setId(1);
+        ThueChuyenNhuongBDS1.setLoaiThue(loaiThue);
+        ThueChuyenNhuongBDS2.setLoaiThue(loaiThue);
+
+        // Mock the getAll() method of the service to return the predefined list
         when(thueChuyenNhuongBDSService.getAll()).thenReturn(ThueChuyenNhuongBDSList);
 
+        // Call the getAll() method of the controller
         ResponseEntity<?> responseEntity = thueChuyenNhuongBDSController.getAll();
 
+        // Assert that the response has the HTTP status code OK
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
+        // Assert that the body of the response matches the predefined list
         assertEquals(ThueChuyenNhuongBDSList, responseEntity.getBody());
     }
 }

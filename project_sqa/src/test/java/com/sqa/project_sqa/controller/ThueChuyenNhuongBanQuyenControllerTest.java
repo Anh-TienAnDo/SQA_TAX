@@ -1,5 +1,6 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.controller.ThueChuyenNhuongBanQuyenController;
 import com.sqa.project_sqa.entities.LoaiThue;
 import com.sqa.project_sqa.entities.ThueChuyenNhuongBanQuyen;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
@@ -151,21 +152,31 @@ public class ThueChuyenNhuongBanQuyenControllerTest {
     @Test
     public void testGetAll() {
         // Create a list of ThueChuyenNhuongBanQuyen objects
-        List<ThueChuyenNhuongBanQuyen> ThueChuyenNhuongBanQuyenList = new ArrayList<>();
-        ThueChuyenNhuongBanQuyen ThueChuyenNhuongBanQuyen1 = new ThueChuyenNhuongBanQuyen();
-        ThueChuyenNhuongBanQuyen1.setMst("123456789");
-        ThueChuyenNhuongBanQuyenList.add(ThueChuyenNhuongBanQuyen1);
+        List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList = new ArrayList<>();
+        ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen1 = new ThueChuyenNhuongBanQuyen();
+        thueChuyenNhuongBanQuyen1.setMst("123456789");
+        thueChuyenNhuongBanQuyenList.add(thueChuyenNhuongBanQuyen1);
 
-        ThueChuyenNhuongBanQuyen ThueChuyenNhuongBanQuyen2 = new ThueChuyenNhuongBanQuyen();
-        ThueChuyenNhuongBanQuyen2.setMst("987654321");
-        ThueChuyenNhuongBanQuyenList.add(ThueChuyenNhuongBanQuyen2);
+        ThueChuyenNhuongBanQuyen thueChuyenNhuongBanQuyen2 = new ThueChuyenNhuongBanQuyen();
+        thueChuyenNhuongBanQuyen2.setMst("987654321");
+        thueChuyenNhuongBanQuyenList.add(thueChuyenNhuongBanQuyen2);
 
-        when(thueChuyenNhuongBanQuyenService.getAll()).thenReturn(ThueChuyenNhuongBanQuyenList);
+        // Create a LoaiThue object and set it to the ThueChuyenNhuongBanQuyen objects
+        LoaiThue loaiThue = new LoaiThue();
+        loaiThue.setId(1);
+        thueChuyenNhuongBanQuyen1.setLoaiThue(loaiThue);
+        thueChuyenNhuongBanQuyen2.setLoaiThue(loaiThue);
 
+        // Mock the getAll() method of the service to return the predefined list
+        when(thueChuyenNhuongBanQuyenService.getAll()).thenReturn(thueChuyenNhuongBanQuyenList);
+
+        // Call the getAll() method of the controller
         ResponseEntity<?> responseEntity = thueChuyenNhuongBanQuyenController.getAll();
 
+        // Assert that the response has the HTTP status code OK
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        assertEquals(ThueChuyenNhuongBanQuyenList, responseEntity.getBody());
+        // Assert that the body of the response matches the predefined list
+        assertEquals(thueChuyenNhuongBanQuyenList, responseEntity.getBody());
     }
 }

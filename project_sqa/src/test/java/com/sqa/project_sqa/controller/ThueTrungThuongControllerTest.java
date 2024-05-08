@@ -1,6 +1,8 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.controller.ThueTrungThuongController;
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.ThueTrungThuong;
 import com.sqa.project_sqa.entities.ThueTrungThuong;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -151,22 +153,32 @@ public class ThueTrungThuongControllerTest {
     @Test
     public void testGetAll() {
         // Create a list of ThueTrungThuong objects
-        List<ThueTrungThuong> thueTrungThuongList = new ArrayList<>();
-        ThueTrungThuong thueTrungThuong1 = new ThueTrungThuong();
-        thueTrungThuong1.setMst("123456789");
-        thueTrungThuongList.add(thueTrungThuong1);
+        List<ThueTrungThuong> ThueTrungThuongList = new ArrayList<>();
+        ThueTrungThuong ThueTrungThuong1 = new ThueTrungThuong();
+        ThueTrungThuong1.setMst("123456789");
+        ThueTrungThuongList.add(ThueTrungThuong1);
 
-        ThueTrungThuong thueTrungThuong2 = new ThueTrungThuong();
-        thueTrungThuong2.setMst("987654321");
-        thueTrungThuongList.add(thueTrungThuong2);
+        ThueTrungThuong ThueTrungThuong2 = new ThueTrungThuong();
+        ThueTrungThuong2.setMst("987654321");
+        ThueTrungThuongList.add(ThueTrungThuong2);
 
-        when(thueTrungThuongService.getAll()).thenReturn(thueTrungThuongList);
+        // Create a LoaiThue object and set it to the ThueTrungThuong objects
+        LoaiThue loaiThue = new LoaiThue();
+        loaiThue.setId(1);
+        ThueTrungThuong1.setLoaiThue(loaiThue);
+        ThueTrungThuong2.setLoaiThue(loaiThue);
 
+        // Mock the getAll() method of the service to return the predefined list
+        when(thueTrungThuongService.getAll()).thenReturn(ThueTrungThuongList);
+
+        // Call the getAll() method of the controller
         ResponseEntity<?> responseEntity = thueTrungThuongController.getAll();
 
+        // Assert that the response has the HTTP status code OK
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        assertEquals(thueTrungThuongList, responseEntity.getBody());
+        // Assert that the body of the response matches the predefined list
+        assertEquals(ThueTrungThuongList, responseEntity.getBody());
     }
 
 }

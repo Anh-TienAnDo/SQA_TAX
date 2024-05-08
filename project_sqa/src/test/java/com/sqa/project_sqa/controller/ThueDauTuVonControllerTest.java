@@ -1,6 +1,8 @@
 package com.sqa.project_sqa.controller;
 
+import com.sqa.project_sqa.controller.ThueDauTuVonController;
 import com.sqa.project_sqa.entities.LoaiThue;
+import com.sqa.project_sqa.entities.ThueDauTuVon;
 import com.sqa.project_sqa.entities.ThueDauTuVon;
 import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
 import com.sqa.project_sqa.service.LoaiThueService;
@@ -160,12 +162,22 @@ public class ThueDauTuVonControllerTest {
         ThueDauTuVon2.setMst("987654321");
         ThueDauTuVonList.add(ThueDauTuVon2);
 
+        // Create a LoaiThue object and set it to the ThueDauTuVon objects
+        LoaiThue loaiThue = new LoaiThue();
+        loaiThue.setId(1);
+        ThueDauTuVon1.setLoaiThue(loaiThue);
+        ThueDauTuVon2.setLoaiThue(loaiThue);
+
+        // Mock the getAll() method of the service to return the predefined list
         when(thueDauTuVonService.getAll()).thenReturn(ThueDauTuVonList);
 
+        // Call the getAll() method of the controller
         ResponseEntity<?> responseEntity = thueDauTuVonController.getAll();
 
+        // Assert that the response has the HTTP status code OK
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
+        // Assert that the body of the response matches the predefined list
         assertEquals(ThueDauTuVonList, responseEntity.getBody());
     }
 
