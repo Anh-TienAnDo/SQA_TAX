@@ -18,7 +18,7 @@ import { getDate } from "../../helpers/getTimeCurrent";
 import { getTaxPayer } from "../../services/taxPayer";
 import { saveKeKhaiThueNhuongQuyenThuongMai } from "../../services/thueNhuongQuyenThuongMaiService";
 import UnpaidTax from "../../context/unpaidTax";
-import FormatDateTime from "../../utils/FormatDateTime";
+import {FormatTimeOnlyDMY} from "../../utils/FormatDateTime";
 const { RangePicker } = DatePicker;
 function ThueNhuongQuyenThuongMai({ loai_thue_id }) {
   const [notificationApi, contextHolder] = notification.useNotification();
@@ -131,7 +131,7 @@ function ThueNhuongQuyenThuongMai({ loai_thue_id }) {
                                     </tr>
                                     <tr>
                                       <td>Ngày sinh</td>
-                                      <td>{FormatDateTime(taxPayer.ngaySinh)}</td>
+                                      <td>{FormatTimeOnlyDMY(taxPayer.ngaySinh)}</td>
                                     </tr>
                                     <tr>
                                       <td>Giới tính</td>

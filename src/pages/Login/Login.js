@@ -8,59 +8,108 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8080/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userName: username,password: password }),
-      });
-      if (!response.ok) {
-        throw new Error("Invalid username or password. Please try again.");
+    let valid = true;
+    if (username == "" || password == "") {
+      valid = false;
+      setError("Tài khoản và mật khẩu không được để trống");
+    } else {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/user/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userName: username, password: password }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Invalid username or password. Please try again.");
+        }
+        const data = await response.json();
+        console.log("Login successful:", data);
+        if (data.jwt) {
+          localStorage.setItem("info", JSON.stringify(data));
+        }
+        navigate("/");
+        // Redirect or do something else after successful login
+      } catch (error) {
+        setError("Tài khoản hoặc mật khẩu không đúng");
+        console.error("Login error:", error);
       }
-      const data = await response.json()
-      console.log("Login successful:", data);
-      if(data.jwt) {
-        localStorage.setItem('info',JSON.stringify(data) )
-      }
-      navigate('/')
-      // Redirect or do something else after successful login
-    } catch (error) {
-      setError("Tài khoản hoặc mật khẩu không đúng");
-      console.error("Login error:", error);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username:</label>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        marginTop: "150px",
+        justifyContent: "center",
+      }}
+    >
+      <form style={{ width: "450px" }}>
+        <header
+          style={{
+            fontSize: "48px",
+            color: "#0d6efd",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Login
+        </header>
+        <div class="form-outline mb-4">
+          <label class="form-label" htmlFor="form2Example1">
+            Tài khoản:{" "}
+          </label>
           <input
-            className="form-control"
-            type="text"
+            type="email"
+            id="form2Example1"
+            class="form-control"
             value={username}
-            onFocus={()=> setError('')}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label>Password:</label>
+
+        <div class="form-outline mb-2">
+          <label class="form-label" htmlFor="form2Example2">
+            Mật khẩu
+          </label>
           <input
-            className="form-control"
             type="password"
+            id="form2Example2"
+            class="form-control"
             value={password}
-            onFocus={()=> setError('')}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error && <div className="error-msg">{error}</div>}
-        <button type="submit" className="btn btn-primary">Login</button>
+
+        {!!error && (
+          <div className="form-outline mb-4">
+            <div
+              class="invalid-feedback"
+              style={{ display: "block", color: "red" }}
+            >
+              {error}
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          class="btn btn-primary btn-block mb-4"
+          style={{ width: "100%" }}
+          onClick={(e) => handleSubmit(e)}
+        >
+          Đăng nhập
+        </button>
       </form>
     </div>
   );

@@ -248,11 +248,12 @@ function TaxPay() {
                 </Button>
               </div>
             </div>
-            {!isNumberTaxCode && (
+            {(!isNumberTaxCode || taxNumberRef<0) && (
               <p style={{ color: "red", margin: "5px 0 0 143px" }}>
-                Phải đủ 12 chữ số và không chứa ký tự
+                Phải đủ 13 hoặc 10 chữ số không âm và không chứa ký tự
               </p>
             )}
+            
             <div className="header__cccd-code">
               <div className="header__cccd-title">
                 Tra cứu căn cước công dân:
@@ -276,7 +277,7 @@ function TaxPay() {
                 </Button>
               </div>
             </div>
-            {!isNumberCCCD && (
+            { (!isNumberCCCD || CCCDNumberRef<0)&& (
               <p style={{ color: "red", margin: "5px 0 0 143px" }}>
                 Phải đủ 12 chữ số và không chứa ký tự
               </p>
