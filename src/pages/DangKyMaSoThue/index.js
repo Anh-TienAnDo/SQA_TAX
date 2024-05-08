@@ -114,13 +114,13 @@ const DangKyMST = () => {
   };
 
   // Simulate API call to fetch country data
-  const fetchQuocGia = async () => {
-    // Replace this with your API call to fetch country data
-    const response = await fetch("your_api_endpoint");
-    const data = await response.json();
-    // Assuming the response data is an array of objects with 'name' and 'value' properties
-    setQuocGiaOptions(data);
-  };
+  // const fetchQuocGia = async () => {
+  //   // Replace this with your API call to fetch country data
+  //   const response = await fetch("your_api_endpoint");
+  //   const data = await response.json();
+  //   // Assuming the response data is an array of objects with 'name' and 'value' properties
+  //   setQuocGiaOptions(data);
+  // };
   // Hàm xóa lỗi khi click vào ô nhập
   const handleInputClick = (fieldName) => {
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: "" }));
@@ -155,7 +155,7 @@ const DangKyMST = () => {
   };
   useEffect(() => {
     fetchTinhThanhPho();
-    fetchQuocGia();
+    // fetchQuocGia();
   }, []); // Empty dependency array to run the effect only once when component mounts
   // Hàm kiểm tra định dạng email
   const validateEmail = (email) => {

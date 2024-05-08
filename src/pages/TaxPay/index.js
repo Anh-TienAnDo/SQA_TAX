@@ -254,29 +254,6 @@ function TaxPay() {
               </p>
             )}
             
-            <div className="header__cccd-code">
-              <div className="header__cccd-title">
-                Tra cứu căn cước công dân:
-              </div>
-              <div className="header__cccd-number">
-                <InputNumber
-                  status={!isNumberCCCD ? "error" : "none"}
-                  style={{ width: 200 }}
-                  ref={CCCDNumberRef}
-                  onPressEnter={handleCCCDSearched}
-                  // onChange={handleChangeNumberCCCD}
-                />
-              </div>
-              <div className="header__search">
-                <Button
-                  style={{ margin: 0 }}
-                  type="primary"
-                  onClick={handleCCCDSearched}
-                >
-                  Tra cứu
-                </Button>
-              </div>
-            </div>
             { (!isNumberCCCD || CCCDNumberRef<0)&& (
               <p style={{ color: "red", margin: "5px 0 0 143px" }}>
                 Phải đủ 12 chữ số và không chứa ký tự

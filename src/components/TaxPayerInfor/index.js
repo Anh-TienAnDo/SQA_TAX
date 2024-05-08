@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllTaxPayer, getTaxPayer, send } from "../../services/taxPayer";
 import Search from "../../context/search";
 import TaxPayer from "../../context/taxPayer";
-import FormatDateTime, { FormatTimeOnlyDMY } from "../../utils/FormatDateTime";
+import { FormatTimeOnlyDMY } from "../../utils/FormatDateTime";
 
 function TaxPayerInfor() {
   const navigate = useNavigate();
