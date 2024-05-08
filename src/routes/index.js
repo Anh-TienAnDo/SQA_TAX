@@ -37,7 +37,6 @@ export const routes = [
   },
   {
     path: "/dang-nhap",
-    index: true,
     element: <Login></Login>,
   },
 ];

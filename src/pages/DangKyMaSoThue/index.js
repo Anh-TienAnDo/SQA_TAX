@@ -18,7 +18,7 @@ const DangKyMST = () => {
   const [noiCap, setNoiCap] = useState("");
   useEffect(() => {
     setTaxWantPay([]);
-  });
+  },[]);
   const [diaChiHoKhau, setDiaChiHoKhau] = useState({
     soNhaDuong: "",
     xaPhuong: "",
@@ -165,25 +165,6 @@ const DangKyMST = () => {
     return regex.test(email);
   };
 
-  // Hàm xử lý khi thay đổi giá trị của ô nhập email
-  // const handleEmailChange = (e) => {
-  //   const newEmail = e.target.value;
-  //   console.log("1")
-  //   // handleInputClick("email");
-
-  //   setEmail(newEmail);
-  //  // Kiểm tra định dạng email và cập nhật lỗi nếu cần
-  //   if (!checkEmail(newEmail)) {
-  //     setErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       email: "Địa chỉ email không hợp lệ",
-  //     }));
-  //   } else {
-  //     console.log("1")
-  //     // Xóa thông báo lỗi nếu địa chỉ email hợp lệ
-  //     setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-  //   }
-  // };
   function isValidString(inputString) {
     // Biểu thức chính quy này chỉ cho phép chứa chữ cái có hoặc không có dấu
     const regex = /^[a-zA-ZÀ-Ỹà-ỹ\s]*$/;

@@ -9,7 +9,6 @@ const  FormatDateTime = (date) => {
 
   return `${day}-${month}-${year} ${hour}:${minute}:${second}`;
   } catch (error) {
-
   }
 }
 

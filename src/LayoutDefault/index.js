@@ -27,15 +27,21 @@ function LayoutDefault() {
   const [pageTitle, setPageTitle] = useState("");
   const {renderFirst, setRenderFirst} = useContext(RenderFirst)
 
-  useEffect( () => {
-    console.log(renderFirst)
-    if(!renderFirst){
-      console.log(renderFirst)
-      setRenderFirst(true)
-      navigate('/dang-nhap')
-    }
-  },[])
+  // useEffect( () => {
+  //   console.log(renderFirst)
+  //   if(!renderFirst){
+  //     console.log(renderFirst)
+  //     setRenderFirst(true)
+  //     navigate('/dang-nhap')
+  //   }
+  // },[])
+  const [token] = useState(JSON.parse(localStorage.getItem("info")));
 
+  useEffect(() => {
+    if(!token){
+      navigate("/dang-nhap")
+    }
+  }, [token]);
   const location = useLocation();
   const userInfo = localStorage.getItem("info")
     ? JSON.parse(localStorage.getItem("info"))
@@ -65,62 +71,67 @@ function LayoutDefault() {
   }, [location]);
 
   return (
-    <Layout className="layout-default">
-      <header className="header">
-        <Link to="/">
-          <div
-            className={
-              "header__logo " + (collapsed && "header__logo-collapsed")
-            }
-          >
-            <img src={collapsed ? logo : logo_tax} alt="anh loi" />
-          </div>
-        </Link>
-        <div className="header__nav">
-          <div className="header__nav-left">
+    <>
+    {token && (
+        <Layout className="layout-default">
+        <header className="header">
+          <Link to="/">
             <div
-              className="header__collapse"
-              onClick={() => {
-                setCollapsed(!collapsed);
-              }}
+              className={
+                "header__logo " + (collapsed && "header__logo-collapsed")
+              }
             >
-              <Button
-                className="header__menu-fold"
-                icon={<MenuUnfoldOutlined />}
-              ></Button>
+              <img src={collapsed ? logo : logo_tax} alt="anh loi" />
+            </div>
+          </Link>
+          <div className="header__nav">
+            <div className="header__nav-left">
+              <div
+                className="header__collapse"
+                onClick={() => {
+                  setCollapsed(!collapsed);
+                }}
+              >
+                <Button
+                  className="header__menu-fold"
+                  icon={<MenuUnfoldOutlined />}
+                ></Button>
+              </div>
+            </div>
+  
+            <div className="header__nav-center">
+              <h1>{pageTitle}</h1>
+            </div>
+  
+            <div className="header__nav-right">
+              <div style={{
+                display: 'flex',
+                margin: 'auto'
+              }}>
+                {userInfo ? `Xin chào ${userInfo.name}` : null}
+              </div>
+              <div className="header__bell">
+                <UserOutlined />
+              </div>
+              <div className="header__app-store">
+                <AppstoreOutlined />
+              </div>
             </div>
           </div>
-
-          <div className="header__nav-center">
-            <h1>{pageTitle}</h1>
-          </div>
-
-          <div className="header__nav-right">
-            <div style={{
-              display: 'flex',
-              margin: 'auto'
-            }}>
-              {userInfo ? `Xin chào ${userInfo.name}` : null}
-            </div>
-            <div className="header__bell">
-              <UserOutlined />
-            </div>
-            <div className="header__app-store">
-              <AppstoreOutlined />
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <Layout>
-        <Sider width={"280px"} theme="light" collapsed={collapsed}>
-          <MenuSider />
-        </Sider>
-        <Content className="content">
-          <Outlet />
-        </Content>
+        </header>
+  
+        <Layout>
+          <Sider width={"280px"} theme="light" collapsed={collapsed}>
+            <MenuSider />
+          </Sider>
+          <Content className="content">
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+      )
+    }
+    </>
   );
 }
 export default LayoutDefault;
