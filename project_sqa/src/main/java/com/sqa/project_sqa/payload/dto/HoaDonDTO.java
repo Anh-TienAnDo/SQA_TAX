@@ -18,15 +18,15 @@ import java.util.List;
 public class HoaDonDTO {
 
     List<DanhSachThueMuonDongDTO> danhSachThueMuonDong;
-    private int loaiThue;
+    private Integer loaiThue;
 
-    private int idThue;
+    private Integer idThue;
     private double tongThuePhaiDong;
 
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date thoiGianNopThue;
 
-    private int userId;
+    private Integer userId;
 
-    private int nguoiDongThueId;
+    private Integer nguoiDongThueId;
 }

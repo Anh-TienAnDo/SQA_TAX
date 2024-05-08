@@ -6,10 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -23,7 +20,11 @@ public class NguoiDongThue implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Getter
+    @Setter
     private String mst;
+
+
 
     private String hoVaTen;
 
@@ -35,11 +36,7 @@ public class NguoiDongThue implements Serializable {
 
     private String email;
 
-//    private String CMND;
-//
-//    private Date CMND_ngayCap;
-//
-//    private String CMND_noiCap;
+
 
     private String CCCD;
 
@@ -64,6 +61,12 @@ public class NguoiDongThue implements Serializable {
     private String dcct_xaPhuong;
 
     private String taxAgency;
+
+    //    private String CMND;
+//
+//    private Date CMND_ngayCap;
+//
+//    private String CMND_noiCap;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "nguoiDongThue")
     @JsonIgnore
@@ -98,5 +101,30 @@ public class NguoiDongThue implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "nguoiDongThue")
     @JsonIgnore
     private List<ThueTrungThuong> thueTrungThuongList;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        NguoiDongThue that = (NguoiDongThue) obj;
+        return Objects.equals(mst, that.getMst()) &&
+                Objects.equals(hoVaTen, that.getHoVaTen()) &&
+                Objects.equals(gioiTinh, that.getGioiTinh()) &&
+                Objects.equals(ngaySinh, that.getNgaySinh()) &&
+                Objects.equals(sdt, that.getSdt()) &&
+                Objects.equals(email, that.getEmail()) &&
+                Objects.equals(CCCD, that.getCCCD()) &&
+                Objects.equals(CCCD_ngayCap, that.getCCCD_ngayCap()) &&
+                Objects.equals(CCCD_noiCap, that.getCCCD_noiCap()) &&
+                Objects.equals(dchk_soNhaDuongXom, that.getDchk_soNhaDuongXom()) &&
+                Objects.equals(dchk_tinhThanhPho, that.getDchk_tinhThanhPho()) &&
+                Objects.equals(dchk_QuanHuyen, that.getDchk_QuanHuyen()) &&
+                Objects.equals(dchk_xaPhuong, that.getDchk_xaPhuong()) &&
+                Objects.equals(dcct_soNhaDuongXom, that.getDcct_soNhaDuongXom()) &&
+                Objects.equals(dcct_tinhThanhPho, that.getDcct_tinhThanhPho()) &&
+                Objects.equals(dcct_QuanHuyen, that.getDcct_QuanHuyen()) &&
+                Objects.equals(dcct_xaPhuong, that.getDcct_xaPhuong()) &&
+                Objects.equals(taxAgency, that.getTaxAgency());
+    }
 }
 

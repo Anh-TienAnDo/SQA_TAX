@@ -3,7 +3,6 @@ package com.sqa.project_sqa.service.serviceImpl;
 import com.sqa.project_sqa.entities.ThueNhuongQuyenThuongMai;
 import com.sqa.project_sqa.repositories.ThueNhuongQuyenThuongMaiRepo;
 
-import com.sqa.project_sqa.service.serviceImpl.ThueNhuongQuyenThuongMaiServiceiMPL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 public class ThueNhuongQuyenThuongMaiServiceTest {
     @InjectMocks
-    ThueNhuongQuyenThuongMaiServiceiMPL thueNhuongQuyenThuongMaiServiceiMPL;
+    ThueNhuongQuyenThuongMaiServiceIml thueNhuongQuyenThuongMaiServiceiMPL;
 
     @Mock
     ThueNhuongQuyenThuongMaiRepo thueNhuongQuyenThuongMaiRepo;

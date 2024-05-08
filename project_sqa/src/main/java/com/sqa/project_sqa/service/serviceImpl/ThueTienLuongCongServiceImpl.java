@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class ThueTienLuongCongServiceImpl implements ThueTienLuongCongService {
+
     private final BigDecimal myself = new BigDecimal("11000000");
     private final BigDecimal social_insurance = new BigDecimal("0.105");
 

@@ -45,4 +45,6 @@ public class NguoiDongThueDTO {
     private String dcct_xaPhuong;
 
     private String taxAgency;
+
+
 }

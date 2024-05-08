@@ -31,4 +31,22 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
     }
 
 
+    public boolean testMst(List<String> mstList) {
+        Pattern pattern = Pattern.compile("^[0-9]{10}$|^[0-9]{13}$");
+
+        for (String mst : mstList) {
+            if (!pattern.matcher(mst).matches()) {
+                return false;
+            }
+            try {
+                if (new java.math.BigInteger(mst).compareTo(java.math.BigInteger.ZERO) <= 0) {
+                    return false; // Nếu số không lớn hơn 0, trả về false
+                }
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        return true; // T
+    }
 }

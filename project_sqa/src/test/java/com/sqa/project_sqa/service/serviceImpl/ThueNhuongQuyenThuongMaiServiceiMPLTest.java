@@ -21,7 +21,7 @@ class ThueNhuongQuyenThuongMaiServiceiMPLTest {
     @Test
     void test_tax_ecommerce_not_greater_than_ten_milion() {
         BigDecimal gift_value = null;
-        ThueNhuongQuyenThuongMaiServiceiMPL service = new ThueNhuongQuyenThuongMaiServiceiMPL();
+        ThueNhuongQuyenThuongMaiServiceIml service = new ThueNhuongQuyenThuongMaiServiceIml();
         BigDecimal taxable_income = null;
         String expResult = "";
         String result = "";
@@ -36,7 +36,7 @@ class ThueNhuongQuyenThuongMaiServiceiMPLTest {
     @Test
     void test_tax_ecommerce_greater_than_ten_milion() {
         BigDecimal gift_value = null;
-        ThueNhuongQuyenThuongMaiServiceiMPL service = new ThueNhuongQuyenThuongMaiServiceiMPL();
+        ThueNhuongQuyenThuongMaiServiceIml service = new ThueNhuongQuyenThuongMaiServiceIml();
         BigDecimal taxable_income = null;
         String expResult = "";
         String result = "";
@@ -52,7 +52,7 @@ class ThueNhuongQuyenThuongMaiServiceiMPLTest {
     @Test
     void test_tax_ecommerce_is_greatest() {
         BigDecimal gift_value = null;
-        ThueNhuongQuyenThuongMaiServiceiMPL service = new ThueNhuongQuyenThuongMaiServiceiMPL();
+        ThueNhuongQuyenThuongMaiServiceIml service = new ThueNhuongQuyenThuongMaiServiceIml();
         BigDecimal taxable_income = null;
         String expResult = "";
         String result = "";

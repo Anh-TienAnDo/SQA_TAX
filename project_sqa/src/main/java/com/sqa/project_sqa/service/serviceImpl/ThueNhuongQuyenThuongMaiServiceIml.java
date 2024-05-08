@@ -1,7 +1,6 @@
 package com.sqa.project_sqa.service.serviceImpl;
 
 import com.sqa.project_sqa.entities.ThueNhuongQuyenThuongMai;
-import com.sqa.project_sqa.repositories.ThueDauTuVonRepo;
 import com.sqa.project_sqa.repositories.ThueNhuongQuyenThuongMaiRepo;
 import com.sqa.project_sqa.service.ThueNhuongQuyenThuongMaiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class ThueNhuongQuyenThuongMaiServiceiMPL implements ThueNhuongQuyenThuongMaiService {
+public class ThueNhuongQuyenThuongMaiServiceIml implements ThueNhuongQuyenThuongMaiService {
     @Autowired
     private ThueNhuongQuyenThuongMaiRepo thueNhuongQuyenThuongMaiRepo;
     @Override

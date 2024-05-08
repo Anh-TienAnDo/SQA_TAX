@@ -4,10 +4,8 @@ import com.sqa.project_sqa.entities.*;
 import com.sqa.project_sqa.mapper.HoaDonMapper;
 import com.sqa.project_sqa.payload.dto.DanhSachThueMuonDongDTO;
 import com.sqa.project_sqa.payload.dto.HoaDonDTO;
-import com.sqa.project_sqa.repositories.ChiTietHoaDonRepository;
-import com.sqa.project_sqa.repositories.HoaDonRepository;
-import com.sqa.project_sqa.repositories.NguoiDongThueRepository;
-import com.sqa.project_sqa.repositories.UserRepository;
+import com.sqa.project_sqa.payload.dto.NguoiDongThueDTO;
+import com.sqa.project_sqa.repositories.*;
 import com.sqa.project_sqa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,33 +15,40 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.regex.Pattern;
 @Service
 public class HoaDonServiceImpl implements HoaDonService {
 
     @Autowired
+    ThueChuyenNhuongBatDongSanRepo thueChuyenNhuongBatDongSanRepo;
+    @Autowired
+    ThueTienLuongCongRepository thueTienLuongCongRepository;
+    @Autowired
     private HoaDonRepository hoaDonRepository;
 
     @Autowired
-    private ThueChuyenNhuongBanQuyenService thueChuyenNhuongBanQuyenService;
+    private ThueChuyenNhuongBanQuyenServiceImpl thueChuyenNhuongBanQuyenServiceImpl;
 
     @Autowired
-    private ThueChuyenNhuongBatDongSanService thueChuyenNhuongBatDongSanService;
+    private ThueChuyenNhuongBDSServiceImpl thueChuyenNhuongBDSServiceImpl;
 
     @Autowired
-    private ThueDauTuVonService thueDauTuVonService;
+    private ThueDauTuVonServiceImpl thueDauTuVonServiceImpl;
 
     @Autowired
-    private ThueNhuongQuyenThuongMaiService thueNhuongQuyenThuongMaiService;
+    private ThueNhuongQuyenThuongMaiServiceIml thueNhuongQuyenThuongMaiServiceImpl;
 
     @Autowired
-    private ThueQuaTangService thueQuaTangService;
+    private ThueQuaTangServiceImpl thueQuaTangServiceImpl;
 
     @Autowired
-    private ThueTienLuongCongService thueTienLuongCongService;
+    private ThueTienLuongCongServiceImpl thueTienLuongCongServiceImpl;
 
     @Autowired
-    private ThueTrungThuongService thueTrungThuongService;
+    private ThueTrungThuongServiceImpl thueTrungThuongServiceImpl;
+
+    @Autowired
+    LoaiThueRepository loaiThueRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -55,7 +60,7 @@ public class HoaDonServiceImpl implements HoaDonService {
     NguoiDongThueRepository nguoiDongThueRepository;
 
     @Autowired
-    LoaiThueService loaiThueService;
+    LoaiThueServiceImpl loaiThueServiceImpl;
 
     @Override
     public List<HoaDon> getHoaDonByIdHoaDon(int idHoaDon) {
@@ -74,8 +79,8 @@ public class HoaDonServiceImpl implements HoaDonService {
             HoaDon hoaDon = HoaDonMapper.toEntity(hoaDonDTO);
 
             NguoiDongThue nguoiDongThue = nguoiDongThueRepository.findById(hoaDonDTO.getNguoiDongThueId());
-//
-            User user = userRepository.findById(hoaDonDTO.getUserId());
+            int userId = hoaDonDTO.getUserId();
+            User user = userRepository.findById(userId);
 
             hoaDon.setUser(user);
             hoaDon.setNguoiDongThue(nguoiDongThue);
@@ -84,97 +89,89 @@ public class HoaDonServiceImpl implements HoaDonService {
                 hoaDon.setChiTietHoaDonList(new ArrayList<>());
             }
 
-            List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList = thueChuyenNhuongBanQuyenService.getAll();
-            List<ThueChuyenNhuongBDS> thueChuyenNhuongBDSList = thueChuyenNhuongBatDongSanService.getAll();
-            List<ThueDauTuVon> thueDauTuVonList = thueDauTuVonService.getAll();
-            List<ThueNhuongQuyenThuongMai> thueNhuongQuyenThuongMaiList = thueNhuongQuyenThuongMaiService.getAll();
-            List<ThueQuaTang> thueQuaTangList = thueQuaTangService.getAll();
-            List<ThueTienLuongCong> thueTienLuongCongList = thueTienLuongCongService.getAll();
-            List<ThueTrungThuong> thueTrungThuongList = thueTrungThuongService.getAll();
+            List<ThueChuyenNhuongBanQuyen> thueChuyenNhuongBanQuyenList = thueChuyenNhuongBanQuyenServiceImpl.getAll();
+            List<ThueChuyenNhuongBDS> thueChuyenNhuongBDSList = thueChuyenNhuongBDSServiceImpl.getAll();
+            List<ThueDauTuVon> thueDauTuVonList = thueDauTuVonServiceImpl.getAll();
+            List<ThueNhuongQuyenThuongMai> thueNhuongQuyenThuongMaiList = thueNhuongQuyenThuongMaiServiceImpl.getAll();
+            List<ThueQuaTang> thueQuaTangList = thueQuaTangServiceImpl.getAll();
+            List<ThueTienLuongCong> thueTienLuongCongList = thueTienLuongCongServiceImpl.getAll();
+            List<ThueTrungThuong> thueTrungThuongList = thueTrungThuongServiceImpl.getAll();
 
             List<DanhSachThueMuonDongDTO> danhSachThueMuonDongDTOList = hoaDonDTO.getDanhSachThueMuonDong();
 
-            for(int i=0;i<danhSachThueMuonDongDTOList.size();i++){
+            for (int i = 0; i < danhSachThueMuonDongDTOList.size(); i++) {
                 int loaiThueId = danhSachThueMuonDongDTOList.get(i).getLoaiThueId();
                 int idThue = danhSachThueMuonDongDTOList.get(i).getIdThue();
-                for(ThueChuyenNhuongBanQuyen tmp: thueChuyenNhuongBanQuyenList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueChuyenNhuongBanQuyenService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueChuyenNhuongBanQuyen tmp : thueChuyenNhuongBanQuyenList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueChuyenNhuongBanQuyenServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueChuyenNhuongBDS tmp: thueChuyenNhuongBDSList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueChuyenNhuongBatDongSanService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueChuyenNhuongBDS tmp : thueChuyenNhuongBDSList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueChuyenNhuongBDSServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueDauTuVon tmp: thueDauTuVonList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueDauTuVonService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueDauTuVon tmp : thueDauTuVonList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueDauTuVonServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueNhuongQuyenThuongMai tmp: thueNhuongQuyenThuongMaiList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueNhuongQuyenThuongMai tmp : thueNhuongQuyenThuongMaiList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueNhuongQuyenThuongMaiServiceImpl.CapNhatTrangThaiDaDong(tmp);
 
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueNhuongQuyenThuongMai tmp: thueNhuongQuyenThuongMaiList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueNhuongQuyenThuongMaiService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueNhuongQuyenThuongMai tmp : thueNhuongQuyenThuongMaiList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueNhuongQuyenThuongMaiServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueQuaTang tmp: thueQuaTangList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueQuaTangService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueQuaTang tmp : thueQuaTangList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueQuaTangServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueTienLuongCong tmp: thueTienLuongCongList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueTienLuongCongService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueTienLuongCong tmp : thueTienLuongCongList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueTienLuongCongServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
 
-                for(ThueTrungThuong tmp: thueTrungThuongList){
-                    if(tmp.getLoaiThue().getId()==loaiThueId){
-                        if(tmp.getId()==idThue){
-                            thueTrungThuongService.CapNhatTrangThaiDaDong(tmp);
+                for (ThueTrungThuong tmp : thueTrungThuongList) {
+                    if (tmp.getLoaiThue().getId() == loaiThueId) {
+                        if (tmp.getId() == idThue) {
+                            thueTrungThuongServiceImpl.CapNhatTrangThaiDaDong(tmp);
                         }
-                    }
-                    else break;
+                    } else break;
                 }
             }
 
 
-            for(DanhSachThueMuonDongDTO tmp : danhSachThueMuonDongDTOList) {
+            for (DanhSachThueMuonDongDTO tmp : danhSachThueMuonDongDTOList) {
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                Optional<LoaiThue> loaiThue = loaiThueService.getById(tmp.getLoaiThueId());
+                Optional<LoaiThue> loaiThue = loaiThueServiceImpl.getById(tmp.getLoaiThueId());
                 chiTietHoaDon.setHoaDon(hoaDon);
                 chiTietHoaDon.setThueId(tmp.getIdThue());
                 chiTietHoaDonRepository.save(chiTietHoaDon);

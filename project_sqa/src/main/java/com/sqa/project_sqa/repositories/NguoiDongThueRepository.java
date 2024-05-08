@@ -12,7 +12,6 @@ public interface NguoiDongThueRepository extends JpaRepository<NguoiDongThue,Str
     boolean existsBySdt(String sdt);
 
     NguoiDongThue findByMst(String mst);
-
     NguoiDongThue findById(int id);
 
 }
