@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -31,22 +32,40 @@ public class NguoiDongThueServiceImpl implements NguoiDongThueService {
     }
 
 
-    public boolean testMst(List<String> mstList) {
+    public boolean testNotAcceptMst(List<String> mstList) {
         Pattern pattern = Pattern.compile("^[0-9]{10}$|^[0-9]{13}$");
 
         for (String mst : mstList) {
-            if (!pattern.matcher(mst).matches()) {
-                return false;
-            }
-            try {
-                if (new java.math.BigInteger(mst).compareTo(java.math.BigInteger.ZERO) <= 0) {
-                    return false; // Nếu số không lớn hơn 0, trả về false
+            // Kiểm tra nếu mst khớp với mẫu và là một số dương
+            if (pattern.matcher(mst).matches()) {
+                try {
+                    // Sử dụng BigInteger để xử lý số có độ dài lớn
+                    if (new java.math.BigInteger(mst).compareTo(java.math.BigInteger.ZERO) > 0) {
+                        return false; // Trả về false nếu số có 10 hoặc 13 chữ số và lớn hơn 0
+                    }
+                } catch (NumberFormatException e) {
+                    // Nếu xảy ra lỗi khi chuyển đổi, bỏ qua giá trị này (có thể log lỗi nếu cần)
                 }
-            } catch (NumberFormatException e) {
-                return false;
             }
         }
+        return true; // Trả về true nếu không có số nào thỏa mãn cả hai điều kiện
+    }
 
-        return true; // T
+
+    public boolean testAcceptMst(List<String> mstList) {
+        Pattern pattern = Pattern.compile("^[0-9]{10}$|^[0-9]{13}$");
+        for (String mst : mstList) {
+            if (pattern.matcher(mst).matches()) {
+                // Kiểm tra số có lớn hơn 0
+                try {
+                    if (new BigInteger(mst).compareTo(BigInteger.ZERO) > 0) {
+                        continue;
+                    }
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

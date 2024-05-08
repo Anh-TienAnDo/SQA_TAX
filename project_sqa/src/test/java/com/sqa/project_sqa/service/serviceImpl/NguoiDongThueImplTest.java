@@ -48,7 +48,7 @@ public class NguoiDongThueImplTest {
         mstList.add("12345678901");
         mstList.add("123456789012");
         mstList.add("12345678901234");
-        assertTrue(nguoiDongThueServiceImpl.testMst(mstList));
+        assertTrue(nguoiDongThueServiceImpl.testNotAcceptMst(mstList));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class NguoiDongThueImplTest {
         List<String> mstList = new ArrayList<>();
         mstList.add("1234567890");
         mstList.add("123456789012");
-        assertTrue(nguoiDongThueServiceImpl.testMst(mstList));
+        assertTrue(nguoiDongThueServiceImpl.testAcceptMst(mstList));
     }
 
 }
